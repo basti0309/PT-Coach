@@ -7,8 +7,8 @@ import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 
 type SendFn = (text: string) => Promise<{ ok: boolean; error?: string }>;
 
-function time(iso: string) {
-  return new Intl.DateTimeFormat("de-DE", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }).format(new Date(iso));
+function time(iso: string, timeZone: string) {
+  return new Intl.DateTimeFormat("de-DE", { timeZone, day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }).format(new Date(iso));
 }
 
 export function ChatThread({
@@ -17,8 +17,10 @@ export function ChatThread({
   viewer,
   send,
   resolve,
+  timeZone,
 }: {
   clientId: string;
+  timeZone: string;
   initial: MessageRow[];
   viewer: "client" | "coach";
   send: SendFn;
@@ -97,7 +99,7 @@ export function ChatThread({
                 }`}
               >
                 <p className={`text-[11px] font-semibold ${mine(m) ? "text-white/80" : m.sender === "ai" ? "text-violet-700" : "text-slate-500"}`}>
-                  {label} · {time(m.created_at)}
+                  {label} · {time(m.created_at, timeZone)}
                 </p>
                 <p className="whitespace-pre-wrap">{m.body}</p>
                 {viewer === "coach" && m.sender === "client" && m.ai_action && (

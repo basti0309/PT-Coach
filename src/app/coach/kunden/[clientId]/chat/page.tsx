@@ -2,6 +2,7 @@ import { ChatThread } from "@/components/chat-thread";
 import { resolveMessage, sendCoachMessage } from "@/lib/actions/chat";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import type { MessageRow } from "@/lib/db-types";
+import { env } from "@/lib/env";
 
 export default async function CoachChat({ params }: PageProps<"/coach/kunden/[clientId]/chat">) {
   const { clientId } = await params;
@@ -15,6 +16,7 @@ export default async function CoachChat({ params }: PageProps<"/coach/kunden/[cl
       viewer="coach"
       send={sendCoachMessage.bind(null, clientId)}
       resolve={resolveMessage}
+      timeZone={env.timeZone()}
     />
   );
 }

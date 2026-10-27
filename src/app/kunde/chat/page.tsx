@@ -3,6 +3,7 @@ import { requireClient } from "@/lib/auth";
 import { sendClientMessage } from "@/lib/actions/chat";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import type { MessageRow } from "@/lib/db-types";
+import { env } from "@/lib/env";
 
 export default async function KundeChat() {
   const viewer = await requireClient();
@@ -16,7 +17,7 @@ export default async function KundeChat() {
   return (
     <div className="space-y-3">
       <h1 className="h1">Chat mit deinem Coach</h1>
-      <ChatThread key={(data ?? []).at(-1)?.id ?? "leer"} clientId={viewer.userId} initial={(data ?? []) as MessageRow[]} viewer="client" send={sendClientMessage} />
+      <ChatThread key={(data ?? []).at(-1)?.id ?? "leer"} clientId={viewer.userId} initial={(data ?? []) as MessageRow[]} viewer="client" send={sendClientMessage} timeZone={env.timeZone()} />
     </div>
   );
 }
