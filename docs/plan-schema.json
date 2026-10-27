@@ -1,0 +1,354 @@
+{
+  "$id": "https://pt-coach.app/schemas/plan-schema.json",
+  "title": "PT-Coach Trainingsplan",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "number",
+      "const": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "startDate": {
+      "type": "string",
+      "format": "date",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$",
+      "description": "Erster Tag von Woche 1 (YYYY-MM-DD)"
+    },
+    "goal": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "notes": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "weeks": {
+      "minItems": 1,
+      "maxItems": 104,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "week": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 104,
+            "description": "Wochennummer ab 1, eindeutig"
+          },
+          "focus": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "days": {
+            "maxItems": 7,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "day": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 7,
+                  "description": "Tag 1–7 der Planwoche (Tag 1 = Wochentag des startDate). Je Woche eindeutig."
+                },
+                "title": {
+                  "type": "string",
+                  "maxLength": 120
+                },
+                "sessions": {
+                  "minItems": 1,
+                  "maxItems": 10,
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "maxLength": 64,
+                            "pattern": "^[a-z0-9][a-z0-9_-]*$",
+                            "description": "Eindeutige ID der Einheit im ganzen Plan"
+                          },
+                          "type": {
+                            "type": "string",
+                            "const": "strength"
+                          },
+                          "title": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 120
+                          },
+                          "notes": {
+                            "type": "string",
+                            "maxLength": 1000
+                          },
+                          "exercises": {
+                            "minItems": 1,
+                            "maxItems": 30,
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "exerciseId": {
+                                  "type": "string",
+                                  "maxLength": 64,
+                                  "pattern": "^[a-z0-9][a-z0-9_-]*$",
+                                  "description": "Übungs-ID. Gleiche Übung = gleiche ID über alle Pläne hinweg (z. B. 'kniebeuge'); daran werden die Werte vom letzten Mal erkannt."
+                                },
+                                "name": {
+                                  "type": "string",
+                                  "minLength": 1,
+                                  "maxLength": 120,
+                                  "description": "Anzeigename der Übung"
+                                },
+                                "sets": {
+                                  "type": "integer",
+                                  "minimum": 1,
+                                  "maximum": 20,
+                                  "description": "Anzahl Sätze"
+                                },
+                                "reps": {
+                                  "type": "integer",
+                                  "minimum": 1,
+                                  "maximum": 100,
+                                  "description": "Wiederholungen pro Satz"
+                                },
+                                "targetWeightKg": {
+                                  "description": "Zielgewicht in kg",
+                                  "type": "number",
+                                  "minimum": 0,
+                                  "maximum": 1000
+                                },
+                                "restSeconds": {
+                                  "type": "integer",
+                                  "minimum": 0,
+                                  "maximum": 900,
+                                  "description": "Pause nach jedem Satz in Sekunden"
+                                },
+                                "notes": {
+                                  "type": "string",
+                                  "maxLength": 500
+                                }
+                              },
+                              "required": [
+                                "exerciseId",
+                                "name",
+                                "sets",
+                                "reps",
+                                "restSeconds"
+                              ],
+                              "additionalProperties": false
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type",
+                          "title",
+                          "exercises"
+                        ],
+                        "additionalProperties": false,
+                        "description": "Krafteinheit"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "maxLength": 64,
+                            "pattern": "^[a-z0-9][a-z0-9_-]*$",
+                            "description": "Eindeutige ID der Einheit im ganzen Plan"
+                          },
+                          "type": {
+                            "type": "string",
+                            "const": "wod"
+                          },
+                          "wodId": {
+                            "description": "Optionale WOD-Kennung (z. B. 'cindy'). Gleiches WOD = gleiche wodId; daran wird das letzte Ergebnis erkannt.",
+                            "type": "string",
+                            "maxLength": 64,
+                            "pattern": "^[a-z0-9][a-z0-9_-]*$"
+                          },
+                          "name": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 120
+                          },
+                          "wodType": {
+                            "type": "string",
+                            "enum": [
+                              "for_time",
+                              "amrap",
+                              "emom",
+                              "rft"
+                            ],
+                            "description": "for_time = For Time, amrap = AMRAP, emom = EMOM, rft = Rounds for Time"
+                          },
+                          "timeCapMinutes": {
+                            "type": "number",
+                            "minimum": 1,
+                            "maximum": 180
+                          },
+                          "durationMinutes": {
+                            "description": "Dauer bei AMRAP/EMOM",
+                            "type": "number",
+                            "minimum": 1,
+                            "maximum": 180
+                          },
+                          "rounds": {
+                            "description": "Runden bei Rounds for Time / EMOM",
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 100
+                          },
+                          "movements": {
+                            "minItems": 1,
+                            "maxItems": 30,
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "name": {
+                                  "type": "string",
+                                  "minLength": 1,
+                                  "maxLength": 120,
+                                  "description": "Bewegung, z. B. 'Burpees'"
+                                },
+                                "reps": {
+                                  "type": "integer",
+                                  "minimum": 1,
+                                  "maximum": 1000
+                                },
+                                "weightKg": {
+                                  "type": "number",
+                                  "minimum": 0,
+                                  "maximum": 500
+                                },
+                                "distanceM": {
+                                  "type": "number",
+                                  "minimum": 0,
+                                  "maximum": 100000
+                                },
+                                "calories": {
+                                  "type": "integer",
+                                  "minimum": 1,
+                                  "maximum": 1000
+                                },
+                                "notes": {
+                                  "type": "string",
+                                  "maxLength": 300
+                                }
+                              },
+                              "required": [
+                                "name"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "notes": {
+                            "description": "Vorgaben, Skalierung",
+                            "type": "string",
+                            "maxLength": 1000
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type",
+                          "name",
+                          "wodType",
+                          "movements"
+                        ],
+                        "additionalProperties": false,
+                        "description": "WOD"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "maxLength": 64,
+                            "pattern": "^[a-z0-9][a-z0-9_-]*$",
+                            "description": "Eindeutige ID der Einheit im ganzen Plan"
+                          },
+                          "type": {
+                            "type": "string",
+                            "const": "endurance"
+                          },
+                          "sport": {
+                            "type": "string",
+                            "enum": [
+                              "laufen",
+                              "radfahren",
+                              "schwimmen",
+                              "rudern",
+                              "gehen",
+                              "wandern",
+                              "skilanglauf",
+                              "sonstiges"
+                            ]
+                          },
+                          "durationMinutes": {
+                            "type": "number",
+                            "minimum": 1,
+                            "maximum": 1440
+                          },
+                          "distanceKm": {
+                            "type": "number",
+                            "minimum": 0.1,
+                            "maximum": 1000
+                          },
+                          "intensity": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "description": "z. B. 'locker (Zone 2)' oder '6 × 3 min zügig'"
+                          },
+                          "description": {
+                            "type": "string",
+                            "maxLength": 1000
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type",
+                          "sport",
+                          "intensity"
+                        ],
+                        "additionalProperties": false,
+                        "description": "Ausdauereinheit. Mindestens eines von durationMinutes oder distanceKm ist anzugeben."
+                      }
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "day",
+                "sessions"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "week",
+          "days"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "title",
+    "startDate",
+    "weeks"
+  ],
+  "additionalProperties": false,
+  "description": "Trainingsplan PT-Coach. Zusatzregeln: Einheiten-IDs im ganzen Plan eindeutig, Wochennummern eindeutig, Tage je Woche eindeutig, Ausdauereinheiten mit Dauer und/oder Distanz."
+}

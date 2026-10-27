@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-50: #eef6ff;
+  --color-brand-100: #d9eaff;
+  --color-brand-500: #2f6fde;
+  --color-brand-600: #1f5bc4;
+  --color-brand-700: #1a4a9e;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: #f5f6f8;
+  color: #16181d;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+@utility btn {
+  @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-4 py-2 text-base font-semibold transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+@utility btn-primary {
+  @apply btn bg-brand-600 text-white hover:bg-brand-700;
+}
+
+@utility btn-secondary {
+  @apply btn border border-slate-300 bg-white text-slate-800 hover:bg-slate-50;
+}
+
+@utility btn-danger {
+  @apply btn border border-red-300 bg-white text-red-700 hover:bg-red-50;
+}
+
+@utility btn-small {
+  @apply min-h-9 px-3 py-1 text-sm;
+}
+
+@utility card {
+  @apply rounded-2xl border border-slate-200 bg-white p-4 shadow-sm;
+}
+
+@utility input {
+  @apply min-h-11 w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-base text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100;
+}
+
+@utility label {
+  @apply mb-1 block text-sm font-medium text-slate-700;
+}
+
+@utility muted {
+  @apply text-sm text-slate-500;
+}
+
+@utility badge {
+  @apply inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold;
+}
+
+@utility h1 {
+  @apply text-2xl font-bold tracking-tight;
+}
+
+@utility h2 {
+  @apply text-lg font-semibold;
+}
