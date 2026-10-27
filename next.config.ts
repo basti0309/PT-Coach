@@ -1,10 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Die KI-Prompt-Vorlage wird zur Laufzeit aus docs/ gelesen und muss
+  // Die KI-Prompt-Vorlagen werden zur Laufzeit aus docs/ gelesen und müssen
   // deshalb im Vercel-Deployment enthalten sein.
   outputFileTracingIncludes: {
-    "/coach/**": ["./docs/ki-prompt-vorlage.md"],
+    "/coach/**": ["./docs/ki-prompt-vorlage.md", "./docs/ki-prompt-neuer-plan.md"],
   },
   turbopack: {
     rules: {

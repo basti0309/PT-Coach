@@ -10,7 +10,7 @@ import { formatDate, formatDuration, formatKm, formatNumber } from "@/lib/format
 import { DeviationView } from "./deviation-view";
 import { StravaTestToggle } from "./strava-test-toggle";
 
-const KIND = { strength: "Kraft", wod: "WOD", endurance: "Ausdauer" } as const;
+const KIND = { strength: "Kraft", wod: "WOD", endurance: "Ausdauer", program: "Programm" } as const;
 
 export async function HistoryList({ clientId, base }: { clientId: string; base: string }) {
   const supabase = await createSupabaseServerClient();
@@ -57,6 +57,12 @@ export async function HistoryList({ clientId, base }: { clientId: string; base: 
               <p className="text-sm text-slate-600">
                 {formatWodResult(log.wod_result)}
                 {log.wod_weights && ` · ${log.wod_weights}`}
+              </p>
+            )}
+            {log.kind === "program" && log.block_results && (
+              <p className="text-sm text-slate-600">
+                {Object.values(log.block_results).filter((r) => r.done).length} Blöcke erledigt
+                {Object.values(log.block_results).some((r) => r.values.some((v) => v !== null)) && " · Werte unter „Öffnen“"}
               </p>
             )}
             {log.kind === "endurance" && (

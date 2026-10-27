@@ -5,6 +5,9 @@ import { z } from "zod";
 import { requireClientAccess } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { SPORTS } from "@/lib/calc/sport";
+import { isSessionComplete, valueCount, type BlockResults } from "@/lib/calc/blocks";
+import { loadPlanWithVersion } from "@/lib/data/plans";
+import { findSession } from "@/lib/plan/dates";
 
 // Alle Schreibzugriffe laufen über den Nutzer-Client → RLS prüft, ob Kunde/Coach schreiben darf.
 // created_by/updated_by setzt die Datenbank (Trigger).
@@ -21,7 +24,7 @@ const workoutRef = z.object({
   planId: z.uuid().nullable(),
   planVersion: z.int().nullable(),
   sessionId: z.string().max(64).nullable(),
-  kind: z.enum(["strength", "wod", "endurance"]),
+  kind: z.enum(["strength", "wod", "endurance", "program"]),
   date: isoDate,
   title: z.string().max(200),
   wodId: z.string().max(64).nullable().optional(),
@@ -138,6 +141,45 @@ export async function saveWodResult(input: z.infer<typeof wodInput>): Promise<vo
     .eq("id", id);
   if (error) throw new Error(error.message);
   revalidate();
+}
+
+const blockResultInput = z.object({
+  done: z.boolean(),
+  values: z.array(z.number().min(0).max(1_000_000).nullable()).max(50),
+  note: z.string().max(1000),
+});
+
+const programInput = workoutRef.extend({
+  results: z.record(z.string().max(64), blockResultInput),
+  notes: z.string().max(2000),
+});
+
+/** Ergebnisse einer Programm-Einheit speichern; "erledigt" ergibt sich aus den Blöcken. */
+export async function saveProgramResults(input: z.infer<typeof programInput>): Promise<{ completed: boolean }> {
+  const p = programInput.parse(input);
+  if (!p.planId || !p.sessionId) throw new Error("Programm-Einheiten gibt es nur in einem Plan.");
+  await requireClientAccess(p.clientId);
+  const supabase = await createSupabaseServerClient();
+  const plan = await loadPlanWithVersion(supabase, p.planId);
+  const item = plan && plan.plan.client_id === p.clientId ? findSession(plan.version.content, p.sessionId) : undefined;
+  if (!item || item.session.type !== "program") throw new Error("Einheit nicht gefunden.");
+  // Nur Blöcke der Einheit übernehmen, Anzahl der Werte an die Wertung anpassen.
+  const results: BlockResults = {};
+  for (const b of item.session.blocks) {
+    const r = p.results[b.key];
+    if (!r) continue;
+    const n = valueCount(b.scoring);
+    results[b.key] = { done: r.done, values: Array.from({ length: n }, (_, i) => r.values[i] ?? null), note: r.note.trim() };
+  }
+  const completed = isSessionComplete(item.session, results);
+  const id = await ensureWorkoutLog({ ...p, kind: "program" });
+  const { error } = await supabase
+    .from("workout_logs")
+    .update({ block_results: results, notes: p.notes, completed, performed_on: p.date })
+    .eq("id", id);
+  if (error) throw new Error(error.message);
+  revalidate();
+  return { completed };
 }
 
 const enduranceInput = z.object({

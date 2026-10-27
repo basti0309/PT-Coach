@@ -53,3 +53,44 @@ export function samplePlan(): PlanContent {
     ],
   };
 }
+
+/** Plan mit Programm-Einheit (Blöcke) und Ruhetag. */
+export function sampleProgramPlan(): PlanContent {
+  return {
+    schemaVersion: 1,
+    title: "HYROX-Test",
+    startDate: "2026-10-26", // Montag
+    weeks: [
+      {
+        week: 1,
+        days: [
+          {
+            day: 1,
+            title: "Week 1 - Day 1",
+            sessions: [
+              {
+                id: "w1d1-pm",
+                type: "program",
+                label: "PM",
+                title: "PM SESSION – gym session",
+                blocks: [
+                  { key: "p1", label: "P1", name: "2k row warm up", scoring: { type: "time" } },
+                  { key: "p2", label: "P2", name: "3x3 deadlift", scoring: { type: "weight", rounds: 3 } },
+                  {
+                    key: "p3",
+                    label: "P3",
+                    name: "10 minute AMRAP",
+                    details: "10 box jump\n20 wall balls",
+                    scoring: { type: "rounds" },
+                    loads: [{ label: "Wall Ball", maleKg: 9.1, femaleKg: 6.4 }],
+                  },
+                ],
+              },
+            ],
+          },
+          { day: 7, title: "Rest Day!", sessions: [] },
+        ],
+      },
+    ],
+  };
+}

@@ -30,6 +30,12 @@ export const StrengthSessionSchema = z
   .object({
     id: id.describe("Eindeutige ID der Einheit im ganzen Plan"),
     type: z.literal("strength"),
+    label: z
+      .string()
+      .min(1)
+      .max(60)
+      .optional()
+      .describe("Optionale Zuordnung innerhalb des Tages, z. B. 'AM' oder 'PM SESSION – Gym'"),
     title: text(120),
     notes: z.string().max(1000).optional(),
     exercises: z.array(StrengthExerciseSchema).min(1).max(30),
@@ -54,6 +60,12 @@ export const WodSessionSchema = z
   .object({
     id: id.describe("Eindeutige ID der Einheit im ganzen Plan"),
     type: z.literal("wod"),
+    label: z
+      .string()
+      .min(1)
+      .max(60)
+      .optional()
+      .describe("Optionale Zuordnung innerhalb des Tages, z. B. 'AM' oder 'PM SESSION – Gym'"),
     wodId: id
       .optional()
       .describe("Optionale WOD-Kennung (z. B. 'cindy'). Gleiches WOD = gleiche wodId; daran wird das letzte Ergebnis erkannt."),
@@ -72,6 +84,12 @@ export const EnduranceSessionSchema = z
   .object({
     id: id.describe("Eindeutige ID der Einheit im ganzen Plan"),
     type: z.literal("endurance"),
+    label: z
+      .string()
+      .min(1)
+      .max(60)
+      .optional()
+      .describe("Optionale Zuordnung innerhalb des Tages, z. B. 'AM' oder 'PM SESSION – Gym'"),
     sport: z.enum(SPORTS),
     durationMinutes: z.number().min(1).max(1440).optional(),
     distanceKm: z.number().min(0.1).max(1000).optional(),
@@ -81,17 +99,79 @@ export const EnduranceSessionSchema = z
   .strict()
   .describe("Ausdauereinheit. Mindestens eines von durationMinutes oder distanceKm ist anzugeben.");
 
+export const SCORING_TYPES = ["checkmark", "none", "time", "distance", "weight", "reps", "rounds", "calories"] as const;
+
+export const BlockScoringSchema = z
+  .object({
+    type: z
+      .enum(SCORING_TYPES)
+      .describe(
+        "Wertung: checkmark = nur abhaken, none = keine Wertung (z. B. Ruhe-Protokoll), time = Zeit, distance = Distanz, weight = Gewicht, reps = Wiederholungen (auch 'AMRAP - Reps'), rounds = Runden (auch 'AMRAP - Rounds'), calories = Kalorien",
+      ),
+    rounds: z
+      .int()
+      .min(1)
+      .max(50)
+      .optional()
+      .describe("Bei 'N rounds for …': Anzahl Runden – dann wird je Runde ein Wert erfasst. Ohne Angabe: ein Wert."),
+  })
+  .strict();
+
+export const BlockLoadSchema = z
+  .object({
+    label: text(120).describe("Wofür das Gewicht gilt, z. B. 'Wall Ball' oder 'KB Swing'"),
+    maleKg: z.number().min(0).max(500).optional().describe("Gewicht für Männer in kg"),
+    femaleKg: z.number().min(0).max(500).optional().describe("Gewicht für Frauen in kg"),
+    kg: z.number().min(0).max(500).optional().describe("Gewicht für alle in kg (wenn nicht nach Geschlecht getrennt)"),
+  })
+  .strict()
+  .describe("Vorgegebenes Gewicht in kg. Mindestens eines von maleKg, femaleKg oder kg.");
+
+export const ProgramBlockSchema = z
+  .object({
+    key: id.describe("Kennung des Blocks, eindeutig innerhalb der Einheit (z. B. 'p1', 'p2', 'ski')"),
+    label: z.string().min(1).max(20).optional().describe("Kurzbezeichnung wie in der Vorlage, z. B. 'P1'"),
+    name: text(150).describe("Name des Blocks, z. B. '3x3 Deadlift' oder '10 minute warm up run'"),
+    details: z.string().max(4000).optional().describe("Ablauf/Vorgaben, eine Angabe pro Zeile"),
+    coachNotes: z.string().max(4000).optional().describe("Coach-Hinweise zum Block"),
+    scoring: BlockScoringSchema,
+    loads: z.array(BlockLoadSchema).max(20).optional(),
+  })
+  .strict();
+
+export const ProgramSessionSchema = z
+  .object({
+    id: id.describe("Eindeutige ID der Einheit im ganzen Plan"),
+    type: z.literal("program"),
+    label: z
+      .string()
+      .min(1)
+      .max(60)
+      .optional()
+      .describe("Optionale Zuordnung innerhalb des Tages, z. B. 'AM' oder 'PM SESSION – Gym'"),
+    title: text(150).describe("Titel der Einheit, z. B. 'PM SESSION – Gym session' oder '45 minute easy run'"),
+    notes: z.string().max(4000).optional().describe("Hinweis zur ganzen Einheit"),
+    blocks: z.array(ProgramBlockSchema).min(1).max(30),
+  })
+  .strict()
+  .describe("Programm-Einheit aus Blöcken (P1, P2 …), jeder Block mit eigener Wertung");
+
 export const SessionSchema = z.discriminatedUnion("type", [
   StrengthSessionSchema,
   WodSessionSchema,
   EnduranceSessionSchema,
+  ProgramSessionSchema,
 ]);
 
 export const PlanDaySchema = z
   .object({
     day: z.int().min(1).max(7).describe("Tag 1–7 der Planwoche (Tag 1 = Wochentag des startDate). Je Woche eindeutig."),
-    title: z.string().max(120).optional(),
-    sessions: z.array(SessionSchema).min(1).max(10),
+    title: z.string().max(200).optional(),
+    notes: z.string().max(4000).optional().describe("Hinweis zum ganzen Tag"),
+    sessions: z
+      .array(SessionSchema)
+      .max(10)
+      .describe("Einheiten des Tages. Leer = Ruhetag (dann title oder notes angeben)."),
   })
   .strict();
 
@@ -109,12 +189,12 @@ export const PlanSchema = z
     title: text(120),
     startDate: z.iso.date().describe("Erster Tag von Woche 1 (YYYY-MM-DD)"),
     goal: z.string().max(500).optional(),
-    notes: z.string().max(2000).optional(),
+    notes: z.string().max(4000).optional(),
     weeks: z.array(PlanWeekSchema).min(1).max(104),
   })
   .strict()
   .describe(
-    "Trainingsplan PT-Coach. Zusatzregeln: Einheiten-IDs im ganzen Plan eindeutig, Wochennummern eindeutig, Tage je Woche eindeutig, Ausdauereinheiten mit Dauer und/oder Distanz.",
+    "Trainingsplan PT-Coach. Zusatzregeln: Einheiten-IDs im ganzen Plan eindeutig, Wochennummern eindeutig, Tage je Woche eindeutig, Ausdauereinheiten mit Dauer und/oder Distanz, Block-Keys je Einheit eindeutig, Tage ohne Einheit mit title oder notes, Gewichte (loads) mit mindestens einem Wert.",
   );
 
 export type PlanContent = z.infer<typeof PlanSchema>;
@@ -126,6 +206,11 @@ export type StrengthExercise = z.infer<typeof StrengthExerciseSchema>;
 export type WodSession = z.infer<typeof WodSessionSchema>;
 export type WodMovement = z.infer<typeof WodMovementSchema>;
 export type EnduranceSession = z.infer<typeof EnduranceSessionSchema>;
+export type ProgramSession = z.infer<typeof ProgramSessionSchema>;
+export type ProgramBlock = z.infer<typeof ProgramBlockSchema>;
+export type BlockScoring = z.infer<typeof BlockScoringSchema>;
+export type BlockLoad = z.infer<typeof BlockLoadSchema>;
+export type ScoringType = (typeof SCORING_TYPES)[number];
 export type WodType = (typeof WOD_TYPES)[number];
 
 export const WOD_TYPE_LABELS: Record<WodType, string> = {

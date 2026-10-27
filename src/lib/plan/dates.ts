@@ -1,6 +1,6 @@
 // Datumslogik für Pläne: Datum einer Einheit = startDate + (week − 1)·7 + (day − 1).
 import { addDays, daysBetween } from "@/lib/format";
-import type { PlanContent, PlanSession } from "./schema";
+import type { PlanContent, PlanDay, PlanSession } from "./schema";
 
 export interface ScheduledSession {
   session: PlanSession;
@@ -41,4 +41,13 @@ export function planWeekOf(plan: PlanContent, date: string): number | null {
 
 export function findSession(plan: PlanContent, sessionId: string): ScheduledSession | undefined {
   return listScheduledSessions(plan).find((s) => s.session.id === sessionId);
+}
+
+/** Tag des Plans an einem Datum (mit Titel/Hinweis, auch Ruhetage) oder undefined. */
+export function findDay(plan: PlanContent, date: string): PlanDay | undefined {
+  const diff = daysBetween(plan.startDate, date);
+  if (diff < 0) return undefined;
+  const week = Math.floor(diff / 7) + 1;
+  const day = (diff % 7) + 1;
+  return plan.weeks.find((w) => w.week === week)?.days.find((d) => d.day === day);
 }

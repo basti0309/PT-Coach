@@ -4,10 +4,20 @@ import type { PlanContent } from "./schema";
 
 export type DiffLine = { type: "same" | "add" | "del"; text: string };
 
-/** Klassischer LCS-Zeilendiff. */
+/** Klassischer LCS-Zeilendiff; gemeinsamer Anfang und gemeinsames Ende werden vorab abgetrennt (große Pläne). */
 export function lineDiff(oldText: string, newText: string): DiffLine[] {
-  const a = oldText.split("\n");
-  const b = newText.split("\n");
+  const allA = oldText.split("\n");
+  const allB = newText.split("\n");
+  let head = 0;
+  while (head < allA.length && head < allB.length && allA[head] === allB[head]) head++;
+  let tail = 0;
+  while (tail < allA.length - head && tail < allB.length - head && allA[allA.length - 1 - tail] === allB[allB.length - 1 - tail]) tail++;
+  const prefix: DiffLine[] = allA.slice(0, head).map((text) => ({ type: "same", text }));
+  const suffix: DiffLine[] = allA.slice(allA.length - tail).map((text) => ({ type: "same", text }));
+  return [...prefix, ...lcsDiff(allA.slice(head, allA.length - tail), allB.slice(head, allB.length - tail)), ...suffix];
+}
+
+function lcsDiff(a: string[], b: string[]): DiffLine[] {
   const n = a.length;
   const m = b.length;
   const lcs: number[][] = Array.from({ length: n + 1 }, () => new Array<number>(m + 1).fill(0));
@@ -62,6 +72,6 @@ export function summarizePlanChanges(oldPlan: PlanContent | null, newPlan: PlanC
   }
   for (const [id, s] of oldSessions) if (!newSessions.has(id)) removed.push(label(s));
   const meta = (p: PlanContent | null) =>
-    p ? JSON.stringify({ t: p.title, s: p.startDate, g: p.goal, n: p.notes, f: p.weeks.map((w) => [w.week, w.focus]) }) : "";
+    p ? JSON.stringify({ t: p.title, s: p.startDate, g: p.goal, n: p.notes, f: p.weeks.map((w) => [w.week, w.focus, w.days.filter((d) => d.title || d.notes).map((d) => [d.day, d.title, d.notes])]) }) : "";
   return { added, removed, changed, metaChanged: meta(oldPlan) !== meta(newPlan) };
 }

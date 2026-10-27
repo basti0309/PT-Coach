@@ -39,6 +39,16 @@ const FIELD_LABELS: Record<string, string> = {
   distanceKm: "Distanz (km)",
   intensity: "Intensität",
   description: "Beschreibung",
+  label: "Bezeichnung",
+  blocks: "Blöcke",
+  key: "Block-Kennung",
+  details: "Details",
+  coachNotes: "Coach-Hinweise",
+  scoring: "Wertung",
+  loads: "Gewichte",
+  maleKg: "Gewicht Männer (kg)",
+  femaleKg: "Gewicht Frauen (kg)",
+  kg: "Gewicht (kg)",
 };
 
 type Path = PropertyKey[];
@@ -67,6 +77,8 @@ export function describePath(input: unknown, path: Path): string {
       else if (key === "sessions") parts.push(typeof item?.id === "string" ? `Einheit „${item.id}“` : `Einheit ${n}`);
       else if (key === "exercises") parts.push(typeof item?.name === "string" ? `Übung ${n} „${item.name}“` : `Übung ${n}`);
       else if (key === "movements") parts.push(typeof item?.name === "string" ? `Bewegung ${n} „${item.name}“` : `Bewegung ${n}`);
+      else if (key === "blocks") parts.push(typeof item?.name === "string" ? `Block ${n} „${item.name}“` : `Block ${n}`);
+      else if (key === "loads") parts.push(typeof item?.label === "string" ? `Gewicht ${n} „${item.label}“` : `Gewicht ${n}`);
       else parts.push(`${FIELD_LABELS[String(key)] ?? String(key)} ${n}`);
       i++;
     } else {
@@ -110,7 +122,7 @@ function messageFor(issue: z.core.$ZodIssue, input: unknown): string {
       return `unbekannte(s) Feld(er): ${issue.keys.map((k) => `„${k}“`).join(", ")} (Tippfehler? Nicht erlaubt.)`;
     case "invalid_union": {
       const typePath = issue.path[issue.path.length - 1] === "type" ? issue.path : [...issue.path, "type"];
-      return `muss "strength", "wod" oder "endurance" sein (gefunden: ${JSON.stringify(get(input, typePath)) ?? "nichts"})`;
+      return `muss "strength", "wod", "endurance" oder "program" sein (gefunden: ${JSON.stringify(get(input, typePath)) ?? "nichts"})`;
     }
     default:
       return issue.message;
@@ -129,6 +141,9 @@ export function semanticErrors(plan: PlanContent): string[] {
     for (const d of w.days) {
       if (dayNumbers.has(d.day)) errors.push(`Woche ${w.week} › Tag ${d.day}: Tag kommt in dieser Woche mehrfach vor.`);
       dayNumbers.add(d.day);
+      if (d.sessions.length === 0 && !d.title?.trim() && !d.notes?.trim()) {
+        errors.push(`Woche ${w.week} › Tag ${d.day}: Tag ohne Einheiten (Ruhetag) braucht einen Titel („title“) oder Hinweis („notes“).`);
+      }
       for (const s of d.sessions) {
         const where = `Woche ${w.week} › Tag ${d.day}`;
         const prev = sessionIds.get(s.id);
@@ -136,6 +151,18 @@ export function semanticErrors(plan: PlanContent): string[] {
         else sessionIds.set(s.id, where);
         if (s.type === "endurance" && s.durationMinutes === undefined && s.distanceKm === undefined) {
           errors.push(`${where} › Einheit „${s.id}“: Ausdauereinheit braucht Dauer („durationMinutes“) und/oder Distanz („distanceKm“).`);
+        }
+        if (s.type === "program") {
+          const keys = new Set<string>();
+          for (const b of s.blocks) {
+            if (keys.has(b.key)) errors.push(`${where} › Einheit „${s.id}“: Block-Kennung „${b.key}“ kommt mehrfach vor.`);
+            keys.add(b.key);
+            for (const l of b.loads ?? []) {
+              if (l.maleKg === undefined && l.femaleKg === undefined && l.kg === undefined) {
+                errors.push(`${where} › Einheit „${s.id}“ › Block „${b.key}“: Gewicht „${l.label}“ braucht maleKg, femaleKg oder kg.`);
+              }
+            }
+          }
         }
       }
     }

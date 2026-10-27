@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { formatDate } from "@/lib/format";
-import { listScheduledSessions, type ScheduledSession } from "@/lib/plan/dates";
+import { listScheduledSessions, sessionDate, type ScheduledSession } from "@/lib/plan/dates";
 import { sessionDetails, sessionTitle } from "@/lib/plan/describe";
 import type { PlanContent } from "@/lib/plan/schema";
 
@@ -13,8 +13,9 @@ const TYPE_STYLE = {
   strength: "bg-amber-100 text-amber-800",
   wod: "bg-rose-100 text-rose-800",
   endurance: "bg-emerald-100 text-emerald-800",
+  program: "bg-sky-100 text-sky-800",
 } as const;
-const TYPE_LABEL = { strength: "Kraft", wod: "WOD", endurance: "Ausdauer" } as const;
+const TYPE_LABEL = { strength: "Kraft", wod: "WOD", endurance: "Ausdauer", program: "Programm" } as const;
 
 export function SessionCard({
   item,
@@ -31,6 +32,7 @@ export function SessionCard({
   const content = (
     <div className="space-y-1">
       <div className="flex flex-wrap items-center gap-2">
+        {s.label && <span className="badge bg-slate-800 text-white">{s.label}</span>}
         <span className={`badge ${TYPE_STYLE[s.type]}`}>{TYPE_LABEL[s.type]}</span>
         <span className="font-semibold">{sessionTitle(s)}</span>
         {status?.completed && (
@@ -44,7 +46,7 @@ export function SessionCard({
           <li key={i}>{line}</li>
         ))}
       </ul>
-      {s.type !== "endurance" && s.notes && <p className="text-sm italic text-slate-500">{s.notes}</p>}
+      {s.type !== "endurance" && s.notes && <p className="whitespace-pre-line text-sm italic text-slate-500">{s.notes}</p>}
     </div>
   );
   return href ? (
@@ -83,23 +85,26 @@ export function PlanView({
       )}
       {weeks.map((w) => {
         const weekItems = items.filter((i) => i.week === w.week);
-        const dates = [...new Set(weekItems.map((i) => i.date))];
+        const days = [...w.days].sort((a, b) => a.day - b.day);
         return (
           <section key={w.week} className="card space-y-3">
             <h3 className="h2">
               Woche {w.week}
               {w.focus && <span className="font-normal text-slate-500"> · {w.focus}</span>}
             </h3>
-            {dates.length === 0 && <p className="muted">Keine Einheiten.</p>}
-            {dates.map((date) => {
-              const dayItems = weekItems.filter((i) => i.date === date);
+            {days.length === 0 && <p className="muted">Keine Einheiten.</p>}
+            {days.map((d) => {
+              const date = sessionDate(plan.startDate, w.week, d.day);
+              const dayItems = weekItems.filter((i) => i.day === d.day);
               return (
-                <div key={date} className="space-y-2">
+                <div key={d.day} className="space-y-2">
                   <p className={`text-sm font-semibold ${date === today ? "text-brand-600" : "text-slate-700"}`}>
                     {formatDate(date)}
                     {date === today && " · heute"}
-                    {dayItems[0].dayTitle && ` · ${dayItems[0].dayTitle}`}
+                    {d.title && ` · ${d.title}`}
                   </p>
+                  {d.notes && <p className="whitespace-pre-line text-sm text-slate-600">{d.notes}</p>}
+                  {dayItems.length === 0 && <p className="muted">Ruhetag</p>}
                   {dayItems.map((item) => (
                     <SessionCard
                       key={item.session.id}
