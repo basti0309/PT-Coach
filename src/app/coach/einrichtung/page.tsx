@@ -43,7 +43,10 @@ export default async function SetupPage() {
         <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-sm">
           <dt className="text-slate-500">Status</dt>
           <dd>
-            {!stravaReady && <span className="text-red-700">Strava-Variablen fehlen (siehe unten)</span>}
+            {!stravaReady && !env.stravaEnabled() && (
+              <span className="text-slate-600">nicht eingerichtet (optional) – Kunden tragen Ausdauer von Hand ein; die Strava-Verbindung ist ausgeblendet.</span>
+            )}
+            {!stravaReady && env.stravaEnabled() && <span className="text-red-700">Strava-Variablen fehlen (siehe unten)</span>}
             {stravaReady && subsError && <span className="text-red-700">Fehler: {subsError}</span>}
             {stravaReady && !subsError && active && <span className="font-semibold text-green-700">✓ aktiv (Abo-ID {active.id})</span>}
             {stravaReady && !subsError && !active && subs && subs.length > 0 && (

@@ -54,7 +54,9 @@ Eintragen in Supabase: **Authentication → Emails → SMTP Settings → Enable 
 
 [console.anthropic.com](https://console.anthropic.com) → API-Key erstellen, etwas Guthaben aufladen. Den Key in A1 hinterlegen. Claude überträgt ihn nach Vercel und kann damit auch den Eskalationstest (A6) ausführen.
 
-### A4. Strava-App anlegen (nach B3, wenn die App-Adresse feststeht)
+### A4. Strava-App anlegen (optional; nach B3, wenn die App-Adresse feststeht)
+
+Strava ist optional. Solange `STRAVA_CLIENT_ID` und `STRAVA_CLIENT_SECRET` nicht gesetzt sind, blendet die App die Strava-Verbindung aus; Kunden tragen Läufe usw. von Hand ein.
 
 1. Auf [strava.com/settings/api](https://www.strava.com/settings/api) eine App anlegen:
    - **Application Name:** PT-Coach · **Category:** Training
