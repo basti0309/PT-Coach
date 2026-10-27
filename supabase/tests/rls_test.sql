@@ -125,7 +125,13 @@ begin
       jsonb_build_object('u','C','exp','error','d','Coach ändert keinen Nachrichtentext','sql','update public.messages set body = ''x'' where client_id = ''{A}'''),
       -- Konto ohne Profil
       jsonb_build_object('u','N','exp','zero','d','Konto ohne Profil sieht keine Trainings','sql','select count(*) from public.workout_logs'),
-      jsonb_build_object('u','N','exp','zero','d','Konto ohne Profil sieht keine Profile außer Coach','sql','select count(*) from public.profiles where role = ''client''')
+      jsonb_build_object('u','N','exp','zero','d','Konto ohne Profil sieht keine Profile','sql','select count(*) from public.profiles'),
+      jsonb_build_object('u','N','exp','zero','d','Konto ohne Profil bekommt keine Namen','sql','select count(*) from public.profile_names(array[''{C}'',''{A}'']::uuid[])'),
+      -- Coach-Profil: Kunden sehen nur den Namen
+      jsonb_build_object('u','A','exp','zero','d','A liest keine E-Mail des Coaches','sql','select count(*) from public.profiles where role = ''coach'''),
+      jsonb_build_object('u','A','exp','pos','d','A sieht den Namen des Coaches (erfasst von …)','sql','select count(*) from public.profile_names(array[''{C}'']::uuid[])'),
+      jsonb_build_object('u','A','exp','zero','d','A bekommt keinen Namen von B','sql','select count(*) from public.profile_names(array[''{B}'']::uuid[])'),
+      jsonb_build_object('u','A','exp','error','d','A hat keinen Zugriff auf die Login-Drosselung','sql','select public.hit_rate_limit(''x'', 1000, 60)')
     );
 
     for t in select * from jsonb_array_elements(tests) loop

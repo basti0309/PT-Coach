@@ -37,14 +37,14 @@ check(client.url().includes("strava=verbunden") && (await client.isVisible("text
 check(sql(`select count(*) from strava_connections where client_id='${clientId}' and athlete_id=777`) === "1", "Tokens serverseitig gespeichert");
 
 // Aktivität vor der Verbindung → ignoriert
-await mock("/__set", { id: 9000, sport_type: "Run", start_date: "2020-01-01T08:00:00Z", start_date_local: "2020-01-01T09:00:00Z", moving_time: 1000, distance: 3000 });
+await mock("/__set", { id: 9000, athlete: { id: 777 }, sport_type: "Run", start_date: "2020-01-01T08:00:00Z", start_date_local: "2020-01-01T09:00:00Z", moving_time: 1000, distance: 3000 });
 await event({ object_type: "activity", object_id: 9000, aspect_type: "create" });
 // Lauf heute (Wettkampf) → passt zu w1d1-lauf
 const start = new Date().toISOString();
-await mock("/__set", { id: 9001, sport_type: "Run", start_date: start, start_date_local: today + "T18:00:00Z", moving_time: 2580, distance: 8420.4, average_heartrate: 151.3, workout_type: 1 });
+await mock("/__set", { id: 9001, athlete: { id: 777 }, sport_type: "Run", start_date: start, start_date_local: today + "T18:00:00Z", moving_time: 2580, distance: 8420.4, average_heartrate: 151.3, workout_type: 1 });
 await event({ object_type: "activity", object_id: 9001, aspect_type: "create" });
 // Schwimmen → ungeplant
-await mock("/__set", { id: 9002, sport_type: "Swim", start_date: start, start_date_local: today + "T07:00:00Z", moving_time: 1800, distance: 1500 });
+await mock("/__set", { id: 9002, athlete: { id: 777 }, sport_type: "Swim", start_date: start, start_date_local: today + "T07:00:00Z", moving_time: 1800, distance: 1500 });
 await event({ object_type: "activity", object_id: 9002, aspect_type: "create" });
 await sleep(2500);
 check(sql("select count(*) from strava_activities where strava_activity_id=9000") === "0", "Aktivität vor Verbindung nicht importiert");

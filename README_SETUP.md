@@ -19,6 +19,7 @@ Plane etwa eine Stunde ein. Reihenfolge einhalten – spätere Schritte brauchen
 2. In GitHub die Datei `supabase/migrations/20261027000100_grundgeruest.sql` öffnen, auf **Raw** klicken, alles markieren und kopieren.
 3. In den SQL-Editor einfügen → **Run** (unten rechts). Erwartet: „Success. No rows returned“.
 4. Neue Query, genauso mit `supabase/migrations/20261027000200_standarddaten.sql` → **Run**.
+5. Neue Query, genauso mit `supabase/migrations/20261027000300_absicherung.sql` → **Run**.
 
 Wichtig: Jede Migration nur **einmal** ausführen. Kommen später neue Dateien in `supabase/migrations/` dazu, führst du nur die neuen aus (in der Reihenfolge ihrer Namen).
 
@@ -28,7 +29,7 @@ Wichtig: Jede Migration nur **einmal** ausführen. Kommen später neue Dateien i
 
 ### 1c. Rechte prüfen (empfohlen)
 
-`supabase/tests/rls_test.sql` ausführen. Das Skript legt kurzzeitig Testkonten an, prüft 45 Zugriffsregeln (Kunde A sieht nichts von Kunde B, Coach sieht keine Strava-Werte, …) und löscht danach alles wieder. Die letzte Zeile der Ergebnistabelle muss lauten: **„ALLE TESTS BESTANDEN (45)“**.
+`supabase/tests/rls_test.sql` ausführen. Das Skript legt kurzzeitig Testkonten an, prüft 50 Zugriffsregeln (Kunde A sieht nichts von Kunde B, Coach sieht keine Strava-Werte, …) und löscht danach alles wieder. Die letzte Zeile der Ergebnistabelle muss lauten: **„ALLE TESTS BESTANDEN (50)“**.
 
 ### 1d. Werte für später notieren
 

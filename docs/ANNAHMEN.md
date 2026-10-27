@@ -72,3 +72,6 @@ Hier steht jede Entscheidung, die der Auftrag offen ließ. Bitte prüfen – all
 ## Sonstiges
 52. **Zeitzone** für „heute“: `Europe/Berlin` (änderbar über `APP_TIMEZONE`).
 53. **Offline:** Die App zeigt ohne Internet nur einen Hinweis; Einträge werden nicht offline zwischengespeichert.
+54. **Login-Drosselung:** je IP-Adresse höchstens 10 Anmelde-Mails und 20 Code-Prüfungen pro 15 Minuten sowie 10 Registrierungsversuche pro Stunde (IP nur gehasht gespeichert). Schützt davor, dass jemand durch massenhafte Anfragen die E-Mail-Kontingente aufbraucht und dadurch alle aussperrt.
+55. **Strava-Webhook:** Ereignisse werden erst verarbeitet, wenn das Abo über den Button registriert ist (gespeicherte Abo-ID). Eine abgerufene Aktivität muss dem Athleten gehören, der das Ereignis ausgelöst hat; gesucht, geändert und gelöscht wird nur innerhalb des verbundenen Kunden.
+56. **Selbstregistrierung mit fremder Adresse:** Wer den Einladungscode kennt, könnte eine fremde E-Mail-Adresse registrieren (der Inhaber bekommt dann eine Login-Mail, die Adresse ist belegt). Das bleibt vorerst so; wer den Code hat, ist vertrauenswürdig. Der Coach kann solche Konten in Supabase löschen.

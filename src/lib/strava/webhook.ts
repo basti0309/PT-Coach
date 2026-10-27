@@ -51,11 +51,12 @@ export interface WebhookDeps {
   fetchActivity(accessToken: string, activityId: number): Promise<StravaActivity | "not_found">;
   /** Gegenprüfung bei Deautorisierung: hat die App noch Zugriff? */
   stillAuthorized(clientId: string): Promise<boolean>;
-  activityExists(stravaActivityId: number): Promise<boolean>;
+  /** Nur Aktivitäten DIESES Kunden (nie über Kundengrenzen hinweg) */
+  activityExists(clientId: string, stravaActivityId: number): Promise<boolean>;
   loadMatchContext(clientId: string): Promise<MatchContext | null>;
   insertActivity(activity: StoredActivity, match: (MatchResult & { planId: string; planVersion: number }) | null): Promise<void>;
   updateActivity(activity: StoredActivity): Promise<void>;
-  deleteActivity(stravaActivityId: number): Promise<void>;
+  deleteActivity(clientId: string, stravaActivityId: number): Promise<void>;
   deleteAllStravaData(clientId: string): Promise<void>;
 }
 
@@ -87,9 +88,10 @@ export function toStoredActivity(clientId: string, a: StravaActivity): StoredAct
 }
 
 export async function handleStravaEvent(event: WebhookEvent, deps: WebhookDeps): Promise<WebhookOutcome> {
+  // Strava signiert Ereignisse nicht: ohne gespeicherte Abo-ID (Button in "Einrichtung") wird nichts verarbeitet.
   const expected = await deps.subscriptionId();
-  if (expected != null && event.subscription_id !== expected) {
-    return { status: "ignored", reason: "fremdes Abo" };
+  if (expected == null || event.subscription_id !== expected) {
+    return { status: "ignored", reason: "fremdes oder kein registriertes Abo" };
   }
 
   const connection = await deps.findConnection(event.owner_id);
@@ -111,20 +113,21 @@ export async function handleStravaEvent(event: WebhookEvent, deps: WebhookDeps):
   const token = await deps.accessToken(connection.clientId);
 
   if (event.aspect_type === "delete") {
-    if (!(await deps.activityExists(event.object_id))) return { status: "ignored", reason: "Aktivität unbekannt" };
+    if (!(await deps.activityExists(connection.clientId, event.object_id))) return { status: "ignored", reason: "Aktivität unbekannt" };
     // Gegenprüfung: nur löschen, wenn Strava die Aktivität wirklich nicht mehr liefert.
     if ((await deps.fetchActivity(token, event.object_id)) !== "not_found") {
       return { status: "ignored", reason: "Aktivität existiert noch" };
     }
-    await deps.deleteActivity(event.object_id);
+    await deps.deleteActivity(connection.clientId, event.object_id);
     return { status: "deleted" };
   }
 
   const activity = await deps.fetchActivity(token, event.object_id);
   if (activity === "not_found") return { status: "ignored", reason: "Aktivität nicht abrufbar" };
+  if (activity.athlete.id !== event.owner_id) return { status: "ignored", reason: "Aktivität gehört nicht dem Absender" };
   const stored = toStoredActivity(connection.clientId, activity);
 
-  if (await deps.activityExists(activity.id)) {
+  if (await deps.activityExists(connection.clientId, activity.id)) {
     // Auch doppelt zugestellte "create"-Ereignisse landen hier. Zuordnung bleibt unverändert.
     await deps.updateActivity(stored);
     return { status: "updated" };

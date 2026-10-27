@@ -16,7 +16,7 @@ Wer keinen Eintrag in `profiles` hat, sieht nichts (RLS liefert leere Ergebnisse
 
 | Tabelle | Kunde | Coach | Service-Role (Server) |
 |---|---|---|---|
-| `profiles` | eigenes lesen; Coach-Profile lesen (Name) | alle lesen/ändern | anlegen |
+| `profiles` | eigenes lesen; vom Coach nur den Namen (Funktion `profile_names()`) | alle lesen/ändern | anlegen |
 | `client_profiles` | eigenes lesen/ändern, **Nährstoffziele nicht** (Trigger) | alle lesen/anlegen/ändern | – |
 | `test_results` | eigene lesen/anlegen/löschen | alle | – |
 | `plans`, `plan_versions` | eigene lesen | alle lesen/schreiben | – |
@@ -26,6 +26,7 @@ Wer keinen Eintrag in `profiles` hat, sieht nichts (RLS liefert leere Ergebnisse
 | `strava_activities` (km, Puls, Abweichung) | eigene lesen; nur Spalte `is_test` ändern | **kein Zugriff** | alles |
 | `messages` | eigene lesen | alle lesen; als Coach schreiben; Posteingang erledigen | Kundennachricht + KI-Antwort einfügen |
 | `knowledge_entries`, `escalation_rules`, `app_settings` | – | alles (Pflichtregeln nicht änder-/löschbar, Trigger) | – |
+| `rate_limits` (Login-Drosselung) | – | – | alles (Funktion `hit_rate_limit()`) |
 
 Kundennachrichten werden nicht direkt vom Browser eingefügt, sondern nur über den Server (damit jede Nachricht zuerst den KI-Vorfilter durchläuft).
 

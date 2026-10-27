@@ -7,7 +7,7 @@ afterEach(() => vi.unstubAllGlobals());
 
 describe("Strava-API", () => {
   it("sendet das Access Token im Authorization-Header an STRAVA_API_BASE", async () => {
-    const fetchMock = vi.fn(async () => new Response(JSON.stringify({ id: 1, sport_type: "Run", start_date: "x", start_date_local: "x", moving_time: 60 })));
+    const fetchMock = vi.fn(async () => new Response(JSON.stringify({ id: 1, athlete: { id: 5 }, sport_type: "Run", start_date: "x", start_date_local: "x", moving_time: 60 })));
     vi.stubGlobal("fetch", fetchMock);
     await getActivity(cfg, "tok", 1);
     const [url, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit];

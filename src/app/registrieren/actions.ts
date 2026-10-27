@@ -5,6 +5,7 @@ import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { freeShortCode, inviteCodeMatches, loadInviteCode } from "@/lib/accounts/invite";
 import { env } from "@/lib/env";
+import { allowFromThisIp, TOO_MANY } from "@/lib/accounts/rate-limit";
 
 export interface RegisterState {
   done?: boolean;
@@ -27,6 +28,7 @@ export async function registerWithInvite(_prev: RegisterState, formData: FormDat
   });
   if (!parsed.success) return { error: parsed.error.issues[0]?.message };
   const { fullName, email, code } = parsed.data;
+  if (!(await allowFromThisIp("registrieren", 10, 60 * 60))) return { error: TOO_MANY };
 
   const admin = createSupabaseAdminClient();
   const expected = await loadInviteCode(admin);

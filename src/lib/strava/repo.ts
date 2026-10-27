@@ -45,8 +45,13 @@ export function createWebhookDeps(): WebhookDeps {
         return true; // im Zweifel nichts löschen
       }
     },
-    async activityExists(stravaId) {
-      const { data } = await admin.from("strava_activities").select("id").eq("strava_activity_id", stravaId).maybeSingle();
+    async activityExists(clientId, stravaId) {
+      const { data } = await admin
+        .from("strava_activities")
+        .select("id")
+        .eq("client_id", clientId)
+        .eq("strava_activity_id", stravaId)
+        .maybeSingle();
       return Boolean(data);
     },
     async loadMatchContext(clientId) {
@@ -134,6 +139,7 @@ export function createWebhookDeps(): WebhookDeps {
           distance_m: a.distanceM,
           avg_hr: a.avgHr,
         })
+        .eq("client_id", a.clientId)
         .eq("strava_activity_id", a.stravaActivityId)
         .select("workout_log_id")
         .single();
@@ -144,10 +150,18 @@ export function createWebhookDeps(): WebhookDeps {
           .eq("id", act.workout_log_id);
       }
     },
-    async deleteActivity(stravaId) {
-      const { data: act } = await admin.from("strava_activities").select("workout_log_id").eq("strava_activity_id", stravaId).maybeSingle();
-      await admin.from("strava_activities").delete().eq("strava_activity_id", stravaId);
-      if (act?.workout_log_id) await admin.from("workout_logs").delete().eq("id", act.workout_log_id).eq("source", "strava");
+    async deleteActivity(clientId, stravaId) {
+      const { data: act } = await admin
+        .from("strava_activities")
+        .select("workout_log_id")
+        .eq("client_id", clientId)
+        .eq("strava_activity_id", stravaId)
+        .maybeSingle();
+      if (!act) return;
+      await admin.from("strava_activities").delete().eq("client_id", clientId).eq("strava_activity_id", stravaId);
+      if (act.workout_log_id) {
+        await admin.from("workout_logs").delete().eq("id", act.workout_log_id).eq("client_id", clientId).eq("source", "strava");
+      }
     },
     async deleteAllStravaData(clientId) {
       await admin.from("strava_activities").delete().eq("client_id", clientId);

@@ -5,6 +5,7 @@ import { z } from "zod";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { ensureCoachAccount, isKnownEmail } from "@/lib/accounts/coach";
 import { env } from "@/lib/env";
+import { allowFromThisIp, TOO_MANY } from "@/lib/accounts/rate-limit";
 
 export interface LoginState {
   step: "email" | "code";
@@ -20,6 +21,7 @@ async function requestLogin(_prev: LoginState, formData: FormData): Promise<Logi
   if (!emailSchema.safeParse(email).success) {
     return { step: "email", email, error: "Bitte eine gültige E-Mail-Adresse eingeben." };
   }
+  if (!(await allowFromThisIp("login-senden", 10, 15 * 60))) return { step: "email", email, error: TOO_MANY };
   try {
     await ensureCoachAccount(email);
     if (await isKnownEmail(email)) {
@@ -53,6 +55,7 @@ async function verifyCode(prev: LoginState, formData: FormData): Promise<LoginSt
   if (!/^\d{6,10}$/.test(token)) {
     return { ...prev, error: "Bitte den Zahlencode aus der E-Mail eingeben." };
   }
+  if (!(await allowFromThisIp("login-code", 20, 15 * 60))) return { ...prev, error: TOO_MANY };
   const supabase = await createSupabaseServerClient();
   const { error } = await supabase.auth.verifyOtp({ email: prev.email, token, type: "email" });
   if (error) {

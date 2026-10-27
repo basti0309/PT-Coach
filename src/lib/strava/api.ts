@@ -28,6 +28,8 @@ export type TokenResponse = z.infer<typeof TokenResponseSchema>;
 /** Nur die Felder, die wir speichern dürfen. */
 export const ActivitySchema = z.object({
   id: z.number(),
+  /** Besitzer der Aktivität – muss zum Absender des Ereignisses passen */
+  athlete: z.object({ id: z.number() }),
   sport_type: z.string(),
   start_date: z.string(),
   start_date_local: z.string(),

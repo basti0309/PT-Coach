@@ -27,6 +27,7 @@ const deauthEvent = {
 
 const run: StravaActivity = {
   id: 1360128428,
+  athlete: { id: 134815 },
   sport_type: "Run",
   start_date: "2026-10-29T17:02:00Z",
   start_date_local: "2026-10-29T18:02:00Z",
@@ -53,7 +54,7 @@ function fakeDeps(opts: { activity?: StravaActivity | "not_found"; authorized?: 
     },
     fetchActivity: async () => opts.activity ?? run,
     stillAuthorized: async () => opts.authorized ?? false,
-    activityExists: async () => opts.existing ?? false,
+    activityExists: async (clientId) => clientId === "kunde-a" && (opts.existing ?? false),
     loadMatchContext: async () => ({ planId: "plan-1", planVersion: 3, plan: samplePlan(), takenSessionIds: new Set() }),
     insertActivity: async (a, match) => {
       calls.inserted.push({ a, sessionId: match?.sessionId ?? null });
@@ -61,7 +62,7 @@ function fakeDeps(opts: { activity?: StravaActivity | "not_found"; authorized?: 
     updateActivity: async (a) => {
       calls.updated.push(a);
     },
-    deleteActivity: async (id) => {
+    deleteActivity: async (_clientId, id) => {
       calls.deleted.push(id);
     },
     deleteAllStravaData: async (clientId) => {
@@ -148,6 +149,18 @@ describe("Strava-Webhook", () => {
     expect((await handleStravaEvent(parse({ ...createEvent, owner_id: 1 }), deps)).status).toBe("ignored");
     expect(calls.inserted).toHaveLength(0);
     expect(calls.tokens).toHaveLength(0);
+  });
+
+  it("Aktivität eines anderen Athleten wird ignoriert (gefälschtes Ereignis)", async () => {
+    const { deps, calls } = fakeDeps({ activity: { ...run, athlete: { id: 999 } } });
+    expect(await handleStravaEvent(parse(createEvent), deps)).toEqual({ status: "ignored", reason: "Aktivität gehört nicht dem Absender" });
+    expect(calls.inserted).toHaveLength(0);
+  });
+
+  it("ohne registriertes Abo wird nichts verarbeitet", async () => {
+    const { deps, calls } = fakeDeps({ subscriptionId: null });
+    expect((await handleStravaEvent(parse(createEvent), deps)).status).toBe("ignored");
+    expect(calls.inserted).toHaveLength(0);
   });
 
   it("ungültige Payloads werden vom Schema abgewiesen", () => {
