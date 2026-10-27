@@ -1,18 +1,19 @@
-import { NextResponse, type NextRequest } from "next/server";
+import { redirectSameHost } from "@/lib/redirect";
+import type { NextRequest } from "next/server";
 import { getViewer } from "@/lib/auth";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { exchangeCode } from "@/lib/strava/api";
 import { stravaConfig } from "@/lib/strava/config";
 
 const back = (request: NextRequest, status: string) => {
-  const res = NextResponse.redirect(new URL(`/kunde/profil?strava=${status}`, request.url));
+  const res = redirectSameHost(request, `/kunde/profil?strava=${status}`);
   res.cookies.delete({ name: "strava_oauth_state", path: "/api/strava" });
   return res;
 };
 
 export async function GET(request: NextRequest) {
   const viewer = await getViewer();
-  if (!viewer || viewer.role !== "client") return NextResponse.redirect(new URL("/login", request.url));
+  if (!viewer || viewer.role !== "client") return redirectSameHost(request, "/login");
   const params = request.nextUrl.searchParams;
   const state = request.cookies.get("strava_oauth_state")?.value;
   if (!state || params.get("state") !== state) return back(request, "fehler");

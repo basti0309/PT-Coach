@@ -7,7 +7,7 @@ import { buildPrompt, extractTemplate } from "./prompt";
 const cp: ClientProfileRow = {
   client_id: "c1",
   sex: "w",
-  age: 40,
+  birth_date: "1986-05-01", // am 27.10.2026 genau 40 Jahre
   height_cm: 165,
   equipment_home: "Kurzhanteln",
   gym_access: true,
@@ -22,6 +22,8 @@ const cp: ClientProfileRow = {
   updated_by: null,
 };
 
+const TODAY = "2026-10-27";
+
 const tests: TestResultRow[] = [
   { id: "1", client_id: "c1", kind: "body_weight", tested_on: "2026-09-01", value: 62, scale: null, note: "", created_at: "a", created_by: null },
   { id: "2", client_id: "c1", kind: "body_weight", tested_on: "2026-10-01", value: 60, scale: null, note: "", created_at: "b", created_by: null },
@@ -31,27 +33,29 @@ const tests: TestResultRow[] = [
 
 describe("Profil-Export", () => {
   it("pseudonymisiert: Kürzel statt Name, kein Name/E-Mail im JSON", () => {
-    const e = buildProfileExport({ full_name: "Anna Muster", short_code: "K01" }, cp, tests, true);
+    const e = buildProfileExport({ full_name: "Anna Muster", short_code: "K01" }, cp, tests, true, TODAY);
     expect(e.label).toBe("K01");
+    expect(e.age).toBe(40);
+    expect(JSON.stringify(e)).not.toContain("1986");
     expect(JSON.stringify(e)).not.toContain("Anna");
   });
   it("Klarname auf Wunsch", () => {
-    expect(buildProfileExport({ full_name: "Anna Muster", short_code: "K01" }, cp, tests, false).label).toBe("Anna Muster");
+    expect(buildProfileExport({ full_name: "Anna Muster", short_code: "K01" }, cp, tests, false, TODAY).label).toBe("Anna Muster");
   });
   it("aktuelles Gewicht = jüngster Wert, Kalorien nach Mifflin × PAL", () => {
-    const e = buildProfileExport({ full_name: "A", short_code: "K01" }, cp, tests, true);
+    const e = buildProfileExport({ full_name: "A", short_code: "K01" }, cp, tests, true, TODAY);
     expect(e.currentWeightKg).toBe(60);
     // 10·60 + 6,25·165 − 5·40 − 161 = 1270,25 → gerundet 1270; × 1,6 = 2032,4 → 2032
     expect(e.calorieNeed).toEqual({ bmrKcal: 1270, totalKcal: 2032, formula: "Mifflin-St Jeor × PAL" });
   });
   it("Testwert-Historie vollständig mit Anzeige der 5-km-Zeit", () => {
-    const e = buildProfileExport({ full_name: "A", short_code: "K01" }, cp, tests, true);
+    const e = buildProfileExport({ full_name: "A", short_code: "K01" }, cp, tests, true, TODAY);
     expect(e.tests).toHaveLength(4);
     expect(e.tests.find((t) => t.test === "run_5k")).toMatchObject({ value: 1590, unit: "s", display: "26:30" });
     expect(e.tests.find((t) => t.test === "mobility")).toMatchObject({ scale: 6, note: "Hüfte" });
   });
   it("Export-Datei: Plan + Profil, Profil-Teil identisch zum Profil-Export", () => {
-    const client = buildProfileExport({ full_name: "A", short_code: "K01" }, cp, tests, true);
+    const client = buildProfileExport({ full_name: "A", short_code: "K01" }, cp, tests, true, TODAY);
     const withPlan = buildExportFile(client, samplePlan(), new Date("2026-10-27T10:00:00Z"));
     const profileOnly = buildExportFile(client, null, new Date("2026-10-27T10:00:00Z"));
     expect(withPlan.client).toEqual(profileOnly.client);

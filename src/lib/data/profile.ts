@@ -5,6 +5,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import type { ClientProfileRow, ProfileRow, TestResultRow } from "@/lib/db-types";
 import { buildProfileExport, type ProfileExport } from "@/lib/export/profile";
 import { extractTemplate } from "@/lib/export/prompt";
+import { appToday } from "@/lib/today";
 
 export interface ProfileData {
   profile: ProfileRow;
@@ -32,7 +33,7 @@ export async function loadProfileExport(
   pseudonymized: boolean,
 ): Promise<ProfileExport | null> {
   const data = await loadProfileData(supabase, clientId);
-  return data ? buildProfileExport(data.profile, data.clientProfile, data.tests, pseudonymized) : null;
+  return data ? buildProfileExport(data.profile, data.clientProfile, data.tests, pseudonymized, appToday()) : null;
 }
 
 export function loadPromptTemplate(): string {

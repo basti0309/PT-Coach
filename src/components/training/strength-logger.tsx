@@ -89,6 +89,11 @@ export function StrengthLogger({
     // Abhaken mit leeren Feldern übernimmt die Platzhalter.
     const weight = current.weight || (nextDone ? ph.weight : "");
     const reps = current.reps || (nextDone ? ph.reps : "");
+    const w = parseDecimal(weight);
+    if (weight && (w == null || w < 0 || w > 1000)) {
+      update(exId, i, { error: "Bitte ein gültiges Gewicht in kg eingeben (z. B. 62,5)." });
+      return;
+    }
     update(exId, i, { weight, reps, done: nextDone, saving: true, error: undefined });
     try {
       const id = await ensureLog();
@@ -168,9 +173,11 @@ export function StrengthLogger({
                     placeholder={ph.weight}
                     value={s.weight}
                     onFocus={(e) => {
+                      // Tap übernimmt den Platzhalter; sofort markiert, damit Tippen ihn ersetzt.
                       if (!s.weight && ph.weight) {
+                        e.currentTarget.value = ph.weight;
+                        e.currentTarget.select();
                         update(ex.exerciseId, i, { weight: ph.weight });
-                        requestAnimationFrame(() => e.target.select());
                       }
                     }}
                     onChange={(e) => update(ex.exerciseId, i, { weight: e.target.value })}
@@ -183,9 +190,11 @@ export function StrengthLogger({
                     placeholder={ph.reps}
                     value={s.reps}
                     onFocus={(e) => {
+                      // Tap übernimmt den Platzhalter; sofort markiert, damit Tippen ihn ersetzt.
                       if (!s.reps && ph.reps) {
+                        e.currentTarget.value = ph.reps;
+                        e.currentTarget.select();
                         update(ex.exerciseId, i, { reps: ph.reps });
-                        requestAnimationFrame(() => e.target.select());
                       }
                     }}
                     onChange={(e) => update(ex.exerciseId, i, { reps: e.target.value.replace(/\D/g, "") })}

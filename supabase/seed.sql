@@ -22,14 +22,14 @@ insert into public.profiles (id, role, full_name, short_code, email) values
   ('00000000-0000-4000-8000-000000000003', 'client', 'Ben Demo', 'K02', 'ben@demo.invalid')
 on conflict (id) do nothing;
 
-insert into public.client_profiles (client_id, sex, age, height_cm, equipment_home, gym_access,
+insert into public.client_profiles (client_id, sex, birth_date, height_cm, equipment_home, gym_access,
                                     training_days_per_week, max_minutes_per_workout, notes, pal_factor,
                                     protein_g, fat_g, carbs_g, created_by, updated_by)
 values
-  ('00000000-0000-4000-8000-000000000002', 'w', 34, 168, 'Kurzhanteln bis 12 kg, Klimmzugstange', true, 4, 60,
+  ('00000000-0000-4000-8000-000000000002', 'w', '1992-03-14', 168, 'Kurzhanteln bis 12 kg, Klimmzugstange', true, 4, 60,
    'Ziel: Halbmarathon im Frühjahr, Kraftbasis halten.', 1.6, 120, 65, 250,
    '00000000-0000-4000-8000-000000000001', '00000000-0000-4000-8000-000000000001'),
-  ('00000000-0000-4000-8000-000000000003', 'm', 41, 182, 'keins', true, 3, 75,
+  ('00000000-0000-4000-8000-000000000003', 'm', '1985-07-02', 182, 'keins', true, 3, 75,
    'Ziel: Kraftaufbau, Rücken stabil halten.', 1.5, 160, 80, 280,
    '00000000-0000-4000-8000-000000000001', '00000000-0000-4000-8000-000000000001')
 on conflict (client_id) do nothing;

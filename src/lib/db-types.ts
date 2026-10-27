@@ -16,7 +16,7 @@ export interface ProfileRow {
 export interface ClientProfileRow {
   client_id: string;
   sex: "m" | "w" | null;
-  age: number | null;
+  birth_date: string | null;
   height_cm: number | null;
   equipment_home: string;
   gym_access: boolean | null;

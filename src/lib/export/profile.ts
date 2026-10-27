@@ -1,6 +1,6 @@
 // Profil-Export (JSON für die KI-Planerstellung). Enthält nur manuell eingetragene
 // Werte – niemals Strava-Daten. Im Plan-Export und im Profil-Export identisch.
-import { calorieNeed } from "@/lib/calc/calories";
+import { ageOn, calorieNeed } from "@/lib/calc/calories";
 import type { ClientProfileRow, ProfileRow, TestKind, TestResultRow } from "@/lib/db-types";
 import { formatDuration } from "@/lib/format";
 import type { PlanContent } from "@/lib/plan/schema";
@@ -29,6 +29,7 @@ export interface ProfileExport {
   label: string;
   pseudonymized: boolean;
   sex: "m" | "w" | null;
+  /** aus dem Geburtsdatum berechnet; das Geburtsdatum selbst wird nicht exportiert */
   age: number | null;
   heightCm: number | null;
   currentWeightKg: number | null;
@@ -63,18 +64,20 @@ export function buildProfileExport(
   cp: ClientProfileRow | null,
   tests: TestResultRow[],
   pseudonymized: boolean,
+  today: string,
 ): ProfileExport {
+  const age = cp?.birth_date ? ageOn(cp.birth_date, today) : null;
   const weight = latestTest(tests, "body_weight")?.value ?? null;
   const pal = cp?.pal_factor ?? 1.5;
   const calories =
-    cp?.sex && cp.age && cp.height_cm && weight
-      ? calorieNeed({ sex: cp.sex, weightKg: weight, heightCm: cp.height_cm, age: cp.age, pal })
+    cp?.sex && age && cp.height_cm && weight
+      ? calorieNeed({ sex: cp.sex, weightKg: weight, heightCm: cp.height_cm, age, pal })
       : null;
   return {
     label: pseudonymized ? (profile.short_code ?? "Kunde") : profile.full_name,
     pseudonymized,
     sex: cp?.sex ?? null,
-    age: cp?.age ?? null,
+    age,
     heightCm: cp?.height_cm ?? null,
     currentWeightKg: weight,
     equipmentHome: cp?.equipment_home ?? "",

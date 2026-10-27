@@ -80,7 +80,7 @@ $$;
 create table public.client_profiles (
   client_id uuid primary key references public.profiles (id) on delete cascade,
   sex text check (sex in ('m', 'w')),
-  age int check (age between 10 and 110),
+  birth_date date check (birth_date >= '1900-01-01'),
   height_cm numeric(5, 1) check (height_cm between 100 and 250),
   equipment_home text not null default '',
   gym_access boolean,

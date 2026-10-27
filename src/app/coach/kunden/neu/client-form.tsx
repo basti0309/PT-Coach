@@ -1,5 +1,6 @@
 "use client";
 
+import { keepFormOnSubmit } from "@/components/use-keep-form";
 import { useActionState, useState } from "react";
 import { suggestShortCode } from "@/lib/format";
 import { createClientAccount, type CreateClientState } from "../actions";
@@ -10,7 +11,7 @@ export function NewClientForm() {
   const [code, setCode] = useState("");
   const [codeTouched, setCodeTouched] = useState(false);
   return (
-    <form action={action} className="card space-y-4">
+    <form action={action} onSubmit={keepFormOnSubmit(action)} className="card space-y-4">
       <div>
         <label className="label" htmlFor="fullName">
           Name

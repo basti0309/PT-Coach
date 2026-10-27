@@ -1,5 +1,6 @@
 "use client";
 
+import { keepFormOnSubmit } from "@/components/use-keep-form";
 import { useActionState } from "react";
 import type { ClientProfileRow } from "@/lib/db-types";
 import { PAL_OPTIONS } from "@/lib/calc/calories";
@@ -8,10 +9,12 @@ import type { FormState } from "@/lib/actions/profile";
 export function ProfileForm({
   profile,
   isCoach,
+  age,
   action,
 }: {
   profile: ClientProfileRow | null;
   isCoach: boolean;
+  age: number | null;
   action: (prev: FormState, data: FormData) => Promise<FormState>;
 }) {
   const [state, formAction, pending] = useActionState(action, {});
@@ -19,7 +22,7 @@ export function ProfileForm({
   const palValues = PAL_OPTIONS.map((o) => o.value);
   const pal = p?.pal_factor ?? 1.5;
   return (
-    <form action={formAction} className="card space-y-3">
+    <form action={formAction} onSubmit={keepFormOnSubmit(formAction)} className="card space-y-3">
       <h2 className="h2">Stammdaten</h2>
       <div className="grid gap-3 sm:grid-cols-3">
         <label className="block">
@@ -31,8 +34,8 @@ export function ProfileForm({
           </select>
         </label>
         <label className="block">
-          <span className="label">Alter</span>
-          <input name="age" className="input" inputMode="numeric" defaultValue={p?.age ?? ""} />
+          <span className="label">Geburtsdatum{age != null && ` (${age} Jahre)`}</span>
+          <input name="birth_date" type="date" className="input" defaultValue={p?.birth_date ?? ""} />
         </label>
         <label className="block">
           <span className="label">Größe (cm)</span>

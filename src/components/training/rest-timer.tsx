@@ -21,7 +21,9 @@ export function RestTimer({ timer, onChange }: { timer: TimerState | null; onCha
     return () => clearInterval(id);
   }, [timer]);
 
-  const remaining = timer ? Math.max(0, Math.ceil((timer.endsAt - now) / 1000)) : 0;
+  // "now" kann beim Start noch vom letzten Intervall stammen → nie vor dem Startzeitpunkt rechnen.
+  const current = timer ? Math.max(now, timer.endsAt - timer.total * 1000) : now;
+  const remaining = timer ? Math.max(0, Math.ceil((timer.endsAt - current) / 1000)) : 0;
 
   useEffect(() => {
     if (!timer || remaining > 0 || firedFor.current === timer.endsAt) return;

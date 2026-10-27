@@ -48,7 +48,7 @@ begin
       (b, 'client', 'Test B', 'RLSTB', 'rlstest-b@test.invalid'),
       (c, 'coach', 'Test Coach', null, 'rlstest-c@test.invalid');
 
-    insert into public.client_profiles (client_id, sex, age, protein_g) values (a, 'w', 30, 100), (b, 'm', 40, 150);
+    insert into public.client_profiles (client_id, sex, birth_date, protein_g) values (a, 'w', '1996-01-01', 100), (b, 'm', '1986-01-01', 150);
     insert into public.test_results (id, client_id, kind, tested_on, value) values
       (gen_random_uuid(), a, 'run_5k', current_date, 1500), (test_b, b, 'run_5k', current_date, 1600);
     insert into public.plans (id, client_id, title, current_version) values (plan_b, b, 'Plan B', 0);

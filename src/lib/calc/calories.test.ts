@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { calorieNeed, mifflinStJeor } from "./calories";
+import { ageOn, calorieNeed, mifflinStJeor } from "./calories";
 
 describe("Mifflin-St Jeor", () => {
   it("Mann: 80 kg, 180 cm, 30 Jahre", () => {
@@ -16,5 +16,17 @@ describe("Mifflin-St Jeor", () => {
     expect(r.total).toBeCloseTo(2848, 10);
     expect(r.steps[2]).toBe("= 800 + 1.125 − 150 + 5 = 1.780 kcal");
     expect(r.steps[3]).toBe("Gesamtbedarf = Grundumsatz × PAL = 1.780 × 1,6 = 2.848 kcal");
+  });
+});
+
+describe("Alter aus Geburtsdatum", () => {
+  it("vor und nach dem Geburtstag", () => {
+    expect(ageOn("1992-03-14", "2026-03-13")).toBe(33);
+    expect(ageOn("1992-03-14", "2026-03-14")).toBe(34);
+    expect(ageOn("1992-03-14", "2026-10-27")).toBe(34);
+  });
+  it("29. Februar", () => {
+    expect(ageOn("2000-02-29", "2026-02-28")).toBe(25);
+    expect(ageOn("2000-02-29", "2026-03-01")).toBe(26);
   });
 });

@@ -2,6 +2,7 @@ import "server-only";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { ClientProfileRow, MessageRow, ProfileRow, TestResultRow } from "@/lib/db-types";
 import { buildProfileExport } from "@/lib/export/profile";
+import { appToday } from "@/lib/today";
 import type { PrefilterContext } from "./prefilter";
 
 /**
@@ -26,7 +27,7 @@ export async function loadPrefilterContext(admin: SupabaseClient, clientId: stri
     planJson = v ? JSON.stringify(v.content) : "";
   }
   const profileExport = profile
-    ? buildProfileExport(profile as ProfileRow, (cp as ClientProfileRow) ?? null, (tests ?? []) as TestResultRow[], true)
+    ? buildProfileExport(profile as ProfileRow, (cp as ClientProfileRow) ?? null, (tests ?? []) as TestResultRow[], true, appToday())
     : null;
   const history = ((msgs ?? []) as Pick<MessageRow, "sender" | "body">[])
     .slice(1) // die neue Nachricht selbst ist bereits gespeichert

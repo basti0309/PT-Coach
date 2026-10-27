@@ -23,7 +23,7 @@ const optNum = (min: number, max: number) =>
 
 const profileSchema = z.object({
   sex: z.preprocess((v) => (v === "" ? null : v), z.enum(["m", "w"]).nullable()),
-  age: optInt(10, 110),
+  birth_date: z.preprocess((v) => (v === "" || v == null ? null : v), z.iso.date().refine((d) => d >= "1900-01-01" && d <= new Date().toISOString().slice(0, 10)).nullable()),
   height_cm: optNum(100, 250),
   equipment_home: z.string().max(2000),
   gym_access: z.preprocess((v) => (v === "ja" ? true : v === "nein" ? false : null), z.boolean().nullable()),

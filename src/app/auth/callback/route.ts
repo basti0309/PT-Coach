@@ -1,4 +1,5 @@
-import { NextResponse, type NextRequest } from "next/server";
+import { redirectSameHost } from "@/lib/redirect";
+import type { NextRequest } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 // Standard-Link von Supabase (PKCE, ?code=…) – funktioniert im selben Browser.
@@ -7,7 +8,7 @@ export async function GET(request: NextRequest) {
   if (code) {
     const supabase = await createSupabaseServerClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
-    if (!error) return NextResponse.redirect(new URL("/", request.url));
+    if (!error) return redirectSameHost(request, "/");
   }
-  return NextResponse.redirect(new URL("/login?fehler=1", request.url));
+  return redirectSameHost(request, "/login?fehler=1");
 }

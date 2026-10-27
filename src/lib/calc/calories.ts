@@ -41,6 +41,13 @@ export function calorieNeed(input: CalorieInput): CalorieResult {
   };
 }
 
+/** Alter in vollen Jahren am Stichtag (beide als YYYY-MM-DD). */
+export function ageOn(birthDate: string, onDate: string): number {
+  const [by, bm, bd] = birthDate.split("-").map(Number);
+  const [y, m, d] = onDate.split("-").map(Number);
+  return y - by - (m < bm || (m === bm && d < bd) ? 1 : 0);
+}
+
 export const PAL_OPTIONS: { value: number; label: string }[] = [
   { value: 1.2, label: "1,2 – fast nur sitzend/liegend" },
   { value: 1.4, label: "1,4 – sitzend, kaum Bewegung in der Freizeit" },

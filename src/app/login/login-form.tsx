@@ -3,9 +3,9 @@
 import { useActionState } from "react";
 import { loginAction, type LoginState } from "./actions";
 
-const initial: LoginState = { step: "email", email: "" };
+const EMPTY: LoginState = { step: "email", email: "" };
 
-export function LoginForm() {
+export function LoginForm({ initial = EMPTY }: { initial?: LoginState }) {
   const [state, action, pending] = useActionState(loginAction, initial);
 
   if (state.step === "code") {

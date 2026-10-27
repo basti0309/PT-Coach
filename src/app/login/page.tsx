@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { LoginForm } from "./login-form";
 
 export const metadata: Metadata = { title: "Anmelden" };
@@ -22,6 +23,12 @@ export default async function LoginPage({ searchParams }: PageProps<"/login">) {
       <div className="card">
         <LoginForm />
       </div>
+      <p className="text-center text-sm">
+        Neu hier?{" "}
+        <Link href="/registrieren" className="text-brand-700 underline">
+          Mit Einladungscode registrieren
+        </Link>
+      </p>
     </main>
   );
 }

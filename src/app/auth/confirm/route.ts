@@ -1,5 +1,6 @@
+import { redirectSameHost } from "@/lib/redirect";
 import type { EmailOtpType } from "@supabase/supabase-js";
-import { NextResponse, type NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 // Link aus der E-Mail-Vorlage mit token_hash (funktioniert auch in einem anderen Browser).
@@ -9,7 +10,7 @@ export async function GET(request: NextRequest) {
   if (tokenHash) {
     const supabase = await createSupabaseServerClient();
     const { error } = await supabase.auth.verifyOtp({ token_hash: tokenHash, type });
-    if (!error) return NextResponse.redirect(new URL("/", request.url));
+    if (!error) return redirectSameHost(request, "/");
   }
-  return NextResponse.redirect(new URL("/login?fehler=1", request.url));
+  return redirectSameHost(request, "/login?fehler=1");
 }

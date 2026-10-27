@@ -3,7 +3,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { loadProfileData } from "@/lib/data/profile";
 import { authorLabel, loadNames } from "@/lib/data/names";
 import { addTestResult, deleteTestResult, updateClientProfile } from "@/lib/actions/profile";
-import { calorieNeed } from "@/lib/calc/calories";
+import { ageOn, calorieNeed } from "@/lib/calc/calories";
 import { buildExportFile, buildProfileExport, exportFileName, latestTest, TEST_KIND_LABELS } from "@/lib/export/profile";
 import { formatDate, formatDuration, formatNumber } from "@/lib/format";
 import { appToday } from "@/lib/today";
@@ -21,15 +21,17 @@ export async function ProfileSection({ clientId, isCoach }: { clientId: string; 
   const { clientProfile: cp, tests } = data;
   const names = await loadNames(supabase, tests.map((t) => t.created_by));
   const weight = latestTest(tests, "body_weight");
+  const today = appToday();
+  const age = cp?.birth_date ? ageOn(cp.birth_date, today) : null;
   const calories =
-    cp?.sex && cp.age && cp.height_cm && weight?.value
-      ? calorieNeed({ sex: cp.sex, weightKg: weight.value, heightCm: cp.height_cm, age: cp.age, pal: cp.pal_factor })
+    cp?.sex && age && cp.height_cm && weight?.value
+      ? calorieNeed({ sex: cp.sex, weightKg: weight.value, heightCm: cp.height_cm, age, pal: cp.pal_factor })
       : null;
-  const exportFile = isCoach ? buildExportFile(buildProfileExport(data.profile, cp, tests, true), null) : null;
+  const exportFile = isCoach ? buildExportFile(buildProfileExport(data.profile, cp, tests, true, today), null) : null;
 
   return (
     <div className="space-y-4">
-      <ProfileForm profile={cp} isCoach={isCoach} action={updateClientProfile.bind(null, clientId)} />
+      <ProfileForm profile={cp} isCoach={isCoach} age={age} action={updateClientProfile.bind(null, clientId)} />
 
       <section className="card space-y-2">
         <h2 className="h2">Kalorienbedarf</h2>
@@ -44,7 +46,7 @@ export async function ProfileSection({ clientId, isCoach }: { clientId: string; 
             <p className="muted">Gewicht vom {formatDate(weight!.tested_on)} (jüngster Eintrag).</p>
           </>
         ) : (
-          <p className="muted">Für die Berechnung fehlen Geschlecht, Alter, Größe oder ein Körpergewicht (Testwert).</p>
+          <p className="muted">Für die Berechnung fehlen Geschlecht, Geburtsdatum, Größe oder ein Körpergewicht (Testwert).</p>
         )}
         {(cp?.protein_g != null || cp?.fat_g != null || cp?.carbs_g != null) && (
           <p className="text-sm">
@@ -55,7 +57,7 @@ export async function ProfileSection({ clientId, isCoach }: { clientId: string; 
 
       <section className="card space-y-3">
         <h2 className="h2">Testwerte</h2>
-        <TestForm action={addTestResult.bind(null, clientId)} today={appToday()} />
+        <TestForm action={addTestResult.bind(null, clientId)} today={today} />
         {KIND_ORDER.map((kind) => {
           const list = tests.filter((t) => t.kind === kind);
           if (list.length === 0) return null;

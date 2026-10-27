@@ -8,7 +8,7 @@ Annahmen, die über den Auftrag hinaus getroffen wurden, stehen in `docs/ANNAHME
 | Rolle | Wer | Anlage |
 |---|---|---|
 | `coach` | Betreiberin | automatisch beim ersten Login mit der Adresse aus `COACH_EMAIL` |
-| `client` | Kunde | vom Coach unter „Kunden → Neu“ angelegt (Name, E-Mail, Kürzel) |
+| `client` | Kunde | vom Coach unter „Kunden → Neu“ angelegt (Name, E-Mail, Kürzel) oder selbst registriert unter `/registrieren` mit Einladungscode (Code legt der Coach unter „Einrichtung“ fest) |
 
 Wer keinen Eintrag in `profiles` hat, sieht nichts (RLS liefert leere Ergebnisse, App zeigt „Kein Zugang“).
 
@@ -34,7 +34,7 @@ Kundennachrichten werden nicht direkt vom Browser eingefügt, sondern nur über 
 Alle Tabellen mit `created_at`, `updated_at` sowie – wo Nutzer schreiben – `created_by`, `updated_by` (per Trigger aus `auth.uid()` gesetzt, nicht fälschbar). Für Einträge vom Server (Strava) bleibt `created_by` leer → Anzeige „automatisch (Strava)“.
 
 - **profiles**: `id` (= auth.users.id), `role` (`coach`|`client`), `full_name`, `short_code` (Kürzel, eindeutig, für Pseudonymisierung), `email`
-- **client_profiles** (1:1 zu Kunde): `sex` (`m`|`w`), `age`, `height_cm`, `equipment_home`, `gym_access`, `training_days_per_week`, `max_minutes_per_workout`, `notes`, `pal_factor`, `protein_g`, `fat_g`, `carbs_g`
+- **client_profiles** (1:1 zu Kunde): `sex` (`m`|`w`), `birth_date` (Alter wird berechnet), `height_cm`, `equipment_home`, `gym_access`, `training_days_per_week`, `max_minutes_per_workout`, `notes`, `pal_factor`, `protein_g`, `fat_g`, `carbs_g`
 - **test_results** (Historie, nur anfügen/löschen, nie überschreiben): `kind` (`run_5k` Sekunden | `bench_3rm`, `deadlift_3rm`, `squat_3rm`, `body_weight` kg | `mobility` Skala 1–10 + Freitext), `tested_on`, `value`, `scale`, `note`
 - **plans**: je Kunde, `title`, `is_active` (höchstens ein aktiver Plan je Kunde), `current_version`
 - **plan_versions**: unveränderliche Versionen, `version` (1, 2, …), `content` (JSON nach Plan-Schema), `change_note`, `source` (`editor`|`import`|`restore`|`seed`). Neue Version nur über Funktion `save_plan_version()` (atomar).
@@ -47,7 +47,7 @@ Alle Tabellen mit `created_at`, `updated_at` sowie – wo Nutzer schreiben – `
 - **messages**: `client_id` (Gesprächsfaden = Kunde), `sender` (`client`|`coach`|`ai`|`system`), `author_id`, `body`, `ai_action`, `ai_reason`, `needs_coach` (Posteingang), `resolved_at`, `resolved_by`
 - **knowledge_entries**: `kind` (`wissen`|`faq`), `title`, `content`
 - **escalation_rules**: `rule`, `active`, `locked` (Pflichtregel)
-- **app_settings**: `key`, `value` (z. B. Strava-Webhook-Abo-ID)
+- **app_settings**: `key`, `value` (Strava-Webhook-Abo-ID, Einladungscode)
 
 ## 3. Plan-Format
 
@@ -107,4 +107,5 @@ Testroutine: `npm run test:eskalation` gegen `docs/eskalation-testset.json`.
 
 ## 7. Seiten
 Kunde (`/kunde`): Heute · Plan · Training (Verlauf, Erfassen) · Fortschritt (Graphen, Prognosen) · Profil (Testwerte, Kalorien, Strava) · Chat
-Coach (`/coach`): Übersicht · Posteingang · Kunden (Profil, Plan inkl. Editor/Export/Import/Versionen, Training, Fortschritt, Chat) · Wissensbasis · Eskalationsregeln · Einrichtung (Strava-Webhook, Status)
+Coach (`/coach`): Übersicht · Posteingang · Kunden (Profil, Plan inkl. Editor/Export/Import/Versionen, Training, Fortschritt, Chat) · Wissensbasis · Eskalationsregeln · Einrichtung (Strava-Webhook, Einladungscode, Status)
+Öffentlich: `/login`, `/registrieren`

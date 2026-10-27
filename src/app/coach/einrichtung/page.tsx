@@ -4,12 +4,15 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { listSubscriptions, type Subscription } from "@/lib/strava/api";
 import { STRAVA_SUBSCRIPTION_KEY, stravaConfig } from "@/lib/strava/config";
 import { WebhookButtons } from "./webhook-buttons";
+import { InviteForm } from "./invite-form";
+import { INVITE_CODE_KEY } from "@/lib/accounts/invite";
 
 export const metadata = { title: "Einrichtung" };
 
 export default async function SetupPage() {
   const supabase = await createSupabaseServerClient();
   const { data: stored } = await supabase.from("app_settings").select("value, updated_at").eq("key", STRAVA_SUBSCRIPTION_KEY).maybeSingle();
+  const { data: invite } = await supabase.from("app_settings").select("value").eq("key", INVITE_CODE_KEY).maybeSingle();
   const missing = ENV_VARIABLES.filter((v) => v.required && !process.env[v.name]);
   const stravaReady = ["STRAVA_CLIENT_ID", "STRAVA_CLIENT_SECRET", "STRAVA_WEBHOOK_VERIFY_TOKEN", "NEXT_PUBLIC_SITE_URL"].every(
     (n) => process.env[n],
@@ -56,6 +59,14 @@ export default async function SetupPage() {
           ))}
         </dl>
         {stravaReady && <WebhookButtons registered={Boolean(active)} />}
+      </section>
+
+      <section className="card space-y-2">
+        <h2 className="h2">Selbstregistrierung (Einladungscode)</h2>
+        <InviteForm
+          current={typeof invite?.value === "string" ? invite.value : null}
+          registerUrl={process.env.NEXT_PUBLIC_SITE_URL ? `${env.siteUrl()}/registrieren` : "/registrieren"}
+        />
       </section>
 
       <section className="card space-y-2">
