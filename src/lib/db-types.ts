@@ -1,8 +1,9 @@
 // Zeilentypen der Datenbank (von Hand gepflegt, siehe supabase/migrations).
+import type { BlockResults } from "@/lib/calc/blocks";
 import type { PlanContent } from "@/lib/plan/schema";
 
 export type TestKind = "run_5k" | "bench_3rm" | "deadlift_3rm" | "squat_3rm" | "mobility" | "body_weight";
-export type WorkoutKind = "strength" | "wod" | "endurance";
+export type WorkoutKind = "strength" | "wod" | "endurance" | "program";
 
 export interface ProfileRow {
   id: string;
@@ -91,6 +92,7 @@ export interface WorkoutLogRow {
   wod_movements_key: string | null;
   wod_result: WodResult | null;
   wod_weights: string;
+  block_results: BlockResults | null;
   notes: string;
   created_at: string;
   updated_at: string;

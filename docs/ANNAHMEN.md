@@ -28,9 +28,9 @@ Hier steht jede Entscheidung, die der Auftrag offen ließ. Bitte prüfen – all
 17. **Einheiten-IDs** (z. B. `w1d2-lauf`) müssen im Plan eindeutig sein und bleiben bei Änderungen gleich, damit erfasste Trainings ihrer Einheit zugeordnet bleiben. Der KI-Prompt weist darauf hin.
 18. **Ein aktiver Plan je Kunde.** Ein neu angelegter Plan wird automatisch aktiv; ältere Pläne bleiben erhalten und können wieder aktiv gesetzt werden.
 19. **Import** übernimmt nur den Plan-Teil. Der Profil-Teil einer importierten Export-Datei wird ignoriert (das Profil pflegt man in der App).
-20. **JSON Schema und Zod sind gleichwertig**, `docs/plan-schema.json` wird aus Zod erzeugt. Vier Zusatzregeln (IDs eindeutig, Wochen eindeutig, Tage je Woche eindeutig, Ausdauer mit Dauer und/oder Distanz) kann JSON Schema nicht ausdrücken; sie stehen in den Beschreibungen des Schemas und werden in der App zusätzlich geprüft.
+20. **JSON Schema und Zod sind gleichwertig**, `docs/plan-schema.json` wird aus Zod erzeugt. Sieben Zusatzregeln (IDs eindeutig, Wochen eindeutig, Tage je Woche eindeutig, Ausdauer mit Dauer und/oder Distanz, Block-Kennungen je Einheit eindeutig, Ruhetag mit Titel oder Hinweis, Gewicht mit mindestens einem Wert) kann JSON Schema nicht ausdrücken; sie stehen in den Beschreibungen des Schemas und werden in der App zusätzlich geprüft.
 21. **Pseudonymisierung** ersetzt Name durch Kürzel und lässt die E-Mail weg. Freitexte (Notizen) werden unverändert exportiert – dort sollten keine Namen stehen (Hinweis in der App).
-22. Ein **neuer Plan** startet mit einer leeren Woche 1; Inhalte kommen über Editor oder Import.
+22. Ein **neuer Plan** startet mit einer leeren Woche 1; Inhalte kommen über Editor oder Import – oder er entsteht direkt aus einer KI-Antwort („Neuer Plan mit KI“, siehe unten).
 
 ## Trainingserfassung
 23. **Vorbefüllung ohne Historie:** Gibt es für eine Übungs-ID noch keine Werte, stehen die Plan-Vorgaben (Zielgewicht, Wdh.) als Platzhalter im Feld.
@@ -75,3 +75,15 @@ Hier steht jede Entscheidung, die der Auftrag offen ließ. Bitte prüfen – all
 54. **Login-Drosselung:** je IP-Adresse höchstens 10 Anmelde-Mails und 20 Code-Prüfungen pro 15 Minuten sowie 10 Registrierungsversuche pro Stunde (IP nur gehasht gespeichert). Schützt davor, dass jemand durch massenhafte Anfragen die E-Mail-Kontingente aufbraucht und dadurch alle aussperrt.
 55. **Strava-Webhook:** Ereignisse werden erst verarbeitet, wenn das Abo über den Button registriert ist (gespeicherte Abo-ID). Eine abgerufene Aktivität muss dem Athleten gehören, der das Ereignis ausgelöst hat; gesucht, geändert und gelöscht wird nur innerhalb des verbundenen Kunden.
 56. **Selbstregistrierung mit fremder Adresse:** Wer den Einladungscode kennt, könnte eine fremde E-Mail-Adresse registrieren (der Inhaber bekommt dann eine Login-Mail, die Adresse ist belegt). Das bleibt vorerst so; wer den Code hat, ist vertrauenswürdig. Der Coach kann solche Konten in Supabase löschen.
+
+## Programm-Einheiten (Blöcke) und „Neuer Plan mit KI“
+57. **Programm-Einheit** = Einheit aus Blöcken (P1, P2 …) mit je eigener Wertung. Damit lassen sich Pläne wie die HYROX-Programme vollständig abbilden; „Kraft“, „WOD“ und „Ausdauer“ bleiben unverändert erhalten.
+58. **Zuordnung der Wertungen:** Checkmark → `checkmark`, No Measure → `none`, Time → `time`, Distance → `distance`, Weight → `weight`, AMRAP - Reps → `reps`, AMRAP - Rounds → `rounds`, „N rounds for time/weight/distance/reps/calories“ → entsprechender Typ mit `rounds: N` (je Runde ein Eingabefeld).
+59. **Eingabe der Ergebnisse:** Zeit als mm:ss oder h:mm:ss (eine Zahl allein = Minuten), Distanz in km, Gewicht in kg, Wiederholungen/Runden/Kalorien als ganze Zahl. Gespeichert werden Sekunden, Meter, kg bzw. ganze Zahlen. Ein eingetragener Wert hakt den Block automatisch ab.
+60. **Erledigt:** Eine Programm-Einheit ist erledigt, wenn jeder Block mit Wertung (alles außer „keine Wertung“) abgehakt ist. Teilweise ausgefüllte Einheiten werden als „begonnen“ gespeichert.
+61. **Gewichte** stehen im Plan in kg, nach Geschlecht getrennt (`maleKg`/`femaleKg`) oder für alle (`kg`). Die App zeigt dem Kunden den Wert zu seinem Geschlecht aus dem Profil; ohne Angabe beide. Pfund rechnet die KI um (1 lb = 0,45359237 kg, gerundet auf 0,1 kg); Angaben ohne Einheit (z. B. „50/35“) bleiben unverändert im Text.
+62. **Ruhetag** = Tag ohne Einheiten mit Titel und/oder Hinweis. Er erscheint im Plan und auf „Heute“ als „Ruhetag“.
+63. **Blockergebnisse** fließen (noch) nicht in Fortschritts-Graphen oder Prognosen ein; Ausdauer-Auswertungen nutzen weiterhin nur Ausdauer-Einheiten. Im Trainingsverlauf steht die Anzahl erledigter Blöcke, die Werte sieht man über „Öffnen“.
+64. **Neuer Plan mit KI:** Prompt und Vorlage enthalten das Kundenprofil (standardmäßig pseudonymisiert). Lange Pläne darf die KI in Teilen liefern; die App fügt die Teile zusammen, wenn Titel und Startdatum gleich sind und sich die Wochen nicht überschneiden.
+65. **Startdatum der Vorlage** ist der nächste Montag; die KI setzt das Startdatum aus der Beschreibung.
+66. **Testdaten:** Die drei HYROX-Pläne liegen als JSON in `src/lib/plan/fixtures/` (Inhalte auf Englisch wie im Original, Jahr ergänzt: Base Builder ab 01.09.2025, Tempo Runner ab 01.12.2025, Threshold Trainer ab 29.12.2025). Tageshinweise → Hinweis des Tages, Session-Hinweise → Hinweis der Einheit, „Rest Day!“ → Ruhetag, aufeinanderfolgende Blöcke derselben Session → eine Einheit.

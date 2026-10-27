@@ -78,7 +78,8 @@ In GitHub `docs/eskalation-testset.json` öffnen → Stift-Symbol → echte Beis
 
 - **Kunden anlegen** (Kunden → + Kunde) oder per Einladungscode registrieren lassen (`https://DEINE-APP/registrieren`).
 - Kunden installieren die App auf dem Handy: iPhone/Safari → Teilen → „Zum Home-Bildschirm“; Android/Chrome → Menü → „App installieren“. In der installierten App beim Login den **Code** aus der Mail verwenden.
-- **Pläne** anlegen (Editor oder Export → KI → Import), **Wissensbasis** und **Eskalationsregeln** befüllen.
+- **Pläne** anlegen: Kunde → Plan → **Neuer Plan mit KI** (Plan beschreiben → Prompt kopieren → in Claude o. Ä. einfügen → Antwort hochladen), oder leer anlegen und im Editor füllen. Bestehende Pläne ändern: Export & KI-Prompt → Import.
+- **Wissensbasis** und **Eskalationsregeln** befüllen.
 
 ---
 
@@ -87,9 +88,9 @@ In GitHub `docs/eskalation-testset.json` öffnen → Stift-Symbol → echte Beis
 Claude erledigt diese Schritte in einer neuen Sitzung mit den Schlüsseln aus A1 und fragt vor jeder Änderung nach deinem OK.
 
 - **B1 Datenbank prüfen:**
-  - Sind alle drei Migrationen eingespielt? Fehlende werden nachgeholt.
+  - Sind alle Migrationen eingespielt? Fehlende werden nachgeholt.
   - Ist Realtime für den Chat aktiv?
-  - Der Rechte-Test wird erneut ausgeführt; erwartet sind „ALLE TESTS BESTANDEN (50)“.
+  - Der Rechte-Test wird erneut ausgeführt; erwartet sind „ALLE TESTS BESTANDEN (55)“.
 - **B2 Supabase-Anmeldung einstellen:**
   - Login-Mailvorlage mit Link und Code (Text siehe Anhang).
   - Site URL und Redirect URLs auf die App-Adresse.
@@ -140,9 +141,9 @@ Falls du Teil B lieber selbst machst:
 ### Bereits erledigte Schritte (zur Referenz)
 
 - **1 Projekt:** supabase.com → New project, Region Central EU (Frankfurt).
-- **1a Migrationen:** SQL Editor → nacheinander `supabase/migrations/20261027000100_grundgeruest.sql`, `…000200_standarddaten.sql`, `…000300_absicherung.sql` je einmal ausführen. Neue Migrationen später nur zusätzlich, in Namensreihenfolge.
+- **1a Migrationen:** SQL Editor → nacheinander `supabase/migrations/20261027000100_grundgeruest.sql`, `…000200_standarddaten.sql`, `…000300_absicherung.sql` und `20261028000100_programm_bloecke.sql` je einmal ausführen. Neue Migrationen später nur zusätzlich, in Namensreihenfolge.
 - **1b Demo-Daten (optional):** `supabase/seed.sql`; entfernen mit `supabase/seed_entfernen.sql`.
-- **1c Rechte-Test:** `supabase/tests/rls_test.sql` → letzte Zeile „ALLE TESTS BESTANDEN (50)“.
+- **1c Rechte-Test:** `supabase/tests/rls_test.sql` → letzte Zeile „ALLE TESTS BESTANDEN (55)“.
 
 ---
 

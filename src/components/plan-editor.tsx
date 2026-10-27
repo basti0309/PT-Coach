@@ -4,12 +4,18 @@ import { useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { SPORTS, SPORT_LABELS, type Sport } from "@/lib/calc/sport";
 import { newSessionId, slugify } from "@/lib/plan/ids";
+import { SCORING_LABELS } from "@/lib/calc/blocks";
 import {
+  SCORING_TYPES,
   WOD_TYPES,
   WOD_TYPE_LABELS,
+  type BlockLoad,
   type EnduranceSession,
   type PlanContent,
   type PlanSession,
+  type ProgramBlock,
+  type ProgramSession,
+  type ScoringType,
   type StrengthExercise,
   type StrengthSession,
   type WodMovement,
@@ -96,6 +102,17 @@ function cleanPlan(plan: PlanContent): PlanContent {
             sessions: d.sessions.map((s) => {
               if (s.type === "strength") return clean({ ...s, exercises: s.exercises.map((e) => clean(e)) });
               if (s.type === "wod") return clean({ ...s, movements: s.movements.map((m) => clean(m)) });
+              if (s.type === "program")
+                return clean({
+                  ...s,
+                  blocks: s.blocks.map((b) =>
+                    clean({
+                      ...b,
+                      scoring: clean(b.scoring),
+                      loads: b.loads && b.loads.length > 0 ? b.loads.map((l) => clean(l)) : undefined,
+                    }),
+                  ),
+                });
               return clean(s);
             }),
           }),
@@ -237,6 +254,111 @@ function EnduranceEditor({ s, onChange }: { s: EnduranceSession; onChange: (s: E
   );
 }
 
+const SESSION_LABELS = { strength: "Kraft", wod: "WOD", endurance: "Ausdauer", program: "Programm" } as const;
+
+function LoadsEditor({ loads, onChange }: { loads: BlockLoad[]; onChange: (loads: BlockLoad[]) => void }) {
+  const setLoad = (i: number, l: BlockLoad) => onChange(loads.map((x, j) => (j === i ? l : x)));
+  return (
+    <div className="space-y-1">
+      {loads.map((l, i) => (
+        <div key={i} className="grid grid-cols-2 gap-2 sm:grid-cols-5">
+          <div className="col-span-2">
+            <TextField label="Gewicht für" value={l.label} onChange={(label) => setLoad(i, { ...l, label })} />
+          </div>
+          <NumberField label="Männer kg" value={l.maleKg} onChange={(v) => setLoad(i, { ...l, maleKg: v })} />
+          <NumberField label="Frauen kg" value={l.femaleKg} onChange={(v) => setLoad(i, { ...l, femaleKg: v })} />
+          <NumberField label="alle kg" value={l.kg} onChange={(v) => setLoad(i, { ...l, kg: v })} />
+          <button type="button" className="btn-danger btn-small col-span-2 sm:col-span-5 sm:justify-self-start" onClick={() => onChange(loads.filter((_, j) => j !== i))}>
+            Gewicht entfernen
+          </button>
+        </div>
+      ))}
+      <button type="button" className="btn-secondary btn-small" onClick={() => onChange([...loads, { label: "" }])}>
+        + Gewicht
+      </button>
+    </div>
+  );
+}
+
+function ProgramEditor({ s, onChange }: { s: ProgramSession; onChange: (s: ProgramSession) => void }) {
+  const setBlock = (i: number, b: ProgramBlock) => onChange({ ...s, blocks: s.blocks.map((x, j) => (j === i ? b : x)) });
+  const moveBlock = (i: number, delta: number) => {
+    const target = i + delta;
+    if (target < 0 || target >= s.blocks.length) return;
+    const arr = [...s.blocks];
+    [arr[i], arr[target]] = [arr[target], arr[i]];
+    onChange({ ...s, blocks: arr });
+  };
+  const nextKey = () => {
+    const used = new Set(s.blocks.map((b) => b.key));
+    let n = s.blocks.length + 1;
+    while (used.has(`p${n}`)) n++;
+    return `p${n}`;
+  };
+  return (
+    <div className="space-y-2">
+      <TextField label="Titel" value={s.title} onChange={(title) => onChange({ ...s, title })} />
+      <TextField label="Hinweis zur Einheit" value={s.notes} onChange={(notes) => onChange({ ...s, notes })} multiline />
+      {s.blocks.map((b, i) => (
+        <div key={i} className="space-y-2 rounded-lg bg-slate-50 p-2">
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-6">
+            <TextField label="Kürzel (z. B. P1)" value={b.label} onChange={(label) => setBlock(i, { ...b, label })} />
+            <TextField label="Block-Kennung" value={b.key} onChange={(key) => setBlock(i, { ...b, key })} />
+            <div className="col-span-2">
+              <TextField label="Name" value={b.name} onChange={(name) => setBlock(i, { ...b, name })} />
+            </div>
+            <label className="block text-xs text-slate-600">
+              Wertung
+              <select
+                className="input min-h-9 py-1 text-sm"
+                value={b.scoring.type}
+                onChange={(e) => setBlock(i, { ...b, scoring: { ...b.scoring, type: e.target.value as ScoringType } })}
+              >
+                {SCORING_TYPES.map((t) => (
+                  <option key={t} value={t}>
+                    {SCORING_LABELS[t]}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <NumberField
+              label="Runden (je Runde ein Wert)"
+              step="1"
+              value={b.scoring.rounds}
+              onChange={(v) => setBlock(i, { ...b, scoring: { ...b.scoring, rounds: v } })}
+            />
+          </div>
+          <TextField label="Details (eine Angabe pro Zeile)" value={b.details} onChange={(details) => setBlock(i, { ...b, details })} multiline />
+          <TextField label="Coach-Hinweise" value={b.coachNotes} onChange={(coachNotes) => setBlock(i, { ...b, coachNotes })} multiline />
+          <LoadsEditor loads={b.loads ?? []} onChange={(loads) => setBlock(i, { ...b, loads })} />
+          <div className="flex flex-wrap gap-2">
+            <button type="button" className="btn-secondary btn-small" onClick={() => moveBlock(i, -1)}>
+              ↑
+            </button>
+            <button type="button" className="btn-secondary btn-small" onClick={() => moveBlock(i, 1)}>
+              ↓
+            </button>
+            <button
+              type="button"
+              className="btn-danger btn-small"
+              onClick={() => onChange({ ...s, blocks: s.blocks.filter((_, j) => j !== i) })}
+            >
+              Block entfernen
+            </button>
+          </div>
+        </div>
+      ))}
+      <button
+        type="button"
+        className="btn-secondary btn-small"
+        onClick={() => onChange({ ...s, blocks: [...s.blocks, { key: nextKey(), name: "", scoring: { type: "checkmark" } }] })}
+      >
+        + Block
+      </button>
+    </div>
+  );
+}
+
 export function PlanEditor({ initial, save, backHref }: { initial: PlanContent; save: SaveFn; backHref: string }) {
   const [plan, setPlan] = useState<PlanContent>(initial);
   const [note, setNote] = useState("");
@@ -261,13 +383,15 @@ export function PlanEditor({ initial, save, backHref }: { initial: PlanContent; 
   const addSession = (wi: number, di: number, type: PlanSession["type"]) => {
     const w = plan.weeks[wi];
     const d = w.days[di];
-    const id = newSessionId(allIds, w.week, d.day, { strength: "kraft", wod: "wod", endurance: "ausdauer" }[type]);
+    const id = newSessionId(allIds, w.week, d.day, { strength: "kraft", wod: "wod", endurance: "ausdauer", program: "programm" }[type]);
     const session: PlanSession =
       type === "strength"
         ? { id, type, title: "Kraft", exercises: [{ exerciseId: "", name: "", sets: 3, reps: 8, restSeconds: 90 }] }
         : type === "wod"
           ? { id, type, name: "WOD", wodType: "for_time", movements: [{ name: "" }] }
-          : { id, type, sport: "laufen", durationMinutes: 30, intensity: "locker" };
+          : type === "program"
+            ? { id, type, title: "Einheit", blocks: [{ key: "p1", label: "P1", name: "", scoring: { type: "checkmark" } }] }
+            : { id, type, sport: "laufen", durationMinutes: 30, intensity: "locker" };
     updateWeek(wi, (wk) => ({
       ...wk,
       days: wk.days.map((dd, j) => (j === di ? { ...dd, sessions: [...dd.sessions, session] } : dd)),
@@ -347,9 +471,12 @@ export function PlanEditor({ initial, save, backHref }: { initial: PlanContent; 
       </div>
 
       {plan.weeks.map((w, wi) => (
-        <section key={wi} className="card space-y-3">
+        <details key={wi} className="card space-y-3" open={plan.weeks.length <= 4}>
+          <summary className="h2 min-h-11 cursor-pointer py-2">
+            Woche {w.week}
+            {w.focus && <span className="font-normal text-slate-500"> · {w.focus}</span>}
+          </summary>
           <div className="flex flex-wrap items-end gap-2">
-            <h3 className="h2">Woche {w.week}</h3>
             <div className="min-w-40 flex-1">
               <TextField label="Schwerpunkt" value={w.focus} onChange={(focus) => updateWeek(wi, (x) => ({ ...x, focus }))} />
             </div>
@@ -404,12 +531,16 @@ export function PlanEditor({ initial, save, backHref }: { initial: PlanContent; 
                   Tag löschen
                 </button>
               </div>
+              <TextField
+                label="Hinweis zum Tag (ohne Einheiten = Ruhetag)"
+                value={d.notes}
+                onChange={(notes) => updateWeek(wi, (x) => ({ ...x, days: x.days.map((dd, j) => (j === di ? { ...dd, notes } : dd)) }))}
+                multiline
+              />
               {d.sessions.map((s, si) => (
                 <div key={s.id + si} className="space-y-2 rounded-lg border border-dashed border-slate-300 p-2">
                   <div className="flex flex-wrap items-center gap-2 text-sm">
-                    <span className="badge bg-slate-100 text-slate-700">
-                      {{ strength: "Kraft", wod: "WOD", endurance: "Ausdauer" }[s.type]}
-                    </span>
+                    <span className="badge bg-slate-100 text-slate-700">{SESSION_LABELS[s.type]}</span>
                     <span className="font-mono text-xs text-slate-500">ID: {s.id}</span>
                     <span className="flex-1" />
                     <button type="button" className="btn-secondary btn-small" onClick={() => moveSession(wi, di, si, -1)}>
@@ -433,7 +564,13 @@ export function PlanEditor({ initial, save, backHref }: { initial: PlanContent; 
                   </div>
                   {s.type === "strength" && <StrengthEditor s={s} onChange={(n) => updateSession(wi, di, si, n)} />}
                   {s.type === "wod" && <WodEditor s={s} onChange={(n) => updateSession(wi, di, si, n)} />}
+                  <TextField
+                    label="Zuordnung im Tag (optional, z. B. AM / PM)"
+                    value={s.label}
+                    onChange={(label) => updateSession(wi, di, si, { ...s, label })}
+                  />
                   {s.type === "endurance" && <EnduranceEditor s={s} onChange={(n) => updateSession(wi, di, si, n)} />}
+                  {s.type === "program" && <ProgramEditor s={s} onChange={(n) => updateSession(wi, di, si, n)} />}
                 </div>
               ))}
               <div className="flex flex-wrap gap-2">
@@ -446,13 +583,16 @@ export function PlanEditor({ initial, save, backHref }: { initial: PlanContent; 
                 <button type="button" className="btn-secondary btn-small" onClick={() => addSession(wi, di, "endurance")}>
                   + Ausdauer
                 </button>
+                <button type="button" className="btn-secondary btn-small" onClick={() => addSession(wi, di, "program")}>
+                  + Programm
+                </button>
               </div>
             </div>
           ))}
           <button type="button" className="btn-secondary btn-small" onClick={() => addDay(wi)} disabled={w.days.length >= 7}>
             + Tag
           </button>
-        </section>
+        </details>
       ))}
 
       <button

@@ -1,0 +1,3703 @@
+{
+  "schemaVersion": 1,
+  "title": "HYROX PRO – Base Builder",
+  "startDate": "2025-09-01",
+  "notes": "Abschrift aus der App HYROX PRO (Testdaten). Inhalte auf Englisch wie im Original, Gewichte zusätzlich in kg.",
+  "weeks": [
+    {
+      "week": 1,
+      "days": [
+        {
+          "day": 1,
+          "title": "Base builder · Week 1 - Day 1",
+          "sessions": [
+            {
+              "id": "w1d1-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "10 minute warm up run",
+                  "scoring": {
+                    "type": "distance"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "30 minute max distance test",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• record how far you run",
+                  "coachNotes": "*This is all about bringing the heart rate down and flushing the legs out to enhance your recovery time. It is best to negative split this run, don't have fast miles in the beginning then have sloppy miles at the end.\n*This is a very important test. Do your best, there is no perfect score. This is a baseline test. Wear a heart rate monitor if you can. You can do this on your treadmill, however if you do you must retest on a treadmill too."
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "10 minute cool down run",
+                  "scoring": {
+                    "type": "distance"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "Base builder · Week 1 - Day 2",
+          "sessions": [
+            {
+              "id": "w1d2-1",
+              "type": "program",
+              "title": "30 minute easy run or 60 minute hike",
+              "blocks": [
+                {
+                  "key": "30-minute-easy-run-or-60-minute-hike",
+                  "name": "30 minute easy run or 60 minute hike",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "coachNotes": "*Make the choice based off how you feel from the hard effort from yesterday. Some of you will have harder times recovering from speed work, ideally we want to spend more time running but it is more important to stay healthy and strong during your training.\n*The bike is great if you need more recovery time."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "Base builder · Week 1 - Day 3",
+          "sessions": [
+            {
+              "id": "w1d3-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Take 15 minutes to find your 3 rep max deadlift",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "coachNotes": "*This is to find you max strength. Be smart and safe with this test. Remember you aren't a powerlifter, you are an athlete."
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "wall balls",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• 100 wall balls for time - 20lbs (9,1 kg) men | 14lbs (6,4 kg) women\n• Rest 5-8 minutes after this",
+                  "loads": [
+                    {
+                      "label": "100 wall balls for time",
+                      "maleKg": 9.1,
+                      "femaleKg": 6.4
+                    }
+                  ]
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "5k ski or row test",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• I would prefer using the ski erg but if you only have access to a rower this will do.\n• Warm up the body for 5-10 minutes with an easy row before you start the test. This is a muscular endurance test. Very different from your run test but just as hard, make sure to fuel properly before this."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "Base Builder · Week 1 - Day 4",
+          "sessions": [
+            {
+              "id": "w1d4-1",
+              "type": "program",
+              "title": "30 minute easy run or 60 minute hike",
+              "blocks": [
+                {
+                  "key": "30-minute-easy-run-or-60-minute-hike",
+                  "name": "30 minute easy run or 60 minute hike",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Make the choice based off how you feel from the hard effort from yesterday\n• Go very easy on this"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "Week 1 - Day 5 · STRENGTH TEST",
+          "sessions": [
+            {
+              "id": "w1d5-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "take 15 minutes to find your 3 rep max bench press",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "• This is to find you max strength"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "Max strict pull up test- 2 minutes",
+                  "scoring": {
+                    "type": "reps"
+                  },
+                  "details": "• Take as many breaks as possible. This is a strength endurance test, No kipping and no dropping from the top. Chin over the bar at the top, full arm extension at the bottom.\n• The goal is to test muscular pull stamina. Get good reps in, don't cheat to get a fake high score.\n• Rest 5 minutes after this"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "100m walking lunge test",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• 65 lbs (29,5 kg) men | 45 lbs (20,4 kg) women on back\n• Knee must touch the ground, fully stand at the top of each rep.",
+                  "loads": [
+                    {
+                      "label": "100m walking lunge test",
+                      "maleKg": 29.5,
+                      "femaleKg": 20.4
+                    }
+                  ]
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "5 minute max rep bar facing burpee test",
+                  "scoring": {
+                    "type": "reps"
+                  },
+                  "details": "• Each burpee must be to the floor and you must be fully facing the barbell each rep. At the top of each rep you must jump fully over the bar to the other side.\n• The plate must have a 45lb (20,4 kg) plate on each side to create specific height for the jump performed in each rep.",
+                  "loads": [
+                    {
+                      "label": "The plate must have a",
+                      "kg": 20.4
+                    }
+                  ]
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "1 mile cool down run",
+                  "scoring": {
+                    "type": "distance"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "Base builder · Week 1 - Day 5",
+          "sessions": [
+            {
+              "id": "w1d6-1",
+              "type": "program",
+              "title": "Go for a 90 minute hike or bike ride",
+              "blocks": [
+                {
+                  "key": "go-for-a-90-minute-hike-or-bike-ride",
+                  "name": "Go for a 90 minute hike or bike ride",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• This effort is here to build endurance. Since we had a heavy test week we want to keep the intensity very low to make sure that you are fully recovered for next week's training.\n• Keep your RPE or heart rate below 70% effort level. This will become a key session each week for you to build the endurance needed for race day."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "sessions": [
+            {
+              "id": "w1d7-1",
+              "type": "program",
+              "title": "60 - minute walk or hike",
+              "blocks": [
+                {
+                  "key": "60-minute-walk-or-hike",
+                  "name": "60 - minute walk or hike",
+                  "scoring": {
+                    "type": "reps"
+                  },
+                  "details": "• Walking helps burn fat and recover the body for further training.\n• Walking can burn upwards of 350 calories an hour, almost purely from body fat. Doing this daily for a month will burn 10,500 calories or 3 lbs of fat. Don't skip your walks :)"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "days": [
+        {
+          "day": 1,
+          "title": "Base builder · Week 2 - Day 1",
+          "sessions": [
+            {
+              "id": "w2d1-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "blocks": [
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "50 minute cut down run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• every 10 minutes cut down your pace by 30s per mile\n• this should be a very easy start. The last 10 minutes should be at race pace or above.\n• do not rush this! If you are tired by the last 10 minutes you have failed the design of this workout. Speed is the most important part at the end of this run."
+                }
+              ]
+            },
+            {
+              "id": "w2d1-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION – gym session",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "3x3 deadlift",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 3 minutes rest between each set\n• Lift these as if it were a 5 rep max effort"
+                },
+                {
+                  "key": "p2-2",
+                  "label": "P2",
+                  "name": "3x5 shoulder press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x8 DB split squat",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "10 minute conditioning",
+                  "scoring": {
+                    "type": "rounds"
+                  },
+                  "details": "P1. 1500m row\nP2. AMRAP:\n• 12 db push press 50/35\n• 6 burpee box jump overs",
+                  "coachNotes": "**How to complete: Start with 1500m row. With remaining time, complete an AMRAP of 12 db push press and 6 burpee box jump overs with remaining time in 10 minutes."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "Base builder · Week 2 - Day 2",
+          "sessions": [
+            {
+              "id": "w2d2-1",
+              "type": "program",
+              "title": "60 minute easy bike session",
+              "blocks": [
+                {
+                  "key": "60-minute-easy-bike-session",
+                  "name": "60 minute easy bike session",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "coachNotes": "This is meant to be a rest day and a stamina building session. Do not make the mistake of making this a hard workout. Save it for the important workouts to come!"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "Base builder · Week 2 - Day 3",
+          "sessions": [
+            {
+              "id": "w2d3-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "3x3 front squat",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "ass to grass!\n• 3 minutes rest between each set\n• Lift these as if it were a 5 rep max effort"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x5 barbell row",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "3x8 single arm db bench press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "10 minute AMRAP",
+                  "scoring": {
+                    "type": "rounds"
+                  },
+                  "details": "• 10 box jump\n• 20 wall balls (20lb (9,1 kg) men | 14lb (6,4 kg) women)",
+                  "coachNotes": "This is going to be a lot for your legs to handle if you are not used to putting a lot of work into your legs. If this is the case, do your best to take small breaks often.",
+                  "loads": [
+                    {
+                      "label": "20 wall balls",
+                      "maleKg": 9.1,
+                      "femaleKg": 6.4
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "Base Builder · Week 2 - Day 4",
+          "sessions": [
+            {
+              "id": "w2d4-1",
+              "type": "program",
+              "title": "45 minute run",
+              "blocks": [
+                {
+                  "key": "45-minute-run",
+                  "name": "45 minute run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Keep the pace 2-3 minutes above your time trial pace.\n• Take today easy, walk if you need some breaks from yesterday's workouts."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "Base builder · Week 2 - Day 5 · Power day",
+          "sessions": [
+            {
+              "id": "w2d5-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "3x3 power clean",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 3 minutes rest between each set\n• Lift these as if it were a 5 rep max effort"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x5 barbell push press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "3x8 weighted pull ups",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minute rest between sets\n• All of these lifts are meant to be explosive, not heavy. If you feel that the weight is moving slow then you are doing this wrong. Focus on being explosive!"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "15/10/5",
+                  "scoring": {
+                    "type": "time",
+                    "rounds": 3
+                  },
+                  "details": "• Barbell thruster (135lb (61,2 kg) men | 95lb (43,1 kg) women)\n• Burpee pull up",
+                  "coachNotes": "Sprint the shit out of this workout! Do your best not to put it down.\n**how to complete:\n3 rounds total\n• round one: 15 reps each\n• round two: 10 reps each\n• round three: 5 reps each",
+                  "loads": [
+                    {
+                      "label": "Barbell thruster",
+                      "maleKg": 61.2,
+                      "femaleKg": 43.1
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "Base builder · Week 2 - Day 5",
+          "sessions": [
+            {
+              "id": "w2d6-1",
+              "type": "program",
+              "title": "Machine stamina day",
+              "blocks": [
+                {
+                  "key": "machine-stamina-day",
+                  "name": "Machine stamina day",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• 10 minute run\n• 10 minute ski erg\n• 10 minute row erg\n• 10 minute bike erg\n• 10 minute run",
+                  "coachNotes": "Your goal is to hold 60-70% effort on all stations. Get this done in complete control! If you get to the end of this workout feeling like you are about to fall apart then you did this workout way too hard. Smooth is the path for this workout."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "days": [
+        {
+          "day": 1,
+          "title": "Base builder · Week 3 - Day 1",
+          "sessions": [
+            {
+              "id": "w3d1-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "blocks": [
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "50 minute cut down run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• every 10 minutes cut down your pace by 30s per mile\n• this should be a very easy start. The last 10 minutes should be at race pace or above.\n• do not rush this! If you are tired by the last 10 minutes you have failed the design of this workout. Speed is the most important part at the end of this run.\n• your goal is to cover more distance than last weeks run. More importantly make the last 10 minutes of the run faster"
+                }
+              ]
+            },
+            {
+              "id": "w3d1-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION – gym session",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "3x3 deadlift",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 3 minutes rest between each set\n• Lift these as if it were a 5 rep max effort"
+                },
+                {
+                  "key": "p2-2",
+                  "label": "P2",
+                  "name": "3x5 shoulder press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x8 DB split squat",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "12 minute amrap",
+                  "scoring": {
+                    "type": "rounds"
+                  },
+                  "details": "• 2000m ski\n• with remaining time max kb snatch (50lb (22,7 kg) men | 35 lb (15,9 kg) women)",
+                  "coachNotes": "switch sides as often as you want for kb snatch",
+                  "loads": [
+                    {
+                      "label": "with remaining time max kb snatch",
+                      "maleKg": 22.7,
+                      "femaleKg": 15.9
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "Base builder · Week 3 - Day 2",
+          "sessions": [
+            {
+              "id": "w3d2-1",
+              "type": "program",
+              "title": "70 minute easy bike session",
+              "blocks": [
+                {
+                  "key": "70-minute-easy-bike-session",
+                  "name": "70 minute easy bike session",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "coachNotes": "This is meant to be a rest day and a stamina building session. Do not make the mistake of making this a hard workout. Save it for the important workouts to come!"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "Base builder · Week 3 - Day 3",
+          "sessions": [
+            {
+              "id": "w3d3-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "3x3 front squat",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "ass to grass!\n• 3 minutes rest between each set\n• Lift these as if it were a 5 rep max effort"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x5 barbell row",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "3x8 single arm db bench press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "10 rounds",
+                  "scoring": {
+                    "type": "time",
+                    "rounds": 10
+                  },
+                  "details": "• 10 kb swing (70lb (31,8 kg) men | 50 lb (22,7 kg) women)\n• 15 push ups (add vest if you are feeling macho)",
+                  "loads": [
+                    {
+                      "label": "10 kb swing",
+                      "maleKg": 31.8,
+                      "femaleKg": 22.7
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "Base Builder · Week 3 - Day 4",
+          "sessions": [
+            {
+              "id": "w3d4-1",
+              "type": "program",
+              "title": "50 minute run",
+              "blocks": [
+                {
+                  "key": "50-minute-run",
+                  "name": "50 minute run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Keep the pace 2-3 minutes above your time trial pace.\n• Take today easy, walk if you need some breaks from yesterday's workouts."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "Base builder · Week 3 - Day 5 · Power day",
+          "sessions": [
+            {
+              "id": "w3d5-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "3x3 power clean",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 3 minutes rest between each set\n• Lift these as if it were a 5 rep max effort"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x5 barbell push press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "3x8 weighted pull ups",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minute rest between sets\n• All of these lifts are meant to be explosive, not heavy. If you feel that the weight is moving slow then you are doing this wrong. Focus on being explosive!"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "30 clean and jerk",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• 135lb (61,2 kg) men | 95lb (43,1 kg) women\n• If you can't do clean and jerk, do 30 power cleans into 20 burpee over the bar.",
+                  "coachNotes": "Go hard!!",
+                  "loads": [
+                    {
+                      "label": "30 clean and jerk",
+                      "maleKg": 61.2,
+                      "femaleKg": 43.1
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "Base builder · Week 3 - Day 5",
+          "sessions": [
+            {
+              "id": "w3d6-1",
+              "type": "program",
+              "title": "Machine stamina day",
+              "blocks": [
+                {
+                  "key": "machine-stamina-day",
+                  "name": "Machine stamina day",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• 12 minute run\n• 12 minute ski erg\n• 12 minute row erg\n• 12 minute bike erg\n• 12 minute run",
+                  "coachNotes": "Your goal is to hold 60-70% effort on all stations. Get this done in complete control! If you get to the end of this workout feeling like you are about to fall apart then you did this workout way too hard. Smooth is the path for this workout."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "days": [
+        {
+          "day": 1,
+          "title": "Base Builder (recovery week) · Week 4 - Day 1",
+          "sessions": [
+            {
+              "id": "w4d1-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "50 minute cut down run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• every 5 minutes cut down your pace by up to 30s per mile\n• this should be a very easy start. The last 10 minutes should be at race pace or above.\n• do not rush this! If you are tired by the last 10 minutes you have failed the design of this workout. Speed is the most important part at the end of this run."
+                }
+              ]
+            },
+            {
+              "id": "w4d1-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION – Gym session",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x3 deadlift",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• deficit deadlift (standing on 45lb (20,4 kg) plate)\n• 3 minutes rest between each set\n• lift these as if it were a 5 rep max effort",
+                  "loads": [
+                    {
+                      "label": "deficit deadlift",
+                      "kg": 20.4
+                    }
+                  ]
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "3x5 shoulder press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• slow negative down\n• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "3x8 db reverse lunges (each leg)",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p6",
+                  "label": "P6",
+                  "name": "chipper",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• 1 mile run - 70% effort\n• 50m sled push - race weight\n• 1 minute rest\n• 1 mile run - 80% effort\n• 50m sled pull - race weight\n• 1 minute rest\n• 1 mile run - 90% effort\n• 100m burpee broad jump",
+                  "coachNotes": "This is an ascending effort. Be slow to start, completely in control."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "Base builder · Week 4 - Day 2",
+          "sessions": [
+            {
+              "id": "w4d2-1",
+              "type": "program",
+              "title": "70 minute easy bike session",
+              "blocks": [
+                {
+                  "key": "70-minute-easy-bike-session",
+                  "name": "70 minute easy bike session",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "coachNotes": "This is meant to be a rest day and a stamina building session. Do not make the mistake of making this a hard workout. Save it for the important workouts to come!"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "Base builder · Week 4 - Day 3",
+          "sessions": [
+            {
+              "id": "w4d3-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "3x3 front squat",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "ass to grass!\n• 3 sec pause at the bottom\n• 3 minutes rest between each set\n• Lift these as if it were a 5 rep max effort"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x5 barbell row",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "3x8 db incline bench press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "10 rounds",
+                  "scoring": {
+                    "type": "time",
+                    "rounds": 10
+                  },
+                  "details": "• 15 calorie row\n• 15 wall balls 20lb (9,1 kg) men | 14lb (6,4 kg) women",
+                  "coachNotes": "Add intensity as you go during this workout. Try to max out near the end",
+                  "loads": [
+                    {
+                      "label": "15 wall balls",
+                      "maleKg": 9.1,
+                      "femaleKg": 6.4
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "Base Builder · Week 4 - Day 4",
+          "sessions": [
+            {
+              "id": "w4d4-1",
+              "type": "program",
+              "title": "50 minute run",
+              "blocks": [
+                {
+                  "key": "50-minute-run",
+                  "name": "50 minute run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Keep the pace 2-3 minutes above your time trial pace.\n• Take today easy, walk if you need some breaks from yesterday's workouts."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "Base builder · Week 4 - Day 5 · Power day",
+          "sessions": [
+            {
+              "id": "w4d5-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "3x3 clean pull",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 3 minutes rest between each set\n• Lift these as if it were a 5 rep max effort"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x5 barbell strict press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "3x8 weighted chin ups",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minute rest between sets\n• All of these lifts are meant to be explosive, not heavy. If you feel that the weight is moving slow then you are doing this wrong. Focus on being explosive!"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "30 chipper",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• 30 devil press 50/35lb (22,7/15,9 kg)\n• 30 box jump\n• 30 pull ups - kipping",
+                  "coachNotes": "This workout should be fast! Go has hard you can!!",
+                  "loads": [
+                    {
+                      "label": "30 devil press",
+                      "maleKg": 22.7,
+                      "femaleKg": 15.9
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "Base builder · Week 4 - Day 5",
+          "sessions": [
+            {
+              "id": "w4d6-1",
+              "type": "program",
+              "title": "Machine stamina day",
+              "blocks": [
+                {
+                  "key": "machine-stamina-day",
+                  "name": "Machine stamina day",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• 30 minute run\n• 20 minute ski\n• 20 minute row",
+                  "coachNotes": "Your goal is to hold 60-70% effort on all stations. Get this done in complete control! If you get to the end of this workout feeling like you are about to fall apart then you did this workout way too hard. Smooth is the path for this workout."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "days": [
+        {
+          "day": 1,
+          "title": "Base Builder · Week 5 - Day 1",
+          "sessions": [
+            {
+              "id": "w5d1-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "50 minute cut down run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• every 5 minutes cut down your pace by up to 30s per mile\n• this should be a very easy start. The last 10 minutes should be at race pace or above.\n• do not rush this! If you are tired by the last 10 minutes you have failed the design of this workout. Speed is the most important part at the end of this run."
+                }
+              ]
+            },
+            {
+              "id": "w5d1-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION – Gym session",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x3 deadlift",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• deficit deadlift (standing on 45lb (20,4 kg) plate)\n• 3 minutes rest between each set\n• lift these as if it were a 5 rep max effort",
+                  "loads": [
+                    {
+                      "label": "deficit deadlift",
+                      "kg": 20.4
+                    }
+                  ]
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "3x5 shoulder press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• slow negative down\n• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "3x8 db reverse lunges (each leg)",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p6",
+                  "label": "P6",
+                  "name": "Strongman training",
+                  "scoring": {
+                    "type": "time",
+                    "rounds": 5
+                  },
+                  "details": "• 10 zercher front squats\n• 20m sandbag front load carry",
+                  "coachNotes": "Get heavier each round\n2 minutes rest between rounds"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "Base builder · Week 5 - Day 2",
+          "sessions": [
+            {
+              "id": "w5d2-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "20 minute warm up on bike 60-70%",
+                  "scoring": {
+                    "type": "distance"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "power training",
+                  "scoring": {
+                    "type": "distance",
+                    "rounds": 5
+                  },
+                  "details": "5 rounds on bike:\n• 5 minutes 80% effort\n• 5 minute 60% effort",
+                  "coachNotes": "This workout is meant to help add sustainable power to your fitness. It will be especially helpful for sleds and machines. Do your best to keep a steady level of effort throughout the workout!"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "10 minute cool down",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "Base builder · Week 5 - Day 3",
+          "sessions": [
+            {
+              "id": "w5d3-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "3x3 front squat",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "ass to grass!\n• 3 sec pause at the bottom\n• 3 minutes rest between each set\n• Lift these as if it were a 5 rep max effort"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x5 barbell row",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "3x8 db incline bench press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "10 rounds",
+                  "scoring": {
+                    "type": "time",
+                    "rounds": 10
+                  },
+                  "details": "• 8 pull ups\n• 10 cal ski\n• 12 dips",
+                  "coachNotes": "Do your best to keep this workout smooth. No big spikes in heart rate."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "Base Builder · Week 5 - Day 4",
+          "sessions": [
+            {
+              "id": "w5d4-1",
+              "type": "program",
+              "title": "65 minute run",
+              "blocks": [
+                {
+                  "key": "65-minute-run",
+                  "name": "65 minute run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Keep the pace 2-3 minutes above your time trial pace.\n• Take today easy, walk if you need some breaks from yesterday's workouts."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "Base builder · Week 4 - Day 5 · Power day",
+          "sessions": [
+            {
+              "id": "w5d5-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "3x3 clean pull",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 3 minutes rest between each set\n• Lift these as if it were a 5 rep max effort"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x5 barbell strict press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "3x8 weighted chin ups",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minute rest between sets\n• All of these lifts are meant to be explosive, not heavy. If you feel that the weight is moving slow then you are doing this wrong. Focus on being explosive!"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "SPRINT WOD",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• 150 wall balls for time",
+                  "coachNotes": "Go for gold!"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "Base builder · Week 5 - Day 5",
+          "sessions": [
+            {
+              "id": "w5d6-1",
+              "type": "program",
+              "title": "Machine stamina day",
+              "blocks": [
+                {
+                  "key": "machine-stamina-day",
+                  "name": "Machine stamina day",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• 30 minute run\n• 3 x 1000m ski at race pace - 60s rest between each set\n• 20 minute row",
+                  "coachNotes": "Hit interval work in the middle of this workout then get back to easy work. Your goal is to hold 60-70% effort on all stations. Get this done in complete control! If you get to the end of this workout feeling like you are about to fall apart then you did this workout way too hard. Smooth is the path for this workout."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "days": [
+        {
+          "day": 1,
+          "title": "Base Builder · Week 6 - Day 1",
+          "sessions": [
+            {
+              "id": "w6d1-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "50 minute cut down run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• every 5 minutes cut down your pace by up to 30s per mile\n• this should be a very easy start. The last 10 minutes should be at race pace or above.\n• do not rush this! If you are tired by the last 10 minutes you have failed the design of this workout. Speed is the most important part at the end of this run."
+                }
+              ]
+            },
+            {
+              "id": "w6d1-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION – Gym session",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x3 deadlift",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• deficit deadlift (standing on 45lb (20,4 kg) plate)\n• 3 minutes rest between each set\n• lift these as if it were a 5 rep max effort",
+                  "loads": [
+                    {
+                      "label": "deficit deadlift",
+                      "kg": 20.4
+                    }
+                  ]
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "3x5 shoulder press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• slow negative down\n• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "3x8 db reverse lunges (each leg)",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p6",
+                  "label": "P6",
+                  "name": "chipper",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• 1 mile run - 70% effort\n• 200m farmers carry - race weight\n• 1 minute rest\n• 1 mile run - 80% effort\n• 100m lunge - race weight\n• 1 minute rest\n• 1 mile run - 90% effort\n• 100 wall balls 20lb (9,1 kg) men | 14lb (6,4 kg) women",
+                  "coachNotes": "This is an ascending effort. Be slow to start, completely in control.",
+                  "loads": [
+                    {
+                      "label": "100 wall balls",
+                      "maleKg": 9.1,
+                      "femaleKg": 6.4
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "Base builder · Week 6 - Day 2",
+          "sessions": [
+            {
+              "id": "w6d2-1",
+              "type": "program",
+              "title": "90 minute easy bike session",
+              "blocks": [
+                {
+                  "key": "90-minute-easy-bike-session",
+                  "name": "90 minute easy bike session",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "coachNotes": "This is meant to be a rest day and a stamina building session. Do not make the mistake of making this a hard workout. Save it for the important workouts to come!"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "Base builder · Week 6 - Day 3",
+          "sessions": [
+            {
+              "id": "w6d3-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "3x3 front squat",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "ass to grass!\n• 3 sec pause at the bottom\n• 3 minutes rest between each set\n• Lift these as if it were a 5 rep max effort"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x5 barbell row",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 3 second pause at top\n• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "3x8 db incline bench press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "10 rounds",
+                  "scoring": {
+                    "type": "time",
+                    "rounds": 10
+                  },
+                  "details": "• 15 cal row\n• 15 wall balls",
+                  "coachNotes": "Keep this workout steady all ten rounds. Do your best not to have any heart rate spikes"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "Base Builder · Week 6 - Day 4",
+          "sessions": [
+            {
+              "id": "w6d4-1",
+              "type": "program",
+              "title": "65 minute run",
+              "blocks": [
+                {
+                  "key": "65-minute-run",
+                  "name": "65 minute run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Keep the pace 2-3 minutes above your time trial pace.\n• Take today easy, walk if you need some breaks from yesterday's workouts."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "Base builder · Week 6 - Day 5 · Power day",
+          "sessions": [
+            {
+              "id": "w6d5-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "3x3 clean pull",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 3 minutes rest between each set\n• Lift these as if it were a 5 rep max effort"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x5 barbell strict press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "3x8 weighted chin ups",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minute rest between sets\n• All of these lifts are meant to be explosive, not heavy. If you feel that the weight is moving slow then you are doing this wrong. Focus on being explosive!"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "strongman WOD",
+                  "scoring": {
+                    "type": "time",
+                    "rounds": 5
+                  },
+                  "details": "• 10m sled drag - arms only\n• 20m single arm farmer carry"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "Base builder · Week 6 - Day 5",
+          "sessions": [
+            {
+              "id": "w6d6-1",
+              "type": "program",
+              "title": "Machine stamina day",
+              "blocks": [
+                {
+                  "key": "machine-stamina-day",
+                  "name": "Machine stamina day",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• 30 minute run\n• 4 x 1000m ski at race pace - 60s rest between each set\n• 20 minute row",
+                  "coachNotes": "Hit interval work in the middle of this workout then get back to easy work. Your goal is to hold 60-70% effort on all stations. Get this done in complete control! If you get to the end of this workout feeling like you are about to fall apart then you did this workout way too hard. Smooth is the path for this workout."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "days": [
+        {
+          "day": 1,
+          "title": "Base Builder · Week 7 - Day 1",
+          "sessions": [
+            {
+              "id": "w7d1-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "50 minute cut down run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• every 5 minutes cut down your pace by up to 30s per mile\n• this should be a very easy start. The last 10 minutes should be at race pace or above.\n• do not rush this! If you are tired by the last 10 minutes you have failed the design of this workout. Speed is the most important part at the end of this run."
+                }
+              ]
+            },
+            {
+              "id": "w7d1-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION – Gym session",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x3 deadlift",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• deficit deadlift (standing on 45lb (20,4 kg) plate)\n• 3 minutes rest between each set\n• lift these as if it were a 5 rep max effort",
+                  "loads": [
+                    {
+                      "label": "deficit deadlift",
+                      "kg": 20.4
+                    }
+                  ]
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "3x5 shoulder press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• slow negative down\n• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "3x8 db reverse lunges (each leg)",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p6",
+                  "label": "P6",
+                  "name": "5 rounds",
+                  "scoring": {
+                    "type": "time",
+                    "rounds": 5
+                  },
+                  "details": "• 500m run\n• 12 barbell thruster - must be unbroken\n• 2 minutes rest between rounds",
+                  "coachNotes": "Get heavier each round\nThese efforts should all be at 90% of max heart rate. Keep your focus on high output the entire time"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "Base builder · Week 7 - Day 2",
+          "sessions": [
+            {
+              "id": "w7d2-1",
+              "type": "program",
+              "title": "90 minute easy bike session",
+              "blocks": [
+                {
+                  "key": "90-minute-easy-bike-session",
+                  "name": "90 minute easy bike session",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "coachNotes": "This is meant to be a rest day and a stamina building session. Do not make the mistake of making this a hard workout. Save it for the important workouts to come!"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "Base builder · Week 7 - Day 3",
+          "sessions": [
+            {
+              "id": "w7d3-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "3x3 front squat",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "ass to grass!\n• 3 sec pause at the bottom\n• 3 minutes rest between each set\n• Lift these as if it were a 5 rep max effort"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x5 barbell row",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 3 second pause at top\n• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "3x8 db incline bench press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "shot caller",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• 500m ski\n• 500m row\n• 500m run"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "Base Builder · Week 7 - Day 4",
+          "sessions": [
+            {
+              "id": "w7d4-1",
+              "type": "program",
+              "title": "70 minute run",
+              "blocks": [
+                {
+                  "key": "70-minute-run",
+                  "name": "70 minute run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Keep the pace 2-3 minutes above your time trial pace.\n• Take today easy, walk if you need some breaks from yesterday's workouts."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "Base builder · Week 7 - Day 5 · Power day",
+          "sessions": [
+            {
+              "id": "w7d5-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "3x3 clean pull",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 3 minutes rest between each set\n• Lift these as if it were a 5 rep max effort"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x5 barbell strict press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "3x8 weighted chin ups",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minute rest between sets\n• All of these lifts are meant to be explosive, not heavy. If you feel that the weight is moving slow then you are doing this wrong. Focus on being explosive!"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "core and carry circuit",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 4
+                  },
+                  "details": "• 100ft front rack carry - heavy as possible\n• Russian twist 60s - add weight if possible\n• Chin over the pull up bar - max hold",
+                  "coachNotes": "This is a walking pace workout. No need to pick up the heart rate too high"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "Base builder · Week 7 - Day 5",
+          "sessions": [
+            {
+              "id": "w7d6-1",
+              "type": "program",
+              "title": "Machine stamina day",
+              "blocks": [
+                {
+                  "key": "machine-stamina-day",
+                  "name": "Machine stamina day",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• 30 minute run\n• 4 x 1000m ski at race pace - 60s rest between each set\n• 30 minute row",
+                  "coachNotes": "Hit interval work in the middle of this workout then get back to easy work. Your goal is to hold 60-70% effort on all stations. Get this done in complete control! If you get to the end of this workout feeling like you are about to fall apart then you did this workout way too hard. Smooth is the path for this workout."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 8,
+      "days": [
+        {
+          "day": 1,
+          "title": "RECOVERY WEEK · Base Builder · Week 8 - Day 1",
+          "sessions": [
+            {
+              "id": "w8d1-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "15 minute warm up run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "1 mile time trial",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• 9-10 RPE effort"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "15 minute cool down run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "Base builder · Week 8 - Day 2",
+          "sessions": [
+            {
+              "id": "w8d2-1",
+              "type": "program",
+              "title": "60 minute easy run or hike",
+              "blocks": [
+                {
+                  "key": "60-minute-easy-run-or-hike",
+                  "name": "60 minute easy run or hike",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Remember this is a recovery week. Take this week very easy!"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "Base builder · Week 8 - Day 3",
+          "sessions": [
+            {
+              "id": "w8d3-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "1 mile warm up run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "superset strength session",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "2 rounds of 3 reps/2 reps/1 rep\n• Front squat\n• bench press",
+                  "coachNotes": "**How to complete: Make sure you're warmed up. Three sets TOTAL, first set is 3 reps of front squat, 3 reps of bench. Second set is 2 reps each. Third set is 1 rep each.\n**Superset each movement, rest after both movements are done. 2-3 minutes best between set.\n**Increase the weight each set until you hit a heavy one rep. This last rep should feel like you could hit a max effort triple at this weight"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "bikes and balls",
+                  "scoring": {
+                    "type": "time",
+                    "rounds": 5
+                  },
+                  "details": "5 rounds:\n• 30 wall ball (30lb (13,6 kg) men | 20lb (9,1 kg) women)\n• 30 calorie bike",
+                  "coachNotes": "This is a serious thigh burner! Your goal is to go unbroken on the wall balls, vary the intensity on the bike based on how fit you feel.",
+                  "loads": [
+                    {
+                      "label": "30 wall ball",
+                      "maleKg": 13.6,
+                      "femaleKg": 9.1
+                    }
+                  ]
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "1 mile cool down run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "Base Builder · Week 8 - Day 4",
+          "sessions": [
+            {
+              "id": "w8d4-1",
+              "type": "program",
+              "title": "60 minute easy run or hike",
+              "blocks": [
+                {
+                  "key": "60-minute-easy-run-or-hike",
+                  "name": "60 minute easy run or hike",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Remember this is a recovery week. Take this session very easy!"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "Base builder · Week 8 - Day 5",
+          "sessions": [
+            {
+              "id": "w8d5-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "10 minute warm up bike",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "DON'T GIVE UP",
+                  "scoring": {
+                    "type": "calories",
+                    "rounds": 10
+                  },
+                  "details": "20 minute EMOM (every minute on the minute)\n• Minute 1: 22 cal men | 18 cal women Ski Erg\n• Minute 2: 22 cal men | 18 cal women bike",
+                  "coachNotes": "10 rounds total\nScale as needed. You should only have 5-10s rest each round while going near max effort pace. This is one of the harder lactic acid type workouts. You should feel the burn starting around minute 5, your goal is to hold on for the next 15 minutes"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "10 minute cool down bike",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "Base builder · Week 8 - Day 6",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 9,
+      "days": [
+        {
+          "day": 1,
+          "title": "Base Builder · Week 9 - Day 1",
+          "sessions": [
+            {
+              "id": "w9d1-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "notes": "This workout needs to be done on the road, track or treadmill. It is very important to keep your pacing dialed in to get better at this. Avoid any hills if possible.",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "5 minute warm up run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "In and outs",
+                  "scoring": {
+                    "type": "distance",
+                    "rounds": 3
+                  },
+                  "details": "• 1 mile 60-70% ex - 7 minute per mile pace\n• 1 mile 80-85% ex- 6 minute per mile pace",
+                  "coachNotes": "This workout is designed to hold sustained speed. Do not go too hard on the first two rounds. If you want to run hard save it for the last round."
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "10 minute cool down run",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "coachNotes": "This is a big part of the recovery process. Walking is ok too."
+                }
+              ]
+            },
+            {
+              "id": "w9d1-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION – Gym session",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x3 snatch grip deadlift",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 3 minutes rest between each set\n• Focus on having a strong upper back across the entire rep.\n• Lift these as if it were a 5 rep max effort"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "3x5 shoulder press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• slow negative down\n• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "3x8 db split squat",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minute rest between sets"
+                },
+                {
+                  "key": "p6",
+                  "label": "P6",
+                  "name": "core circuit",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• Single arm farmer carry max weight 100ft each arm\n• Max rep atomic push ups"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "Base builder · Week 9 - Day 2",
+          "sessions": [
+            {
+              "id": "w9d2-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "1 mile warm up run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "POWER HOUR",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "10 rounds:\n• Minute 1: bike 70-80%\n• Minute 2: 15-20 wall balls\n• Minute 3: ski 70-80%\n• Minute 4: 40s burpee broad jump",
+                  "coachNotes": "This workout is to dial in pacing while building full body stamina. The best thing you can do is stay consistent across the entire workout."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "Base builder · Week 9 - Day 3",
+          "sessions": [
+            {
+              "id": "w9d3-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "3x3 front squat",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "ass to grass!\n• 3 sec pause at the bottom\n• 3 minutes rest between each set\n• Lift these as if it were a 5 rep max effort"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x5 wide grip pull up",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "2 minutes rest between sets"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "3x8 db incline bench press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "12 minute AMRAP",
+                  "scoring": {
+                    "type": "reps"
+                  },
+                  "details": "• 2k row\n• Max wall balls with remaining time (20 lb (9,1 kg) men | 14 lb (6,4 kg) women)",
+                  "coachNotes": "Choose one to go hard on. If you want to row hard you will sacrifice from the wall balls. Your goal is to stay in control the entire workout.",
+                  "loads": [
+                    {
+                      "label": "Max wall balls with remaining time",
+                      "maleKg": 9.1,
+                      "femaleKg": 6.4
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "Base Builder · Week 9 - Day 4",
+          "sessions": [
+            {
+              "id": "w9d4-1",
+              "type": "program",
+              "title": "70 minute mountain run",
+              "blocks": [
+                {
+                  "key": "70-minute-mountain-run",
+                  "name": "70 minute mountain run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Find terrain that is runnable for the majority of the time. Your goal is to build leg strength. This isn't a hard workout. Keep the effort below 70%"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "Base builder · Week 9 - Day 5",
+          "sessions": [
+            {
+              "id": "w9d5-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k ski warm up",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "3x3 clean pull",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 3 minutes rest between each set\n• Lift these as if it were a 5 rep max effort"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x5 barbell push press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "3x8 weighted chin ups",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minute rest between sets\n• All of these lifts are meant to be explosive, not heavy. If you feel that the weight is moving slow then you are doing this wrong. Focus on being explosive!"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "strongman WOD",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 5
+                  },
+                  "details": "• 8 ground to shoulder sandbag (150 lb (68,0 kg) men | 100 lb (45,4 kg) women)\n• 30s front hold with sand bag- brace your core",
+                  "loads": [
+                    {
+                      "label": "8 ground to shoulder sandbag",
+                      "maleKg": 68.0,
+                      "femaleKg": 45.4
+                    }
+                  ]
+                },
+                {
+                  "key": "p6",
+                  "label": "P6",
+                  "name": "core workout",
+                  "scoring": {
+                    "type": "reps",
+                    "rounds": 4
+                  },
+                  "details": "• 30s chin over bar hold\n• Max trx pike ups"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "Base builder · Week 9 - Day 5",
+          "sessions": [
+            {
+              "id": "w9d6-1",
+              "type": "program",
+              "title": "Machine stamina day",
+              "blocks": [
+                {
+                  "key": "machine-stamina-day",
+                  "name": "Machine stamina day",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• P1. 5k row\n• P2. 5k ski\n• P3. 4x2000m bike - 60s rest between",
+                  "coachNotes": "Hold 80% on bike intervals.\nYour goal is to hold 60-70% effort on all stations. Get this done in complete control! If you get to the end of this workout feeling like you are about to fall apart then you did this workout way too hard. Smooth is the path for this workout."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 10,
+      "days": [
+        {
+          "day": 1,
+          "title": "Base Builder · Week 10 - Day 1",
+          "sessions": [
+            {
+              "id": "w10d1-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "notes": "This workout needs to be done on the road, track or treadmill. It is very important to keep your pacing dialed in to get better at this. Avoid any hills if possible.",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "5 minute warm up run",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "Use the first mile as part of an additional warm up."
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "In and outs",
+                  "scoring": {
+                    "type": "distance",
+                    "rounds": 4
+                  },
+                  "details": "• 1 mile 60-70% ex - 7 minute per mile pace\n• 1 mile 80-85% ex- 6 minute per mile pace",
+                  "coachNotes": "This workout is designed to hold sustained speed. You have one more round than last week, so do not go too hard on the first two rounds. If you want to run hard save it for the last round."
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "10 minute cool down run",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "coachNotes": "This is a big part of the recovery process. Walking is ok too."
+                }
+              ]
+            },
+            {
+              "id": "w10d1-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION – Gym session",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x3 snatch grip deadlift",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 3 minutes rest between each set\n• Focus on having a strong upper back across the entire rep.\n• Lift these as if it were a 5 rep max effort"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "3x5 shoulder press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• slow negative down\n• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "3x8 db split squat",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minute rest between sets"
+                },
+                {
+                  "key": "p6",
+                  "label": "P6",
+                  "name": "core circuit",
+                  "scoring": {
+                    "type": "reps",
+                    "rounds": 4
+                  },
+                  "details": "• 30s Max back extensions\n• 30s Max russian twists\n• 30s rest"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "Base builder · Week 10 - Day 2",
+          "sessions": [
+            {
+              "id": "w10d2-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "1 mile warm up run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "POWER HOUR",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "10 rounds:\n• Minute 1: bike 70-80%\n• Minute 2: 15-20 push ups\n• Minute 3: ski 70-80%\n• Minute 4: 40s walking lunges",
+                  "coachNotes": "This workout is to dial in pacing while building full body stamina. The best thing you can do is stay consistent across the entire workout."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "Base builder · Week 10 - Day 3",
+          "sessions": [
+            {
+              "id": "w10d3-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "3x3 front squat",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "ass to grass!\n• 3 sec pause at the bottom\n• 3 minutes rest between each set\n• Lift these as if it were a 5 rep max effort"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x5 wide grip pull up",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "2 minutes rest between sets"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "3x8 db incline bench press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "12 minute AMRAP",
+                  "scoring": {
+                    "type": "reps"
+                  },
+                  "details": "• 5k bike erg\n• Max kb swing (50 lb (22,7 kg) men | 35 lb (15,9 kg) women)",
+                  "coachNotes": "Choose one to go hard on. If you want to bike hard you will sacrifice from the kb swings. Your goal is to stay in control the entire workout.",
+                  "loads": [
+                    {
+                      "label": "Max kb swing",
+                      "maleKg": 22.7,
+                      "femaleKg": 15.9
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "Base Builder · Week 10 - Day 4",
+          "sessions": [
+            {
+              "id": "w10d4-1",
+              "type": "program",
+              "title": "75 minute mountain run",
+              "blocks": [
+                {
+                  "key": "75-minute-mountain-run",
+                  "name": "75 minute mountain run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Find terrain that is runnable for the majority of the time. Your goal is to build leg strength. This isn't a hard workout. Keep the effort below 70%"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "Base builder · Week 10 - Day 5",
+          "sessions": [
+            {
+              "id": "w10d5-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k ski warm up",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "3x3 power clean",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 3 minutes rest between each set\n• Lift these as if it were a 5 rep max effort"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x5 push press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "3x8 weighted chin ups",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minute rest between sets\n• All of these lifts are meant to be explosive, not heavy. If you feel that the weight is moving slow then you are doing this wrong. Focus on being explosive!"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "strongman WOD",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 5
+                  },
+                  "details": "• 20m sled push max weight\n• 40m farmer carry max weight",
+                  "coachNotes": "This needs to be heavy but still moving close to race pace. 2 minutes rest between rounds."
+                },
+                {
+                  "key": "p6",
+                  "label": "P6",
+                  "name": "core workout",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 4
+                  },
+                  "details": "• 15 ball slams\n• 15 v sit ups\n• 15 back extensions"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "Base builder · Week 10 - Day 6 · Machine stamina day",
+          "sessions": [
+            {
+              "id": "w10d6-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "5k run",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• Us this a gradual build up in pace"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "30 minute ski",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• 30s hard - above race pace\n• 30s full rest"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "100 wall balls",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• full race pace"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "5k cool down run",
+                  "scoring": {
+                    "type": "time"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 11,
+      "days": [
+        {
+          "day": 1,
+          "title": "Base Builder · Week 11 - Day 1",
+          "sessions": [
+            {
+              "id": "w11d1-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "notes": "This workout needs to be done on the road, track or treadmill. It is very important to keep your pacing dialed in to get better at this. Avoid any hills if possible.",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "5 minute warm up run",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "Use the first mile as part of an additional warm up."
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "In and outs",
+                  "scoring": {
+                    "type": "distance",
+                    "rounds": 4
+                  },
+                  "details": "• 1 mile 60-70% ex - 7 minute per mile pace\n• 1 mile 80-85% ex- 5:45 minute per mile pace",
+                  "coachNotes": "Cut 10-20s off per mile from last week's fast pace. This workout is designed to hold sustained speed. Do not go too hard on the first two rounds. If you want to run hard save it for the last round. Your goal is to hold this at race your Hyrox race pace."
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "10 minute cool down run",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "coachNotes": "This is a big part of the recovery process. Walking is ok too."
+                }
+              ]
+            },
+            {
+              "id": "w11d1-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION – Gym session",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x3 snatch grip deadlift",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 3 minutes rest between each set\n• Focus on having a strong upper back across the entire rep.\n• Lift these as if it were a 5 rep max effort"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "3x5 shoulder press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 3s pause at bottom of each rep\n• no bounce at the bottom\n• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "3x8 db split squat",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minute rest between sets"
+                },
+                {
+                  "key": "p6",
+                  "label": "P6",
+                  "name": "core circuit",
+                  "scoring": {
+                    "type": "reps",
+                    "rounds": 4
+                  },
+                  "details": "• Max banded crunches - 30s\n• Side plank each side - 30s\n• 30s rest"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "Base builder · Week 11 - Day 2",
+          "sessions": [
+            {
+              "id": "w11d2-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "1 mile warm up run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "POWER HOUR",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "12 rounds EMOM:\n• Minute 1: run 75%\n• Minute 2: 8-24 burpee to plate hop\n• Minute 3: row 70%\n• Minute 4: wall balls 15-25",
+                  "coachNotes": "This workout is to dial in pacing while building full body stamina. The best thing you can do is stay consistent across the entire workout."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "Base builder · Week 11 - Day 3",
+          "sessions": [
+            {
+              "id": "w11d3-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "3x3 front squat",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "ass to grass!\n• 3 sec pause at the bottom\n• 3 minutes rest between each set\n• Lift these as if it were a 5 rep max effort"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x5 wide grip pull up",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "2 minutes rest between sets"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "3x8 db incline bench press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "WOD",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• 5k bike erg 80%\n• 2k run 90%",
+                  "coachNotes": "Your legs will be fully pumped up after the bike. This will be great for your compromised running skills. Don't be lazy!"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "Base Builder · Week 11 - Day 4",
+          "sessions": [
+            {
+              "id": "w11d4-1",
+              "type": "program",
+              "title": "75 minute mountain run",
+              "blocks": [
+                {
+                  "key": "75-minute-mountain-run",
+                  "name": "75 minute mountain run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Find terrain that is runnable for the majority of the time. Your goal is to build leg strength. This isn't a hard workout. Keep the effort below 70%"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "Base builder · Week 11 - Day 5",
+          "sessions": [
+            {
+              "id": "w11d5-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k ski warm up",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "3x3 power clean",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 3 minutes rest between each set\n• Lift these as if it were a 5 rep max effort"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x5 push press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "3x8 weighted chin ups",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minute rest between sets\n• All of these lifts are meant to be explosive, not heavy. If you feel that the weight is moving slow then you are doing this wrong. Focus on being explosive!"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "strongman WOD",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 5
+                  },
+                  "details": "• 20m sled pull max weight\n• 30s max weight sand bag hold or march",
+                  "coachNotes": "This needs to be heavy but still moving close to race pace. 2 minutes rest between rounds."
+                },
+                {
+                  "key": "p6",
+                  "label": "P6",
+                  "name": "core workout",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 4
+                  },
+                  "details": "• 30s sit ups\n• 30s glute bridges\n• 30s bicycle crunches"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "Base builder · Week 11 - Day 6 · Machine stamina day",
+          "sessions": [
+            {
+              "id": "w11d6-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "5k run",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• Us this a gradual build up in pace"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "15 round EMOM",
+                  "scoring": {
+                    "type": "calories",
+                    "rounds": 15
+                  },
+                  "details": "• 1 minute run - 10-15 slower than race pace\n• 1 minute ski - 5s slower than race pace"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "100 wall balls",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• full race pace"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "5k cool down run",
+                  "scoring": {
+                    "type": "time"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 12,
+      "days": [
+        {
+          "day": 1,
+          "title": "Base Builder · Week 12 - Day 1",
+          "sessions": [
+            {
+              "id": "w12d1-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "notes": "This workout needs to be done on the road, track or treadmill. It is very important to keep your pacing dialed in to get better at this. Avoid any hills if possible.",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "5 minute warm up run",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "Use the first mile as part of an additional warm up."
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "In and outs",
+                  "scoring": {
+                    "type": "distance",
+                    "rounds": 5
+                  },
+                  "details": "• 1 mile 60-70% ex - 7 minute per mile pace\n• 1 mile 80-85% ex- 5:45 minute per mile pace",
+                  "coachNotes": "Cut 10-20s off per mile from last week's fast pace. This workout is designed to hold sustained speed. Do not go too hard on the first two rounds. If you want to run hard save it for the last round. Your goal is to hold this at race your Hyrox race pace."
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "10 minute cool down run",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "coachNotes": "This is a big part of the recovery process. Walking is ok too."
+                }
+              ]
+            },
+            {
+              "id": "w12d1-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION – Gym session",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "10 minute warm up run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x3 snatch grip deadlift",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 3 minutes rest between each set\n• Focus on having a strong upper back across the entire rep.\n• Lift these as if it were a 5 rep max effort"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "3x5 shoulder press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 3s pause at bottom of each rep\n• no bounce at the bottom\n• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "3x8 db split squat",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minute rest between sets"
+                },
+                {
+                  "key": "p6",
+                  "label": "P6",
+                  "name": "core circuit",
+                  "scoring": {
+                    "type": "reps",
+                    "rounds": 4
+                  },
+                  "details": "• V sit ups - 30s\n• Back extensions - 30s\n• 30s rest"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "Base builder · Week 12 - Day 2",
+          "sessions": [
+            {
+              "id": "w12d2-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "1 mile warm up run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "POWER HOUR",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "10 rounds EMOM:\n• Minute 1 - run 75%\n• Minute 2 - 20-30 push ups\n• Minute 3 - row 70%\n• Minute 4 - 30-0 air squat",
+                  "coachNotes": "This workout is to dial in pacing while building full body stamina. The best thing you can do is stay consistent across the entire workout."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "Base builder · Week 12 - Day 3",
+          "sessions": [
+            {
+              "id": "w12d3-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "3x3 front squat",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "ass to grass!\n• 3 sec pause at the bottom\n• 3 minutes rest between each set\n• Lift these as if it were a 5 rep max effort"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x5 wide grip pull up",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "2 minutes rest between sets"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "3x8 db incline bench press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 2 minutes rest between sets"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "WOD",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• 2k ski erg 80%\n• 2k run 90%",
+                  "coachNotes": "Your legs will be fully pumped up after the bike. This will be great for your compromised running skills. Don't be lazy!"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "Base Builder · Week 12 - Day 4",
+          "sessions": [
+            {
+              "id": "w12d4-1",
+              "type": "program",
+              "title": "75 minute mountain run",
+              "blocks": [
+                {
+                  "key": "75-minute-mountain-run",
+                  "name": "75 minute mountain run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Find terrain that is runnable for the majority of the time. Your goal is to build leg strength. This isn't a hard workout. Keep the effort below 70%"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "Base builder · Week 12 - Day 5",
+          "sessions": [
+            {
+              "id": "w12d5-1",
+              "type": "program",
+              "title": "60 minutes easy bike",
+              "blocks": [
+                {
+                  "key": "60-minutes-easy-bike",
+                  "name": "60 minutes easy bike",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "coachNotes": "Get ready for tomorrow :)"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "Base builder · Week 12 - Day 6 · Machine stamina day · 85-90% effort",
+          "sessions": [
+            {
+              "id": "w12d6-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "ski erg",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• minutes 1-3 easy\n• minutes 4-6 moderate\n• minutes 7-9 just below race pace"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "repeat P1 at race pace running",
+                  "scoring": {
+                    "type": "distance"
+                  }
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "target a few stations that you feel you need a tune up on then get after it",
+                  "scoring": {
+                    "type": "distance"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 13,
+      "days": [
+        {
+          "day": 1,
+          "title": "Deload week! · Next cycle starts December 2nd",
+          "sessions": [
+            {
+              "id": "w13d1-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "option-1",
+                  "label": "OPTION 1",
+                  "name": "Full hyrox simulation",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• Set up the weights base off the category you race in.\n• Give this a 90% effort. No need to go all out on this."
+                },
+                {
+                  "key": "option-2",
+                  "label": "OPTION 2",
+                  "name": "The Beast",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "45 minute AMRAP\n• 800m run\n• 20 box step ups, sandbag on shoulder (50 lb (22,7 kg) men | 35 lb (15,9 kg) women)\n• 15 strict pull up (C2b if you are strong enough)\n• 20m heavy front load carry (ex. 200 lb (90,7 kg) men | 150 lb (68,0 kg) women)",
+                  "coachNotes": "Go to war on this bad boy!",
+                  "loads": [
+                    {
+                      "label": "20 box step ups, sandbag on shoulder",
+                      "maleKg": 22.7,
+                      "femaleKg": 15.9
+                    },
+                    {
+                      "label": "20m heavy front load carry",
+                      "maleKg": 90.7,
+                      "femaleKg": 68.0
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "sessions": [
+            {
+              "id": "w13d2-1",
+              "type": "program",
+              "title": "60 minute easy bike ride",
+              "blocks": [
+                {
+                  "key": "60-minute-easy-bike-ride",
+                  "name": "60 minute easy bike ride",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "coachNotes": "Do your best to fully recover from yesterday's effort."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "sessions": [
+            {
+              "id": "w13d3-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "10 minute bike warm up",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "coachNotes": "Progressively get faster on the bike until you are at the pace you will need to hold for your workout."
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "EMOM 20 minute",
+                  "scoring": {
+                    "type": "rounds"
+                  },
+                  "details": "• Minute 1: 20 calorie bike\n• Minute 2: 20 push ups",
+                  "coachNotes": "Repeat 10 rounds\nWear a weight vest if possible.\nIf you are so fit that this isn't a challenge, continue the EMOM until you give up"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "10 minute cool down bike",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "sessions": [
+            {
+              "id": "w13d4-1",
+              "type": "program",
+              "title": "45 minute easy run",
+              "blocks": [
+                {
+                  "key": "45-minute-easy-run",
+                  "name": "45 minute easy run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Hold 60% effort level the whole time"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "sessions": [
+            {
+              "id": "w13d5-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "1 mile warm up run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "The tumblr",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• 150 wall balls for time (20 lb (9,1 kg) men | 14 lb (6,4 kg) women)\n• Every time you break hit 10 deadlift (225 lb (102,1 kg) men | 155 lb (70,3 kg) women)\n• If you can do 100 reps unbroken use a heavier wall ball (30 lb (13,6 kg) men | 20 lb (9,1 kg) women)",
+                  "loads": [
+                    {
+                      "label": "150 wall balls for time",
+                      "maleKg": 9.1,
+                      "femaleKg": 6.4
+                    },
+                    {
+                      "label": "Every time you break hit 10 deadlift",
+                      "maleKg": 102.1,
+                      "femaleKg": 70.3
+                    },
+                    {
+                      "label": "If you can do 100 reps unbroken use a heavier wall ball",
+                      "maleKg": 13.6,
+                      "femaleKg": 9.1
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    }
+  ]
+}

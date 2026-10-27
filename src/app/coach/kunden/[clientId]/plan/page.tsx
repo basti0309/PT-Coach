@@ -87,7 +87,12 @@ export default async function CoachPlanPage({ params, searchParams }: PageProps<
           </div>
         </div>
         <p className="muted">Der neue Plan wird der aktive Plan des Kunden. Inhalte per Editor oder Import (KI-Workflow).</p>
-        <button className="btn-secondary">Plan anlegen</button>
+        <div className="flex flex-wrap gap-2">
+          <button className="btn-secondary">Leeren Plan anlegen</button>
+          <Link className="btn-primary" href={`${base}/neu`}>
+            Neuer Plan mit KI
+          </Link>
+        </div>
       </form>
     </div>
   );

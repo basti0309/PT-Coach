@@ -39,7 +39,7 @@ Alle Tabellen mit `created_at`, `updated_at` sowie – wo Nutzer schreiben – `
 - **test_results** (Historie, nur anfügen/löschen, nie überschreiben): `kind` (`run_5k` Sekunden | `bench_3rm`, `deadlift_3rm`, `squat_3rm`, `body_weight` kg | `mobility` Skala 1–10 + Freitext), `tested_on`, `value`, `scale`, `note`
 - **plans**: je Kunde, `title`, `is_active` (höchstens ein aktiver Plan je Kunde), `current_version`
 - **plan_versions**: unveränderliche Versionen, `version` (1, 2, …), `content` (JSON nach Plan-Schema), `change_note`, `source` (`editor`|`import`|`restore`|`seed`). Neue Version nur über Funktion `save_plan_version()` (atomar).
-- **workout_logs**: eine durchgeführte Einheit. `kind` (`strength`|`wod`|`endurance`), `performed_on`, `title`, Bezug zum Plan (`plan_id`, `plan_version`, `session_id`), `source` (`manual`|`strava`), `completed`, Ausdauer (`sport`, `duration_seconds`, `distance_m`, `avg_hr`, `is_test`), WOD (`wod_id`, `wod_movements_key`, `wod_result` JSON, `wod_weights`), `notes`.
+- **workout_logs**: eine durchgeführte Einheit. `kind` (`strength`|`wod`|`endurance`|`program`), `performed_on`, `title`, Bezug zum Plan (`plan_id`, `plan_version`, `session_id`), `source` (`manual`|`strava`), `completed`, Ausdauer (`sport`, `duration_seconds`, `distance_m`, `avg_hr`, `is_test`), WOD (`wod_id`, `wod_movements_key`, `wod_result` JSON, `wod_weights`), Programm-Einheit (`block_results` JSON: je Block-Kennung `{ done, values[], note }`; Zeit in s, Distanz in m, Gewicht in kg, sonst ganze Zahlen), `notes`.
   Constraint: bei `source = 'strava'` sind `distance_m`, `avg_hr` leer und `is_test = false`.
   Eindeutig: eine Plan-Einheit kann höchstens einmal erledigt sein.
 - **set_logs**: Satz einer Kraftübung: `exercise_id` (Übungs-ID aus dem Plan), `set_no`, `weight_kg`, `reps`, `done`, `performed_on` (vom Workout übernommen)
@@ -57,15 +57,19 @@ Zod-Schema `src/lib/plan/schema.ts` = einzige Quelle der Wahrheit; `docs/plan-sc
 ```
 Plan { schemaVersion: 1, title, startDate (YYYY-MM-DD), goal?, notes?, weeks: Week[] }
 Week { week (1, 2, …), focus?, days: Day[] }
-Day  { day (1–7 = Tag 1–7 der Planwoche ab startDate), title?, sessions: Session[] }
-Session = Kraft | WOD | Ausdauer, jeweils mit eindeutiger `id`
+Day  { day (1–7 = Tag 1–7 der Planwoche ab startDate), title?, notes?, sessions: Session[] (leer = Ruhetag) }
+Session = Kraft | WOD | Ausdauer | Programm, jeweils mit eindeutiger `id` und optionalem `label` (z. B. "AM"/"PM")
   strength:  { id, type:"strength", title, notes?, exercises: [{ exerciseId, name, sets, reps, targetWeightKg?, restSeconds, notes? }] }
   wod:       { id, type:"wod", wodId?, name, wodType: for_time|amrap|emom|rft, timeCapMinutes?, durationMinutes?, rounds?, movements: [{ name, reps?, weightKg?, distanceM?, calories?, notes? }], notes? }
   endurance: { id, type:"endurance", sport, durationMinutes?, distanceKm?, intensity, description? }
+  program:   { id, type:"program", title, notes?, blocks: [{ key, label?, name, details?, coachNotes?,
+               scoring: { type: checkmark|none|time|distance|weight|reps|rounds|calories, rounds? },
+               loads?: [{ label, maleKg?, femaleKg?, kg? }] }] }
 ```
+Programm-Einheiten bilden Pläne mit Blöcken (P1, P2 …) ab, z. B. HYROX: jeder Block hat eine eigene Wertung; bei `scoring.rounds = N` („N rounds for …“) wird je Runde ein Wert erfasst. Die Einheit gilt als erledigt, wenn alle Blöcke mit Wertung ≠ `none` abgehakt sind. Vorgabe-Gewichte (`loads`) zeigt die App passend zum Geschlecht des Kunden. Testdaten: `src/lib/plan/fixtures/hyrox-*.json` (drei vollständige HYROX-Pläne).
 Datum einer Einheit = `startDate + (week − 1)·7 + (day − 1)` Tage.
 
-Zusatzprüfungen (im JSON Schema nicht ausdrückbar, in den Beschreibungen genannt und in `validatePlan()` geprüft): Einheiten-IDs eindeutig, Wochennummern eindeutig, Tage je Woche eindeutig, Ausdauer braucht Dauer und/oder Distanz.
+Zusatzprüfungen (im JSON Schema nicht ausdrückbar, in den Beschreibungen genannt und in `validatePlan()` geprüft): Einheiten-IDs eindeutig, Wochennummern eindeutig, Tage je Woche eindeutig, Ausdauer braucht Dauer und/oder Distanz, Block-Kennungen je Einheit eindeutig, Tag ohne Einheiten braucht Titel oder Hinweis, Gewicht (`loads`) braucht mindestens einen Wert.
 
 ### Export-Datei
 ```
@@ -73,6 +77,12 @@ Zusatzprüfungen (im JSON Schema nicht ausdrückbar, in den Beschreibungen genan
 ```
 Profil-Export (identisch im Plan- und Profil-Export): Kürzel bzw. Name, Geschlecht, Alter, Größe, Equipment, Gymzugang, Trainingstage, max. Zeit, Notizen, PAL-Faktor, Nährstoffziele, Testwert-Historie (nur manuell eingetragene Werte, keine Strava-Daten), errechneter Kalorienbedarf.
 Import akzeptiert die ganze Export-Datei (nur `plan` wird übernommen) oder einen nackten Plan.
+
+### Neuer Plan mit KI
+Coach → Kunde → Plan → „Neuer Plan mit KI“ (`/coach/kunden/[id]/plan/neu`):
+1. Beschreibung eingeben → Prompt kopieren oder herunterladen (Vorlage `docs/ki-prompt-neuer-plan.md` mit `{{BESCHREIBUNG}}`, `{{SCHEMA}}`, `{{VORLAGE}}`).
+2. Leere JSON-Vorlage herunterladbar: Export-Datei mit Kundenprofil (standardmäßig pseudonymisiert) und einem schema-gültigen Plan-Gerüst mit Platzhaltern (Einheit mit Blöcken, Ausdauer, Ruhetag).
+3. Antwort der KI hochladen (Datei oder Text), auch in mehreren Teilen (z. B. Wochen 1–4, 5–8): Teile werden zusammengeführt (gleicher Titel und Startdatum, Wochen dürfen sich nicht überschneiden), geprüft und als Vorschau gezeigt. „Plan anlegen“ legt den Plan an, setzt ihn aktiv und speichert Version 1 (Quelle `import`).
 
 ## 4. Fachlogik (reine Funktionen, getestet)
 
@@ -108,5 +118,5 @@ Testroutine: `npm run test:eskalation` gegen `docs/eskalation-testset.json`.
 
 ## 7. Seiten
 Kunde (`/kunde`): Heute · Plan · Training (Verlauf, Erfassen) · Fortschritt (Graphen, Prognosen) · Profil (Testwerte, Kalorien, Strava) · Chat
-Coach (`/coach`): Übersicht · Posteingang · Kunden (Profil, Plan inkl. Editor/Export/Import/Versionen, Training, Fortschritt, Chat) · Wissensbasis · Eskalationsregeln · Einrichtung (Strava-Webhook, Einladungscode, Status)
+Coach (`/coach`): Übersicht · Posteingang · Kunden (Profil, Plan inkl. Neuer Plan mit KI/Editor/Export/Import/Versionen, Training, Fortschritt, Chat) · Wissensbasis · Eskalationsregeln · Einrichtung (Strava-Webhook, Einladungscode, Status)
 Öffentlich: `/login`, `/registrieren`
