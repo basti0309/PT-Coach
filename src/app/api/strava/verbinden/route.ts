@@ -10,6 +10,7 @@ const STATE_COOKIE = "strava_oauth_state";
 export async function GET(request: NextRequest) {
   const viewer = await getViewer();
   if (!viewer || viewer.role !== "client") return redirectSameHost(request, "/login");
+  if (!env.stravaEnabled()) return redirectSameHost(request, "/kunde/profil");
   const state = randomBytes(16).toString("hex");
   const url = new URL(env.stravaAuthorizeUrl());
   url.searchParams.set("client_id", env.stravaClientId());
