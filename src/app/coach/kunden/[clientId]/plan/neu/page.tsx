@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { JsonExport, NewPlanPromptBuilder } from "@/components/export-panel";
 import { NewPlanImport } from "@/components/new-plan-import";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { loadNewPlanPromptTemplate, loadProfileExport } from "@/lib/data/profile";
+import { loadKnowledgeForExport, loadNewPlanPromptTemplate, loadProfileExport } from "@/lib/data/profile";
 import { loadHistoryForExport } from "@/lib/data/training";
 import { buildExportFile, exportFileName } from "@/lib/export/profile";
 import { planJsonSchema } from "@/lib/plan/schema";
@@ -21,9 +21,10 @@ export default async function ExportPromptPage({ params, searchParams }: PagePro
   const profile = await loadProfileExport(supabase, clientId, !realNames);
   if (!profile) notFound();
   const history = withHistory ? await loadHistoryForExport(supabase, clientId) : undefined;
+  const knowledge = await loadKnowledgeForExport(supabase);
 
   const today = appToday();
-  const file = buildExportFile(profile, planTemplate(nextMonday(today)), new Date(), history);
+  const file = buildExportFile(profile, planTemplate(nextMonday(today)), new Date(), { history, knowledge });
   const json = JSON.stringify(file, null, 2);
   const base = `/coach/kunden/${clientId}/plan`;
   const href = (k: boolean, v: boolean) => `${base}/neu?${new URLSearchParams({ ...(k ? { klarnamen: "1" } : {}), ...(v ? { verlauf: "1" } : {}) })}`;
@@ -44,7 +45,7 @@ export default async function ExportPromptPage({ params, searchParams }: PagePro
       <div className="card space-y-3">
         <h3 className="h2">1. Daten</h3>
         <p className="text-sm">
-          Enthalten: Profil, Fragebogen (Ziel und Ziel in eigenen Worten), Testwerte, berechnete Werte mit Rechenweg und das Plan-Format.
+          Enthalten: Profil, Fragebogen (Ziel und Ziel in eigenen Worten), Testwerte, berechnete Werte mit Rechenweg, deine Wissensbasis ({knowledge.length} Einträge „Wissen“, ohne FAQ) und das Plan-Format.
         </p>
         <div className="flex flex-wrap gap-2">
           <Link className={withHistory ? "btn-primary btn-small" : "btn-secondary btn-small"} href={href(realNames, !withHistory)}>

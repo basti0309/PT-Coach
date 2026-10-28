@@ -105,6 +105,13 @@ describe("Profil-Export", () => {
     expect(withPlan.exportVersion).toBe(2);
     expect(withPlan.plan?.title).toBe("Testplan");
   });
+  it("Export-Datei: Wissensbasis nur, wenn Einträge vorhanden", () => {
+    const client = buildProfileExport({ full_name: "A", short_code: "K01" }, cp, tests, true, TODAY);
+    const knowledge = [{ title: "Aufwärmen", content: "Vor jedem Lauf 10 min locker." }];
+    expect(buildExportFile(client, null, new Date(), { knowledge }).knowledge).toEqual(knowledge);
+    expect(buildExportFile(client, null, new Date(), { knowledge: [] })).not.toHaveProperty("knowledge");
+    expect(buildExportFile(client, null)).not.toHaveProperty("knowledge");
+  });
 });
 
 describe("KI-Prompt", () => {
