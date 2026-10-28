@@ -60,6 +60,8 @@ export async function CaptureSession({
         existingSets={sets.map((x) => ({ exerciseId: x.exercise_id, setNo: x.set_no, weightKg: x.weight_kg, reps: x.reps, done: x.done }))}
         existingCompleted={log?.completed ?? false}
         existingNotes={log?.notes ?? ""}
+        existingRpe={log?.session_rpe ?? null}
+        existingMinutes={log?.duration_seconds ? Math.round(log.duration_seconds / 60) : null}
         prefill={prefill}
       />
     );
@@ -69,7 +71,18 @@ export async function CaptureSession({
       <WodLogger
         session={s}
         workoutRef={ref}
-        existing={log ? { result: log.wod_result, weights: log.wod_weights, notes: log.notes, completed: log.completed } : null}
+        existing={
+          log
+            ? {
+                result: log.wod_result,
+                weights: log.wod_weights,
+                notes: log.notes,
+                completed: log.completed,
+                sessionRpe: log.session_rpe,
+                durationSeconds: log.duration_seconds,
+              }
+            : null
+        }
         last={last ? { date: last.performed_on, result: last.wod_result, weights: last.wod_weights } : null}
       />
     );
@@ -123,7 +136,14 @@ export async function CaptureSession({
             title={sessionTitle(s)}
             initial={
               log
-                ? { durationSeconds: log.duration_seconds, distanceM: log.distance_m, avgHr: log.avg_hr, isTest: log.is_test, notes: log.notes }
+                ? {
+                    durationSeconds: log.duration_seconds,
+                    distanceM: log.distance_m,
+                    avgHr: log.avg_hr,
+                    isTest: log.is_test,
+                    notes: log.notes,
+                    sessionRpe: log.session_rpe,
+                  }
                 : undefined
             }
           />

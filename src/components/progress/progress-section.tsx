@@ -1,8 +1,10 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import type { StravaActivityRow, TestResultRow, WorkoutLogRow } from "@/lib/db-types";
+import type { ClientProfileRow, StravaActivityRow, TestResultRow, WorkoutLogRow } from "@/lib/db-types";
+import { ageOn } from "@/lib/calc/calories";
 import type { EnduranceEntry } from "@/lib/calc/aggregate";
 import type { StrengthSetRecord } from "@/lib/calc/volume";
-import { pickReference, predictions, RIEGEL_EXPONENT, type ReferenceCandidate } from "@/lib/calc/riegel";
+import { pickReference, predictions, riegelExponent, riegelExponentLabel, type ReferenceCandidate } from "@/lib/calc/riegel";
+import { appToday } from "@/lib/today";
 import { formatDate, formatDuration, formatKm, formatNumber } from "@/lib/format";
 import { EnduranceChart } from "./endurance-chart";
 import { StrengthChart } from "./strength-chart";
@@ -13,7 +15,7 @@ import { StrengthChart } from "./strength-chart";
  */
 export async function ProgressSection({ clientId, viewerIsClient }: { clientId: string; viewerIsClient: boolean }) {
   const supabase = await createSupabaseServerClient();
-  const [{ data: logs }, { data: sets }, { data: tests }, { data: strava }] = await Promise.all([
+  const [{ data: logs }, { data: sets }, { data: tests }, { data: strava }, { data: cp }] = await Promise.all([
     supabase
       .from("workout_logs")
       .select("id, kind, performed_on, sport, duration_seconds, distance_m, is_test, source, completed, title")
@@ -31,7 +33,12 @@ export async function ProgressSection({ clientId, viewerIsClient }: { clientId: 
     viewerIsClient
       ? supabase.from("strava_activities").select("*").eq("client_id", clientId)
       : Promise.resolve({ data: [] as StravaActivityRow[] }),
+    supabase.from("client_profiles").select("sex, birth_date").eq("client_id", clientId).maybeSingle(),
   ]);
+  const profile = cp as Pick<ClientProfileRow, "sex" | "birth_date"> | null;
+  const sex = profile?.sex ?? null;
+  const age = profile?.birth_date ? ageOn(profile.birth_date, appToday()) : null;
+  const exponent = riegelExponent(sex, age);
 
   const stravaByLog = new Map(((strava ?? []) as StravaActivityRow[]).map((a) => [a.workout_log_id, a]));
   const workouts = (logs ?? []) as Pick<WorkoutLogRow, "id" | "kind" | "performed_on" | "sport" | "duration_seconds" | "distance_m" | "is_test" | "source" | "title">[];
@@ -82,7 +89,7 @@ export async function ProgressSection({ clientId, viewerIsClient }: { clientId: 
       })),
   ];
   const ref = pickReference(candidates);
-  const preds = ref ? predictions(ref) : [];
+  const preds = ref ? predictions(ref, exponent) : [];
 
   return (
     <div className="space-y-4">
@@ -109,7 +116,8 @@ export async function ProgressSection({ clientId, viewerIsClient }: { clientId: 
               Referenz: <strong>{ref.label}</strong> vom {formatDate(ref.date)} – {formatKm(ref.distanceM)} in {formatDuration(ref.timeSeconds)}
             </p>
             <p className="muted">
-              Formel nach Riegel: T2 = T1 · (D2 / D1)^{formatNumber(RIEGEL_EXPONENT, 2)}
+              Formel nach Riegel (1981): T2 = T1 · (D2 / D1)^{formatNumber(exponent, 5)} ({riegelExponentLabel(sex, age)}). Gültig
+              für etwa 1,5–42,2 km und 3,5–230 min.
             </p>
             <table className="w-full text-sm">
               <tbody>

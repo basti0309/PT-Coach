@@ -67,6 +67,10 @@ begin
       values (a, 123456789012, 'geheim-access', 'geheim-refresh', now() + interval '1 hour');
     insert into public.messages (client_id, sender, author_id, body) values
       (a, 'client', a, 'Nachricht von A'), (b, 'client', b, 'Nachricht von B');
+    insert into public.client_questionnaires (client_id, goal, answers) values
+      (a, 'hyrox', '{"goal":"hyrox"}'), (b, 'laufen', '{"goal":"laufen"}');
+    insert into public.health_consents (client_id, consent_version) values (b, 'test');
+    insert into public.client_health (client_id, data) values (b, '{"sleepHours":7}');
     select id into rule_locked from public.escalation_rules where locked limit 1;
     if rule_locked is null then
       insert into public.escalation_rules (rule, locked) values ('Testregel gesperrt', true) returning id into rule_locked;
@@ -131,7 +135,28 @@ begin
       jsonb_build_object('u','A','exp','zero','d','A liest keine E-Mail des Coaches','sql','select count(*) from public.profiles where role = ''coach'''),
       jsonb_build_object('u','A','exp','pos','d','A sieht den Namen des Coaches (erfasst von …)','sql','select count(*) from public.profile_names(array[''{C}'']::uuid[])'),
       jsonb_build_object('u','A','exp','zero','d','A bekommt keinen Namen von B','sql','select count(*) from public.profile_names(array[''{B}'']::uuid[])'),
-      jsonb_build_object('u','A','exp','error','d','A hat keinen Zugriff auf die Login-Drosselung','sql','select public.hit_rate_limit(''x'', 1000, 60)')
+      jsonb_build_object('u','A','exp','error','d','A hat keinen Zugriff auf die Login-Drosselung','sql','select public.hit_rate_limit(''x'', 1000, 60)'),
+      -- Fragebogen, Einwilligung, Gesundheitsangaben
+      jsonb_build_object('u','A','exp','pos','d','A liest eigenen Fragebogen','sql','select count(*) from public.client_questionnaires where client_id = ''{A}'''),
+      jsonb_build_object('u','A','exp','zero','d','A liest keinen Fragebogen von B','sql','select count(*) from public.client_questionnaires where client_id = ''{B}'''),
+      jsonb_build_object('u','A','exp','rows0','d','A ändert keinen Fragebogen von B','sql','update public.client_questionnaires set goal = ''abnehmen'' where client_id = ''{B}'''),
+      jsonb_build_object('u','A','exp','zero','d','A liest keine Einwilligung von B','sql','select count(*) from public.health_consents where client_id = ''{B}'''),
+      jsonb_build_object('u','A','exp','zero','d','A liest keine Gesundheitsangaben von B','sql','select count(*) from public.client_health where client_id = ''{B}'''),
+      jsonb_build_object('u','A','exp','error','d','A speichert ohne Einwilligung keine Gesundheitsangaben','sql','insert into public.client_health (client_id, data) values (''{A}'', ''{}'')'),
+      jsonb_build_object('u','A','exp','error','d','A gibt keine Einwilligung für B','sql','insert into public.health_consents (client_id, consent_version) values (''{B}'', ''x'')'),
+      jsonb_build_object('u','C','exp','error','d','Coach gibt keine Einwilligung für A','sql','insert into public.health_consents (client_id, consent_version) values (''{A}'', ''x'')'),
+      jsonb_build_object('u','A','exp','pos','d','A gibt eigene Einwilligung','sql','with x as (insert into public.health_consents (client_id, consent_version) values (''{A}'', ''test'') returning 1) select count(*) from x'),
+      jsonb_build_object('u','A','exp','error','d','A hat höchstens eine aktive Einwilligung','sql','insert into public.health_consents (client_id, consent_version) values (''{A}'', ''test2'')'),
+      jsonb_build_object('u','A','exp','pos','d','A speichert mit Einwilligung Gesundheitsangaben','sql','with x as (insert into public.client_health (client_id, data) values (''{A}'', ''{"sleepHours":6}'') returning 1) select count(*) from x'),
+      jsonb_build_object('u','A','exp','error','d','A ändert den Text der Einwilligung nicht','sql','update public.health_consents set consent_version = ''anders'' where client_id = ''{A}'''),
+      jsonb_build_object('u','C','exp','pos','d','Coach liest Gesundheitsangaben mit Einwilligung (B)','sql','select count(*) from public.client_health where client_id = ''{B}'''),
+      jsonb_build_object('u','C','exp','pos','d','Coach liest Fragebogen eines Kunden','sql','select count(*) from public.client_questionnaires where client_id = ''{A}'''),
+      jsonb_build_object('u','C','exp','rows0','d','Coach widerruft keine Einwilligung für Kunden','sql','update public.health_consents set withdrawn_at = now() where client_id = ''{B}'''),
+      jsonb_build_object('u','A','exp','pos','d','A widerruft eigene Einwilligung','sql','with x as (update public.health_consents set withdrawn_at = now() where client_id = ''{A}'' and withdrawn_at is null returning 1) select count(*) from x'),
+      jsonb_build_object('u','C','exp','zero','d','Nach Widerruf: Coach liest keine Gesundheitsangaben von A','sql','select count(*) from public.client_health where client_id = ''{A}'''),
+      jsonb_build_object('u','A','exp','error','d','Kraftsatz-Test ohne Wdh./RIR wird abgelehnt','sql','insert into public.test_results (client_id, kind, tested_on, value) values (''{A}'', ''squat_reps'', current_date, 60)'),
+      jsonb_build_object('u','A','exp','pos','d','Kraftsatz-Test mit Gewicht × Wdh. × RIR','sql','with x as (insert into public.test_results (client_id, kind, tested_on, value, reps, rir) values (''{A}'', ''squat_reps'', current_date, 60, 6, 2) returning 1) select count(*) from x'),
+      jsonb_build_object('u','A','exp','pos','d','A trägt Session-RPE bei manueller Einheit ein','sql','with x as (update public.workout_logs set session_rpe = 6 where id = ''{LOG_A}'' returning 1) select count(*) from x')
     );
 
     for t in select * from jsonb_array_elements(tests) loop
@@ -140,6 +165,7 @@ begin
       stmt := replace(replace(replace(replace(replace(replace(replace(replace(t->>'sql',
                 '{A}', a::text), '{B}', b::text), '{LOG_B}', log_b::text), '{LOG_STRAVA_A}', log_strava_a::text),
                 '{TEST_B}', test_b::text), '{PLAN_B}', plan_b::text), '{RULE}', rule_locked::text), '{C}', c::text);
+      stmt := replace(stmt, '{LOG_A}', log_a::text);
       ok := false;
       detail := '';
       begin
@@ -178,6 +204,20 @@ begin
       results := results || (i::text || '|Constraint: Strava-Eintrag ohne Distanz/Puls|FEHLER – Distanz wurde gespeichert');
     exception when check_violation then
       results := results || (i::text || '|Constraint: Strava-Eintrag ohne Distanz/Puls|OK');
+    end;
+
+    -- Widerruf hat die Gesundheitsangaben von A tatsächlich gelöscht (als Admin geprüft)
+    i := i + 1;
+    select count(*) into v from public.client_health where client_id = a;
+    results := results || (i::text || '|Widerruf löscht Gesundheitsangaben|' || case when v = 0 then 'OK' else 'FEHLER – ' || v || ' Zeilen übrig' end);
+
+    -- Datenbank-Constraint: Strava-Einträge können keine Session-RPE tragen
+    i := i + 1;
+    begin
+      update public.workout_logs set session_rpe = 5 where id = log_strava_a;
+      results := results || (i::text || '|Constraint: Strava-Eintrag ohne Session-RPE|FEHLER – RPE wurde gespeichert');
+    exception when check_violation then
+      results := results || (i::text || '|Constraint: Strava-Eintrag ohne Session-RPE|OK');
     end;
 
     raise exception 'rls_test_rollback';

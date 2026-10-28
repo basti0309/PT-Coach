@@ -2,21 +2,31 @@
 
 import { useActionState, useState } from "react";
 import type { FormState } from "@/lib/actions/profile";
-import type { TestKind } from "@/lib/db-types";
-import { TEST_KIND_LABELS } from "@/lib/export/profile";
+import { isRepsKind, TEST_KIND_META, TEST_KINDS, type TestKind } from "@/lib/plan/test-kinds";
 
-export function TestForm({ action, today }: { action: (prev: FormState, data: FormData) => Promise<FormState>; today: string }) {
+const VALUE_LABEL = { s: "Zeit (mm:ss)", kg: "Gewicht (kg)", m: "Strecke (m)", reps: "Wiederholungen" } as const;
+
+export function TestForm({
+  action,
+  today,
+  kinds = TEST_KINDS,
+}: {
+  action: (prev: FormState, data: FormData) => Promise<FormState>;
+  today: string;
+  kinds?: readonly TestKind[];
+}) {
   const [state, formAction, pending] = useActionState(action, {});
-  const [kind, setKind] = useState<TestKind>("run_5k");
+  const [kind, setKind] = useState<TestKind>(kinds[0]);
+  const meta = TEST_KIND_META[kind];
   return (
     <form action={formAction} className="space-y-3">
       <div className="grid gap-3 sm:grid-cols-3">
         <label className="block">
           <span className="label">Test</span>
           <select name="kind" className="input" value={kind} onChange={(e) => setKind(e.target.value as TestKind)}>
-            {(Object.keys(TEST_KIND_LABELS) as TestKind[]).map((k) => (
+            {kinds.map((k) => (
               <option key={k} value={k}>
-                {TEST_KIND_LABELS[k]}
+                {TEST_KIND_META[k].label}
               </option>
             ))}
           </select>
@@ -32,9 +42,36 @@ export function TestForm({ action, today }: { action: (prev: FormState, data: Fo
           </label>
         ) : (
           <label className="block">
-            <span className="label">{kind === "run_5k" ? "Zeit (mm:ss)" : "Gewicht (kg)"}</span>
-            <input name="value" className="input" inputMode={kind === "run_5k" ? "numeric" : "decimal"} required />
+            <span className="label">{meta.unit ? VALUE_LABEL[meta.unit] : "Wert"}</span>
+            <input
+              name="value"
+              className="input"
+              inputMode={meta.unit === "kg" ? "decimal" : "numeric"}
+              placeholder={meta.hint}
+              required
+            />
           </label>
+        )}
+        {isRepsKind(kind) && (
+          <>
+            <label className="block">
+              <span className="label">Wiederholungen</span>
+              <input name="reps" className="input" inputMode="numeric" required />
+            </label>
+            <label className="block">
+              <span className="label">Wdh. in Reserve (RIR)</span>
+              <select name="rir" className="input" defaultValue="" required>
+                <option value="" disabled>
+                  – bitte wählen –
+                </option>
+                <option value="0">0 – keine weitere Wdh. möglich</option>
+                <option value="1">1 – noch 1 Wdh. möglich</option>
+                <option value="2">2 – noch 2 Wdh. möglich</option>
+                <option value="3">3 – noch 3 Wdh. möglich</option>
+                <option value="4">4 oder mehr</option>
+              </select>
+            </label>
+          </>
         )}
       </div>
       <label className="block">

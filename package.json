@@ -11,6 +11,7 @@
     "test:watch": "vitest",
     "test:eskalation": "tsx scripts/eskalation-test.ts",
     "schema:generate": "tsx scripts/generate-plan-schema.ts",
+    "testprofile:generate": "tsx scripts/testprofile.ts",
     "db:test": "bash scripts/db-test-local.sh"
   },
   "dependencies": {

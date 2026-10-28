@@ -1,18 +1,17 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { loadProfileData } from "@/lib/data/profile";
+import { extrasOf, loadProfileData } from "@/lib/data/profile";
 import { authorLabel, loadNames } from "@/lib/data/names";
 import { addTestResult, deleteTestResult, updateClientProfile } from "@/lib/actions/profile";
 import { ageOn, calorieNeed } from "@/lib/calc/calories";
 import { buildExportFile, buildProfileExport, exportFileName, latestTest, TEST_KIND_LABELS } from "@/lib/export/profile";
 import { formatDate, formatDuration, formatNumber } from "@/lib/format";
 import { appToday } from "@/lib/today";
-import type { TestKind } from "@/lib/db-types";
+import { TEST_KIND_META, TEST_KINDS } from "@/lib/plan/test-kinds";
 import { JsonExport } from "@/components/export-panel";
 import { ProfileForm } from "./profile-form";
 import { TestForm } from "./test-form";
-
-const KIND_ORDER: TestKind[] = ["run_5k", "squat_3rm", "bench_3rm", "deadlift_3rm", "body_weight", "mobility"];
 
 export async function ProfileSection({ clientId, isCoach }: { clientId: string; isCoach: boolean }) {
   const supabase = await createSupabaseServerClient();
@@ -27,10 +26,28 @@ export async function ProfileSection({ clientId, isCoach }: { clientId: string; 
     cp?.sex && age && cp.height_cm && weight?.value
       ? calorieNeed({ sex: cp.sex, weightKg: weight.value, heightCm: cp.height_cm, age, pal: cp.pal_factor })
       : null;
-  const exportFile = isCoach ? buildExportFile(buildProfileExport(data.profile, cp, tests, true, today), null) : null;
+  const profileExport = buildProfileExport(data.profile, cp, tests, true, today, extrasOf(data));
+  const exportFile = isCoach ? buildExportFile(profileExport, null) : null;
+  const questionnaireHref = isCoach ? `/coach/kunden/${clientId}/fragebogen` : "/kunde/profil/fragebogen";
 
   return (
     <div className="space-y-4">
+      <section className="card space-y-2">
+        <h2 className="h2">Fragebogen für die Trainingsplanung</h2>
+        {profileExport.missing.length === 0 ? (
+          <p className="text-sm text-green-700">✓ Vollständig ausgefüllt.</p>
+        ) : (
+          <p className="text-sm text-amber-700">
+            {isCoach ? "Unvollständig" : "Bitte ergänzen"}: {profileExport.missing.length} Angabe{profileExport.missing.length === 1 ? "" : "n"} fehlen
+            ({profileExport.missing.slice(0, 3).join(", ")}
+            {profileExport.missing.length > 3 ? ", …" : ""}).
+          </p>
+        )}
+        <Link href={questionnaireHref} className="btn-secondary inline-flex">
+          Fragebogen öffnen
+        </Link>
+      </section>
+
       <ProfileForm profile={cp} isCoach={isCoach} age={age} action={updateClientProfile.bind(null, clientId)} />
 
       <section className="card space-y-2">
@@ -58,7 +75,7 @@ export async function ProfileSection({ clientId, isCoach }: { clientId: string; 
       <section className="card space-y-3">
         <h2 className="h2">Testwerte</h2>
         <TestForm action={addTestResult.bind(null, clientId)} today={today} />
-        {KIND_ORDER.map((kind) => {
+        {TEST_KINDS.map((kind) => {
           const list = tests.filter((t) => t.kind === kind);
           if (list.length === 0) return null;
           return (
@@ -69,8 +86,11 @@ export async function ProfileSection({ clientId, isCoach }: { clientId: string; 
                   <li key={t.id} className="flex flex-wrap items-center gap-2 py-1">
                     <span className="w-28 text-slate-500">{formatDate(t.tested_on, false)}</span>
                     <span className="font-semibold">
-                      {t.kind === "run_5k" && t.value != null && formatDuration(t.value)}
-                      {t.kind !== "run_5k" && t.kind !== "mobility" && t.value != null && `${formatNumber(t.value)} kg`}
+                      {t.value != null && TEST_KIND_META[t.kind].unit === "s" && formatDuration(t.value)}
+                      {t.value != null && TEST_KIND_META[t.kind].unit === "kg" && `${formatNumber(t.value)} kg`}
+                      {t.value != null && TEST_KIND_META[t.kind].unit === "m" && `${formatNumber(t.value, 0)} m`}
+                      {t.value != null && TEST_KIND_META[t.kind].unit === "reps" && `${formatNumber(t.value, 0)} Wdh.`}
+                      {t.reps != null && ` × ${t.reps} @ RIR ${t.rir}`}
                       {t.kind === "mobility" && t.scale != null && `Skala ${t.scale}/10`}
                     </span>
                     {t.note && <span className="text-slate-600">{t.note}</span>}

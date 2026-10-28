@@ -5,6 +5,7 @@ import { z } from "zod";
 import { requireClientAccess } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { parseDecimal, parseDuration } from "@/lib/format";
+import { isRepsKind, TEST_KIND_META, TEST_KINDS } from "@/lib/plan/test-kinds";
 
 export interface FormState {
   ok?: string;
@@ -54,7 +55,7 @@ export async function updateClientProfile(clientId: string, _prev: FormState, fo
 }
 
 const testSchema = z.object({
-  kind: z.enum(["run_5k", "bench_3rm", "deadlift_3rm", "squat_3rm", "mobility", "body_weight"]),
+  kind: z.enum(TEST_KINDS),
   tested_on: z.iso.date(),
 });
 
@@ -65,22 +66,38 @@ export async function addTestResult(clientId: string, _prev: FormState, formData
   const { kind, tested_on } = base.data;
   const rawValue = String(formData.get("value") ?? "").trim();
   const note = String(formData.get("note") ?? "").slice(0, 1000);
+  const unit = TEST_KIND_META[kind].unit;
   let value: number | null = null;
   let scale: number | null = null;
-  if (kind === "run_5k") {
-    value = parseDuration(rawValue);
-    if (!value || value < 600) return { error: "5-km-Zeit bitte als mm:ss oder h:mm:ss, z. B. 26:30." };
-  } else if (kind === "mobility") {
+  let reps: number | null = null;
+  let rir: number | null = null;
+  if (kind === "mobility") {
     const s = String(formData.get("scale") ?? "").trim();
     scale = s ? Number(s) : null;
     if (scale != null && !(Number.isInteger(scale) && scale >= 1 && scale <= 10)) return { error: "Skala 1–10." };
     if (scale == null && !note) return { error: "Bitte Freitext oder Skalenwert eintragen." };
+  } else if (unit === "s") {
+    value = parseDuration(rawValue);
+    const min = kind === "run_5k" ? 600 : 60;
+    if (!value || value < min) return { error: "Zeit bitte als mm:ss oder h:mm:ss, z. B. 26:30." };
+  } else if (unit === "m") {
+    value = parseDecimal(rawValue);
+    if (value == null || value < 100 || value > 20000) return { error: "Bitte die Strecke in Metern eingeben, z. B. 6200." };
+  } else if (unit === "reps") {
+    value = parseDecimal(rawValue);
+    if (value == null || !Number.isInteger(value) || value < 1 || value > 1000) return { error: "Bitte die Anzahl Wiederholungen eingeben." };
   } else {
     value = parseDecimal(rawValue);
     if (value == null || value <= 0 || value > 500) return { error: "Bitte einen Wert in kg eingeben." };
   }
+  if (isRepsKind(kind)) {
+    reps = Number(formData.get("reps"));
+    rir = Number(formData.get("rir"));
+    if (!Number.isInteger(reps) || reps < 1 || reps > 30) return { error: "Wiederholungen 1–30." };
+    if (!Number.isInteger(rir) || rir < 0 || rir > 10) return { error: "Bitte die Wiederholungen in Reserve (RIR) wählen." };
+  }
   const supabase = await createSupabaseServerClient();
-  const { error } = await supabase.from("test_results").insert({ client_id: clientId, kind, tested_on, value, scale, note });
+  const { error } = await supabase.from("test_results").insert({ client_id: clientId, kind, tested_on, value, scale, reps, rir, note });
   if (error) return { error: error.message };
   revalidate();
   return { ok: "Testwert gespeichert." };

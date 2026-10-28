@@ -7,6 +7,7 @@ import { formatWodResult, wodResultKind } from "@/lib/calc/wod";
 import { formatDate, formatDuration, parseDuration } from "@/lib/format";
 import type { WodResult } from "@/lib/db-types";
 import type { WodSession } from "@/lib/plan/schema";
+import { parseRpe, SessionRpeField } from "./session-rpe-field";
 
 export function WodLogger({
   session,
@@ -16,7 +17,14 @@ export function WodLogger({
 }: {
   session: WodSession;
   workoutRef: WorkoutRef;
-  existing: { result: WodResult | null; weights: string; notes: string; completed: boolean } | null;
+  existing: {
+    result: WodResult | null;
+    weights: string;
+    notes: string;
+    completed: boolean;
+    sessionRpe: number | null;
+    durationSeconds: number | null;
+  } | null;
   last: { date: string; result: WodResult | null; weights: string } | null;
 }) {
   const kind = wodResultKind(session.wodType);
@@ -26,6 +34,8 @@ export function WodLogger({
   const [reps, setReps] = useState(existing?.result?.reps != null ? String(existing.result.reps) : "");
   const [weights, setWeights] = useState(existing?.weights ?? "");
   const [notes, setNotes] = useState(existing?.notes ?? "");
+  const [rpe, setRpe] = useState(existing?.sessionRpe != null ? String(existing.sessionRpe) : "");
+  const [minutes, setMinutes] = useState(existing?.durationSeconds ? String(Math.round(existing.durationSeconds / 60)) : "");
   const [date, setDate] = useState(workoutRef.date);
   const [error, setError] = useState("");
   const [saved, setSaved] = useState(false);
@@ -47,6 +57,8 @@ export function WodLogger({
           reps: kind === "rounds" && reps ? parseInt(reps, 10) : null,
           weights,
           notes,
+          sessionRpe: parseRpe(rpe),
+          durationMinutes: minutes ? Math.min(600, Math.max(1, parseInt(minutes, 10))) : null,
         });
         setSaved(true);
         router.refresh();
@@ -104,6 +116,7 @@ export function WodLogger({
           <span className="label">Notizen</span>
           <textarea className="input min-h-20" value={notes} onChange={(e) => setNotes(e.target.value)} />
         </label>
+        <SessionRpeField rpe={rpe} onRpe={setRpe} minutes={minutes} onMinutes={setMinutes} />
         {error && <p className="text-sm text-red-700">{error}</p>}
         {saved && <p className="text-sm text-green-700">Gespeichert.</p>}
         <button type="button" className="btn-primary w-full" disabled={pending} onClick={submit}>

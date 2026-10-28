@@ -87,9 +87,9 @@ In GitHub `docs/eskalation-testset.json` öffnen → Stift-Symbol → echte Beis
 Claude erledigt diese Schritte in einer neuen Sitzung mit den Schlüsseln aus A1 und fragt vor jeder Änderung nach deinem OK.
 
 - **B1 Datenbank prüfen:**
-  - Sind alle drei Migrationen eingespielt? Fehlende werden nachgeholt.
+  - Sind alle Migrationen eingespielt? Fehlende werden nachgeholt (neu seit 28.10.2026: `20261028000100_testarten.sql` und danach – als eigene Ausführung – `20261028000200_fragebogen.sql`).
   - Ist Realtime für den Chat aktiv?
-  - Der Rechte-Test wird erneut ausgeführt; erwartet sind „ALLE TESTS BESTANDEN (50)“.
+  - Der Rechte-Test wird erneut ausgeführt; erwartet sind „ALLE TESTS BESTANDEN (72)“.
 - **B2 Supabase-Anmeldung einstellen:**
   - Login-Mailvorlage mit Link und Code (Text siehe Anhang).
   - Site URL und Redirect URLs auf die App-Adresse.
@@ -140,9 +140,9 @@ Falls du Teil B lieber selbst machst:
 ### Bereits erledigte Schritte (zur Referenz)
 
 - **1 Projekt:** supabase.com → New project, Region Central EU (Frankfurt).
-- **1a Migrationen:** SQL Editor → nacheinander `supabase/migrations/20261027000100_grundgeruest.sql`, `…000200_standarddaten.sql`, `…000300_absicherung.sql` je einmal ausführen. Neue Migrationen später nur zusätzlich, in Namensreihenfolge.
+- **1a Migrationen:** SQL Editor → nacheinander `supabase/migrations/20261027000100_grundgeruest.sql`, `…000200_standarddaten.sql`, `…000300_absicherung.sql` je einmal ausführen. Neue Migrationen später nur zusätzlich, in Namensreihenfolge, jede Datei als eigene Ausführung (wichtig für `20261028000100_testarten.sql`: neue Testarten sind erst nach dieser Ausführung nutzbar, danach `20261028000200_fragebogen.sql`).
 - **1b Demo-Daten (optional):** `supabase/seed.sql`; entfernen mit `supabase/seed_entfernen.sql`.
-- **1c Rechte-Test:** `supabase/tests/rls_test.sql` → letzte Zeile „ALLE TESTS BESTANDEN (50)“.
+- **1c Rechte-Test:** `supabase/tests/rls_test.sql` → letzte Zeile „ALLE TESTS BESTANDEN (72)“ (vor den Fragebogen-Migrationen: 50).
 
 ---
 

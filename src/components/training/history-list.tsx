@@ -78,6 +78,13 @@ export async function HistoryList({ clientId, base }: { clientId: string; base: 
               />
             )}
             {strava && strava.sport === "laufen" && <StravaTestToggle activityId={strava.id} initial={strava.is_test} />}
+            {log.session_rpe != null && (
+              <p className="text-sm text-slate-600">
+                Session-RPE {log.session_rpe}/10
+                {log.duration_seconds != null &&
+                  ` · Last ${formatNumber(Math.round(log.duration_seconds / 60) * log.session_rpe, 0)} (RPE × ${Math.round(log.duration_seconds / 60)} min)`}
+              </p>
+            )}
             {log.notes && <p className="text-sm italic text-slate-500">{log.notes}</p>}
             <p className="text-xs text-slate-400">
               erfasst von {authorLabel(names, log.created_by)}
