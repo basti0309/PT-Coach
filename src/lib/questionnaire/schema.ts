@@ -107,6 +107,8 @@ export const hyroxResultSchema = z
 export const answersSchema = z
   .object({
     goal: z.enum(GOALS),
+    /** Freitext: das Ziel in eigenen Worten konkretisiert (z. B. „Hyrox unter 65 min im März“) */
+    goalNote: z.string().max(1000),
     /** mögliche Trainingstage, 1 = Montag … 7 = Sonntag */
     weekdays: z.array(int(1, 7)).max(7),
     events: z
@@ -172,10 +174,10 @@ export const healthSchema = z
 export type Health = z.infer<typeof healthSchema>;
 
 /** Version des Einwilligungstexts; wird mit jeder Einwilligung gespeichert (Nachweis nach Art. 7 Abs. 1 DSGVO). Bei Textänderung erhöhen. */
-export const CONSENT_VERSION = "2026-10-28b";
+export const CONSENT_VERSION = "2026-10-28c";
 export const CONSENT_TEXT = [
   "Ich willige ausdrücklich ein, dass meine Gesundheitsangaben aus diesem Fragebogen (Beschwerden, Schlaf, gemessene maximale Herzfrequenz) gespeichert und für meine Trainingsplanung verarbeitet werden (Art. 9 Abs. 2 lit. a DSGVO).",
-  "Mein Coach sieht diese Angaben. Für die Planerstellung können sie ohne meinen Namen (mit Kürzel) an einen KI-Dienst übergeben werden. Im Chat mit der KI werden sie nicht verwendet.",
+  "Mein Coach sieht diese Angaben. Für die Planerstellung können sie ohne meinen Namen (mit Kürzel) an einen externen Dienst übergeben werden, der meinen Coach bei der Planerstellung unterstützt. Im Chat werden sie nicht verwendet.",
   "Die Einwilligung ist freiwillig. Ohne sie nutze ich die App weiter; mein Coach plant dann ohne diese Angaben.",
   "Ich kann die Einwilligung jederzeit hier im Profil widerrufen. Dann werden die Gesundheitsangaben gelöscht; die Verarbeitung bis zum Widerruf bleibt rechtmäßig.",
 ];

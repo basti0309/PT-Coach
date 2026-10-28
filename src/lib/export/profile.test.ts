@@ -116,7 +116,7 @@ describe("KI-Prompt", () => {
   it("Prompt für neuen Plan: Platzhalter und leere Beschreibung", () => {
     const tpl = "B: {{BESCHREIBUNG}}\nS: {{SCHEMA}}\nV: {{VORLAGE}}";
     expect(buildNewPlanPrompt(tpl, { beschreibung: " 8 Wochen HYROX ", schema: "$&", vorlage: "{}" })).toBe("B: 8 Wochen HYROX\nS: $&\nV: {}");
-    expect(buildNewPlanPrompt(tpl, { beschreibung: "", schema: "", vorlage: "" })).toContain("keine Beschreibung angegeben");
+    expect(buildNewPlanPrompt(tpl, { beschreibung: "", schema: "", vorlage: "" })).toContain("plane nach den Kundendaten");
   });
   it("beide Prompt-Vorlagen in docs/ enthalten alle Platzhalter", () => {
     const edit = extractTemplate(readFileSync(path.join(process.cwd(), "docs", "ki-prompt-vorlage.md"), "utf8"));

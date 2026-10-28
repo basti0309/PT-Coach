@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
-import { requireClientAccess } from "@/lib/auth";
+import { requireClientAccess, requireCoach } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { SPORTS } from "@/lib/calc/sport";
 import { isSessionComplete, valueCount, type BlockResults } from "@/lib/calc/blocks";
@@ -268,4 +268,26 @@ export async function deleteWorkoutLog(clientId: string, logId: string): Promise
   const { error } = await supabase.from("workout_logs").delete().eq("id", z.uuid().parse(logId));
   if (error) throw new Error(error.message);
   revalidate();
+}
+
+export interface DeleteHistoryState {
+  ok?: string;
+  error?: string;
+}
+
+/** Trainingsverlauf löschen (nur Coach): alles oder Zeitraum, inkl. Strava-Einträge. Die Datenbankfunktion prüft die Rolle selbst. */
+export async function deleteTrainingHistory(clientId: string, _prev: DeleteHistoryState, formData: FormData): Promise<DeleteHistoryState> {
+  await requireCoach();
+  if (formData.get("confirm") !== "ja") return { error: "Bitte das Löschen bestätigen." };
+  const all = formData.get("scope") !== "range";
+  const from = all ? null : String(formData.get("from") ?? "") || null;
+  const to = all ? null : String(formData.get("to") ?? "") || null;
+  if (!all && !from && !to) return { error: "Bitte einen Zeitraum angeben." };
+  if ((from && !isoDate.safeParse(from).success) || (to && !isoDate.safeParse(to).success)) return { error: "Datum ungültig." };
+  if (from && to && from > to) return { error: "„von“ liegt nach „bis“." };
+  const supabase = await createSupabaseServerClient();
+  const { data, error } = await supabase.rpc("delete_training_history", { cid: z.uuid().parse(clientId), p_from: from, p_to: to });
+  if (error) return { error: error.message };
+  revalidate();
+  return { ok: `${data ?? 0} Einheit${data === 1 ? "" : "en"} gelöscht.` };
 }

@@ -21,6 +21,8 @@ declare
   log_a uuid := gen_random_uuid();
   log_b uuid := gen_random_uuid();
   log_strava_a uuid := gen_random_uuid();
+  log_old_a uuid := gen_random_uuid();
+  log_strava_old_a uuid := gen_random_uuid();
   test_b uuid := gen_random_uuid();
   rule_locked uuid;
   tests jsonb;
@@ -57,7 +59,10 @@ begin
     insert into public.workout_logs (id, client_id, kind, performed_on, source, completed, sport, duration_seconds, distance_m)
       values (log_a, a, 'endurance', current_date, 'manual', true, 'laufen', 1800, 5000),
              (log_b, b, 'strength', current_date, 'manual', true, null, null, null),
-             (log_strava_a, a, 'endurance', current_date, 'strava', true, 'laufen', 2400, null);
+             (log_strava_a, a, 'endurance', current_date, 'strava', true, 'laufen', 2400, null),
+             (log_old_a, a, 'endurance', current_date - 30, 'manual', true, 'laufen', 1500, 4000),
+             (log_strava_old_a, a, 'endurance', current_date - 3, 'strava', true, 'laufen', 2000, null);
+    update public.workout_logs set plan_id = plan_b, session_id = 'w1d1' where id = log_b;
     insert into public.workout_logs (client_id, kind, performed_on, source, completed, block_results)
       values (b, 'program', current_date, 'manual', true, '{"p1": {"done": true, "values": [165], "note": ""}}');
     insert into public.set_logs (workout_log_id, client_id, performed_on, exercise_id, set_no, weight_kg, reps)
@@ -65,6 +70,9 @@ begin
     insert into public.strava_activities (client_id, strava_activity_id, workout_log_id, strava_sport_type, sport,
                                           start_time, start_date_local, moving_time_seconds, distance_m, avg_hr, matched)
       values (a, 987654321012, log_strava_a, 'Run', 'laufen', now(), current_date, 2400, 8000, 151, true);
+    insert into public.strava_activities (client_id, strava_activity_id, workout_log_id, strava_sport_type, sport,
+                                          start_time, start_date_local, moving_time_seconds, distance_m, avg_hr, matched)
+      values (a, 987654321099, log_strava_old_a, 'Run', 'laufen', now() - interval '3 days', current_date - 3, 2000, 6000, 140, false);
     insert into public.strava_connections (client_id, athlete_id, access_token, refresh_token, expires_at)
       values (a, 123456789012, 'geheim-access', 'geheim-refresh', now() + interval '1 hour');
     insert into public.messages (client_id, sender, author_id, body) values
@@ -164,7 +172,13 @@ begin
       jsonb_build_object('u','A','exp','zero','d','A liest keine Blockergebnisse von B','sql','select count(*) from public.workout_logs where block_results is not null and client_id = ''{B}'''),
       jsonb_build_object('u','A','exp','rows0','d','A ändert keine Blockergebnisse von B','sql','update public.workout_logs set block_results = ''{}'' where client_id = ''{B}'' and kind = ''program'''),
       jsonb_build_object('u','C','exp','pos','d','Coach liest Blockergebnisse seiner Kunden','sql','select count(*) from public.workout_logs where client_id = ''{B}'' and block_results ? ''p1'''),
-      jsonb_build_object('u','A','exp','error','d','Blockergebnisse müssen ein Objekt sein','sql','insert into public.workout_logs (client_id, kind, performed_on, block_results) values (''{A}'', ''program'', current_date, ''[1, 2]'')')
+      jsonb_build_object('u','A','exp','error','d','Blockergebnisse müssen ein Objekt sein','sql','insert into public.workout_logs (client_id, kind, performed_on, block_results) values (''{A}'', ''program'', current_date, ''[1, 2]'')'),
+      -- Plan löschen und Trainingsverlauf löschen
+      jsonb_build_object('u','B','exp','rows0','d','Kunde löscht seinen Plan nicht','sql','delete from public.plans where id = ''{PLAN_B}'''),
+      jsonb_build_object('u','A','exp','error','d','Kunde löscht keinen Trainingsverlauf (Funktion)','sql','select public.delete_training_history(''{A}'')'),
+      jsonb_build_object('u','N','exp','error','d','Konto ohne Profil löscht keinen Trainingsverlauf','sql','select public.delete_training_history(''{A}'')'),
+      jsonb_build_object('u','C','exp','pos','d','Coach löscht aktiven Plan','sql','with x as (delete from public.plans where id = ''{PLAN_B}'' returning 1) select count(*) from x'),
+      jsonb_build_object('u','C','exp','pos','d','Coach löscht Trainingsverlauf von vor 7 bis vor 1 Tag (inkl. Strava)','sql','select public.delete_training_history(''{A}'', current_date - 7, current_date - 1)')
     );
 
     for t in select * from jsonb_array_elements(tests) loop
@@ -213,6 +227,21 @@ begin
     exception when check_violation then
       results := results || (i::text || '|Constraint: Strava-Eintrag ohne Distanz/Puls|OK');
     end;
+
+    -- Plan gelöscht: Versionen weg, Training bleibt ohne Plan-Bezug
+    i := i + 1;
+    select count(*) into v from public.plan_versions where plan_id = plan_b;
+    select count(*) into rc from public.workout_logs where id = log_b and plan_id is null;
+    results := results || (i::text || '|Plan löschen: Versionen gelöscht, Training bleibt|' || case when v = 0 and rc = 1 then 'OK' else 'FEHLER – Versionen ' || v || ', Training ' || rc end);
+
+    -- Verlauf löschen im Zeitraum: Strava-Eintrag samt Aktivität darin gelöscht, Einträge außerhalb bleiben
+    i := i + 1;
+    select count(*) into v from public.workout_logs where client_id = a and performed_on between current_date - 7 and current_date - 1;
+    select count(*) into rc from public.strava_activities where strava_activity_id = 987654321099;
+    results := results || (i::text || '|Verlauf löschen: Zeitraum inkl. Strava gelöscht|' || case when v = 0 and rc = 0 then 'OK' else 'FEHLER – Einheiten ' || v || ', Strava ' || rc end);
+    i := i + 1;
+    select count(*) into v from public.workout_logs where id in (log_old_a, log_a, log_strava_a);
+    results := results || (i::text || '|Verlauf löschen: Einheiten außerhalb des Zeitraums bleiben|' || case when v = 3 then 'OK' else 'FEHLER – nur ' || v || ' von 3' end);
 
     -- Widerruf hat die Gesundheitsangaben von A tatsächlich gelöscht (als Admin geprüft)
     i := i + 1;

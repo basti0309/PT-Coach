@@ -90,9 +90,9 @@ In GitHub `docs/eskalation-testset.json` öffnen → Stift-Symbol → echte Beis
 Claude erledigt diese Schritte in einer neuen Sitzung mit den Schlüsseln aus A1 und fragt vor jeder Änderung nach deinem OK.
 
 - **B1 Datenbank prüfen:**
-  - Sind alle Migrationen eingespielt? Fehlende werden nachgeholt (seit 28.10.2026 neu: `20261028000100_programm_bloecke.sql`, `20261028000200_testarten.sql` und danach – als eigene Ausführung – `20261028000300_fragebogen.sql`).
+  - Sind alle Migrationen eingespielt? Fehlende werden nachgeholt (seit 28.10.2026 neu: `20261028000100_programm_bloecke.sql`, `20261028000200_testarten.sql`, danach – als eigene Ausführung – `20261028000300_fragebogen.sql` und `20261028000400_verlauf_loeschen.sql`).
   - Ist Realtime für den Chat aktiv?
-  - Der Rechte-Test wird erneut ausgeführt; erwartet sind „ALLE TESTS BESTANDEN (77)“.
+  - Der Rechte-Test wird erneut ausgeführt; erwartet sind „ALLE TESTS BESTANDEN (85)“.
 - **B2 Supabase-Anmeldung einstellen:**
   - Login-Mailvorlage mit Link und Code (Text siehe Anhang).
   - Site URL und Redirect URLs auf die App-Adresse.
@@ -143,9 +143,9 @@ Falls du Teil B lieber selbst machst:
 ### Bereits erledigte Schritte (zur Referenz)
 
 - **1 Projekt:** supabase.com → New project, Region Central EU (Frankfurt).
-- **1a Migrationen:** SQL Editor → nacheinander `supabase/migrations/20261027000100_grundgeruest.sql`, `…000200_standarddaten.sql`, `…000300_absicherung.sql`, `20261028000100_programm_bloecke.sql`, `20261028000200_testarten.sql` und `20261028000300_fragebogen.sql` je einmal ausführen, jede Datei als eigene Ausführung (wichtig für `…_testarten.sql`: neue Testarten sind erst nach dieser Ausführung nutzbar). Neue Migrationen später nur zusätzlich, in Namensreihenfolge.
+- **1a Migrationen:** SQL Editor → nacheinander `supabase/migrations/20261027000100_grundgeruest.sql`, `…000200_standarddaten.sql`, `…000300_absicherung.sql`, `20261028000100_programm_bloecke.sql`, `20261028000200_testarten.sql`, `20261028000300_fragebogen.sql` und `20261028000400_verlauf_loeschen.sql` je einmal ausführen, jede Datei als eigene Ausführung (wichtig für `…_testarten.sql`: neue Testarten sind erst nach dieser Ausführung nutzbar). Neue Migrationen später nur zusätzlich, in Namensreihenfolge.
 - **1b Demo-Daten (optional):** `supabase/seed.sql`; entfernen mit `supabase/seed_entfernen.sql`.
-- **1c Rechte-Test:** `supabase/tests/rls_test.sql` → letzte Zeile „ALLE TESTS BESTANDEN (77)“.
+- **1c Rechte-Test:** `supabase/tests/rls_test.sql` → letzte Zeile „ALLE TESTS BESTANDEN (85)“.
 
 ---
 

@@ -24,6 +24,7 @@ function parsePayload(formData: FormData): unknown {
 
 const FIELD_LABELS: Record<string, string> = {
   goal: "Ziel",
+  goalNote: "Ziel in eigenen Worten",
   weekdays: "Wochentage",
   events: "Termine",
   absences: "Ausfallzeiten",

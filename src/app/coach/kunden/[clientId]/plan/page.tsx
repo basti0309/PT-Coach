@@ -4,7 +4,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { loadPlans, loadPlanWithVersion, loadSessionLogs } from "@/lib/data/plans";
 import { formatDate } from "@/lib/format";
 import { appToday } from "@/lib/today";
-import { activatePlan, createPlan } from "./actions";
+import { activatePlan, createPlan, deletePlan } from "./actions";
 
 export default async function CoachPlanPage({ params, searchParams }: PageProps<"/coach/kunden/[clientId]/plan">) {
   const { clientId } = await params;
@@ -61,6 +61,19 @@ export default async function CoachPlanPage({ params, searchParams }: PageProps<
           <p className="muted">
             Start: {formatDate(data.version.content.startDate)} · Version {data.version.version}
           </p>
+          <details className="card">
+            <summary className="cursor-pointer py-1 font-semibold">Plan „{selected.title}“ löschen …</summary>
+            <form action={deletePlan.bind(null, clientId, selected.id)} className="mt-3 space-y-3">
+              <label className="flex min-h-11 items-start gap-2">
+                <input type="checkbox" name="confirm" value="ja" className="mt-1 h-5 w-5" required />
+                <span>
+                  Plan mit allen Versionen endgültig löschen{selected.is_active && " (das ist der aktive Plan – der Kunde hat danach keinen Plan)"}. Erfasste
+                  Trainings bleiben im Verlauf, nur ohne Plan-Bezug.
+                </span>
+              </label>
+              <button className="btn-danger">Plan löschen</button>
+            </form>
+          </details>
           <PlanView
             plan={data.version.content}
             statuses={new Map([...logs].map(([k, l]) => [k, { completed: l.completed, source: l.source }]))}
@@ -86,11 +99,11 @@ export default async function CoachPlanPage({ params, searchParams }: PageProps<
             <input id="startDate" name="startDate" type="date" className="input" defaultValue={today} required />
           </div>
         </div>
-        <p className="muted">Der neue Plan wird der aktive Plan des Kunden. Inhalte per Editor oder Import (KI-Workflow).</p>
+        <p className="muted">Der neue Plan wird der aktive Plan des Kunden. Inhalte per Editor oder über „Export & Prompt“.</p>
         <div className="flex flex-wrap gap-2">
           <button className="btn-secondary">Leeren Plan anlegen</button>
           <Link className="btn-primary" href={`${base}/neu`}>
-            Neuer Plan mit KI
+            Export & Prompt (neuer Plan)
           </Link>
         </div>
       </form>

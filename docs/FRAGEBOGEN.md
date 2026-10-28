@@ -35,7 +35,8 @@ Grundsätze:
 
 | Frage | Feld `questionnaire.` | Typ | Pflicht | Steuert |
 |---|---|---|---|---|
-| Hauptziel | `goal` | `hyrox` \| `laufen` \| `kraft_muskelaufbau` \| `abnehmen` \| `fitness_gesundheit` | ja | Zweig, Vorlage, R4 Testwoche, R10 ja/nein |
+| Hauptziel | `goal` | `hyrox` \| `laufen` \| `kraft_muskelaufbau` \| `abnehmen` \| `fitness_gesundheit` | ja | Zweig, Vorlage, R4 Testwoche, R10 ja/nein; Plan-Ziel |
+| Ziel in eigenen Worten | `goalNote` (auch `client.goalNote`) | Freitext, max. 1000 Zeichen | nein | Plan-Ziel („<Ziel> – <Freitext>“, übernimmt die App beim Import) und Schwerpunkte des Plans |
 | Mögliche Wochentage | `weekdays` | Liste 1–7 (Mo–So) | ja | Lage der Einheiten und Ruhetage |
 | Termine/Wettkämpfe | `events[]` {date, kind, name, detail} | Liste | nein | Planende/Taper; „Training mit Wettkampfziel“ (R1 Tier 2) |
 | Reisen/Ausfallzeiten | `absences[]` {from, to, option: keine/koerpergewicht/hotel_gym} | Liste | nein | R11 Lage der Entlastungswoche, Ersatzeinheiten |

@@ -1,6 +1,7 @@
 import "server-only";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { SetLogRow, StravaActivityRow, WorkoutLogRow } from "@/lib/db-types";
+import { buildHistoryExport, type HistoryExportEntry, type HistoryLog, type HistorySet } from "@/lib/export/history";
 import { prefillFromHistory, type Placeholder } from "@/lib/calc/prefill";
 import { findLastWodResult, wodMovementsKey } from "@/lib/calc/wod";
 import type { StrengthSession, WodSession } from "@/lib/plan/schema";
@@ -105,4 +106,24 @@ export async function loadHistory(supabase: SupabaseClient, clientId: string, li
   for (const s of (sets ?? []) as SetLogRow[]) setsBy.set(s.workout_log_id, [...(setsBy.get(s.workout_log_id) ?? []), s]);
   const stravaBy = new Map(((strava ?? []) as StravaActivityRow[]).map((a) => [a.workout_log_id, a]));
   return list.map((log) => ({ log, sets: setsBy.get(log.id) ?? [], strava: stravaBy.get(log.id) ?? null }));
+}
+
+/** Gesamter Trainingsverlauf für den Export – liest bewusst nie strava_activities (keine Strava-Werte im Export). */
+export async function loadHistoryForExport(supabase: SupabaseClient, clientId: string): Promise<HistoryExportEntry[]> {
+  const { data: logs } = await supabase
+    .from("workout_logs")
+    .select("id, kind, performed_on, title, source, completed, sport, duration_seconds, distance_m, avg_hr, is_test, wod_result, wod_weights, block_results, session_rpe, notes")
+    .eq("client_id", clientId)
+    .order("performed_on")
+    .limit(5000);
+  const list = (logs ?? []) as HistoryLog[];
+  const ids = list.filter((l) => l.kind === "strength").map((l) => l.id);
+  const { data: sets } = ids.length
+    ? await supabase
+        .from("set_logs")
+        .select("workout_log_id, exercise_id, exercise_name, set_no, weight_kg, reps, done")
+        .in("workout_log_id", ids)
+        .limit(20000)
+    : { data: [] };
+  return buildHistoryExport(list, (sets ?? []) as HistorySet[]);
 }
