@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { saveEnduranceLog } from "@/lib/actions/training";
 import { SPORTS, SPORT_LABELS, type Sport } from "@/lib/calc/sport";
 import { formatDuration, formatNumber, parseDecimal, parseDuration } from "@/lib/format";
+import { parseRpe, SessionRpeField } from "./session-rpe-field";
 
 export interface EnduranceFormProps {
   clientId: string;
@@ -16,7 +17,14 @@ export interface EnduranceFormProps {
   defaultSport: Sport;
   sportFixed: boolean;
   title: string;
-  initial?: { durationSeconds: number | null; distanceM: number | null; avgHr: number | null; isTest: boolean; notes: string };
+  initial?: {
+    durationSeconds: number | null;
+    distanceM: number | null;
+    avgHr: number | null;
+    isTest: boolean;
+    notes: string;
+    sessionRpe: number | null;
+  };
   doneHref?: string;
 }
 
@@ -29,6 +37,7 @@ export function EnduranceForm(props: EnduranceFormProps) {
   const [hr, setHr] = useState(props.initial?.avgHr != null ? String(props.initial.avgHr) : "");
   const [isTest, setIsTest] = useState(props.initial?.isTest ?? false);
   const [notes, setNotes] = useState(props.initial?.notes ?? "");
+  const [rpe, setRpe] = useState(props.initial?.sessionRpe != null ? String(props.initial.sessionRpe) : "");
   const [error, setError] = useState("");
   const [pending, startTransition] = useTransition();
 
@@ -55,6 +64,7 @@ export function EnduranceForm(props: EnduranceFormProps) {
           isTest,
           notes,
           title: props.title || SPORT_LABELS[sport],
+          sessionRpe: parseRpe(rpe),
         });
         if (props.doneHref) router.push(props.doneHref);
         router.refresh();
@@ -102,6 +112,7 @@ export function EnduranceForm(props: EnduranceFormProps) {
         <span className="label">Notizen</span>
         <textarea className="input min-h-16" value={notes} onChange={(e) => setNotes(e.target.value)} />
       </label>
+      <SessionRpeField rpe={rpe} onRpe={setRpe} />
       {error && <p className="text-sm text-red-700">{error}</p>}
       <button type="button" className="btn-primary w-full" disabled={pending} onClick={submit}>
         {pending ? "Speichere …" : "Speichern"}

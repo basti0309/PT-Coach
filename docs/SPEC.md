@@ -19,6 +19,9 @@ Wer keinen Eintrag in `profiles` hat, sieht nichts (RLS liefert leere Ergebnisse
 | `profiles` | eigenes lesen; vom Coach nur den Namen (Funktion `profile_names()`) | alle lesen/ändern | anlegen |
 | `client_profiles` | eigenes lesen/ändern, **Nährstoffziele nicht** (Trigger) | alle lesen/anlegen/ändern | – |
 | `test_results` | eigene lesen/anlegen/löschen | alle | – |
+| `client_questionnaires` (Fragebogen) | eigenen lesen/anlegen/ändern | alle lesen/anlegen/ändern | – |
+| `health_consents` (Einwilligung Art. 9 DSGVO) | eigene lesen, **nur selbst** erteilen und widerrufen | lesen (kein Erteilen, kein Widerruf) | – |
+| `client_health` (Gesundheitsangaben) | eigene lesen/schreiben **nur mit aktiver Einwilligung**; löschen | wie Kunde (nur mit Einwilligung des Kunden) | – |
 | `plans`, `plan_versions` | eigene lesen | alle lesen/schreiben | – |
 | `workout_logs` | eigene lesen; eigene **manuelle** anlegen/ändern/löschen | alle lesen; **manuelle** anlegen/ändern/löschen | Strava-Einträge |
 | `set_logs` | eigene lesen/schreiben | alle | – |
@@ -36,11 +39,14 @@ Alle Tabellen mit `created_at`, `updated_at` sowie – wo Nutzer schreiben – `
 
 - **profiles**: `id` (= auth.users.id), `role` (`coach`|`client`), `full_name`, `short_code` (Kürzel, eindeutig, für Pseudonymisierung), `email`
 - **client_profiles** (1:1 zu Kunde): `sex` (`m`|`w`), `birth_date` (Alter wird berechnet), `height_cm`, `equipment_home`, `gym_access`, `training_days_per_week`, `max_minutes_per_workout`, `notes`, `pal_factor`, `protein_g`, `fat_g`, `carbs_g`
-- **test_results** (Historie, nur anfügen/löschen, nie überschreiben): `kind` (`run_5k` Sekunden | `bench_3rm`, `deadlift_3rm`, `squat_3rm`, `body_weight` kg | `mobility` Skala 1–10 + Freitext), `tested_on`, `value`, `scale`, `note`
+- **test_results** (Historie, nur anfügen/löschen, nie überschreiben): `kind` (Liste mit Einheit in `src/lib/plan/test-kinds.ts`: Zeiten in s wie `run_5k`, `run_1mile`, `wallballs_100`, `ski_5k`, `row_5k`, `lunge_100m`; Meter `run_30min`, `run_30min_submax`; Wdh. `pullups_2min`, `burpee_bar_5min`; kg `*_3rm`, `body_weight`; Kraftsätze `squat_reps`/`bench_reps`/`deadlift_reps` mit `reps` und `rir`; `mobility` Skala 1–10 + Freitext), `tested_on`, `value`, `scale`, `reps`, `rir`, `note`
+- **client_questionnaires** (1:1): `goal`, `answers` (jsonb, Zod-Schema `src/lib/questionnaire/schema.ts`), siehe `docs/FRAGEBOGEN.md`
+- **health_consents**: `consent_version`, `given_at`, `withdrawn_at`; höchstens eine aktive Einwilligung je Kunde; nur Widerruf änderbar (Trigger)
+- **client_health** (1:1): `data` (jsonb, gleiches Zod-Schema): Beschwerden, Schlaf, gemessene HFmax. Lesen/Schreiben nur bei aktiver Einwilligung (RLS); der Widerruf löscht die Zeile (Trigger).
 - **plans**: je Kunde, `title`, `is_active` (höchstens ein aktiver Plan je Kunde), `current_version`
 - **plan_versions**: unveränderliche Versionen, `version` (1, 2, …), `content` (JSON nach Plan-Schema), `change_note`, `source` (`editor`|`import`|`restore`|`seed`). Neue Version nur über Funktion `save_plan_version()` (atomar).
-- **workout_logs**: eine durchgeführte Einheit. `kind` (`strength`|`wod`|`endurance`|`program`), `performed_on`, `title`, Bezug zum Plan (`plan_id`, `plan_version`, `session_id`), `source` (`manual`|`strava`), `completed`, Ausdauer (`sport`, `duration_seconds`, `distance_m`, `avg_hr`, `is_test`), WOD (`wod_id`, `wod_movements_key`, `wod_result` JSON, `wod_weights`), Programm-Einheit (`block_results` JSON: je Block-Kennung `{ done, values[], note }`; Zeit in s, Distanz in m, Gewicht in kg, sonst ganze Zahlen), `notes`.
-  Constraint: bei `source = 'strava'` sind `distance_m`, `avg_hr` leer und `is_test = false`.
+- **workout_logs**: eine durchgeführte Einheit. `kind` (`strength`|`wod`|`endurance`|`program`), `performed_on`, `title`, Bezug zum Plan (`plan_id`, `plan_version`, `session_id`), `source` (`manual`|`strava`), `completed`, Ausdauer (`sport`, `duration_seconds`, `distance_m`, `avg_hr`, `is_test`), WOD (`wod_id`, `wod_movements_key`, `wod_result` JSON, `wod_weights`), Programm-Einheit (`block_results` JSON: je Block-Kennung `{ done, values[], note }`; Zeit in s, Distanz in m, Gewicht in kg, sonst ganze Zahlen), `notes`, `session_rpe` (0–10, Foster 2001).
+  Constraint: bei `source = 'strava'` sind `distance_m`, `avg_hr`, `session_rpe` leer und `is_test = false`.
   Eindeutig: eine Plan-Einheit kann höchstens einmal erledigt sein.
 - **set_logs**: Satz einer Kraftübung: `exercise_id` (Übungs-ID aus dem Plan), `set_no`, `weight_kg`, `reps`, `done`, `performed_on` (vom Workout übernommen)
 - **strava_connections**: `athlete_id`, `access_token`, `refresh_token`, `expires_at`, `scope`, `connected_at`
@@ -73,9 +79,10 @@ Zusatzprüfungen (im JSON Schema nicht ausdrückbar, in den Beschreibungen genan
 
 ### Export-Datei
 ```
-{ format: "pt-coach-export", exportVersion: 1, exportedAt, pseudonymized, client: Profil-Export, plan: Plan | null }
+{ format: "pt-coach-export", exportVersion: 2, exportedAt, pseudonymized, client: Profil-Export, plan: Plan | null }
 ```
-Profil-Export (identisch im Plan- und Profil-Export): Kürzel bzw. Name, Geschlecht, Alter, Größe, Equipment, Gymzugang, Trainingstage, max. Zeit, Notizen, PAL-Faktor, Nährstoffziele, Testwert-Historie (nur manuell eingetragene Werte, keine Strava-Daten), errechneter Kalorienbedarf.
+Profil-Export (identisch im Plan- und Profil-Export): Kürzel bzw. Name, Geschlecht, Alter, Größe, Equipment, Gymzugang, Trainingstage, max. Zeit, Notizen, PAL-Faktor, Nährstoffziele, Testwert-Historie (nur manuell eingetragene Werte, keine Strava-Daten; `tests[]` mit `unit` `s`|`kg`|`m`|`reps`, bei Kraftsätzen `reps`/`rir`), errechneter Kalorienbedarf (nur bei Ziel Abnehmen oder Kraft/Muskelaufbau).
+Neu in Version 2: `goal`, `questionnaire` (Antworten), `missing` (fehlende Pflichtangaben), `healthStatus` + `health` (nur mit Einwilligung), `derived` (berechnete Werte mit Regel-ID und Rechenweg, `docs/REGELWERK.md`), `trainingLoad` (Session-RPE der letzten 4 Wochen). Die bisherigen Felder bleiben unverändert.
 Import akzeptiert die ganze Export-Datei (nur `plan` wird übernommen) oder einen nackten Plan.
 
 ### Neuer Plan mit KI
@@ -91,7 +98,14 @@ Coach → Kunde → Plan → „Neuer Plan mit KI“ (`/coach/kunden/[id]/plan/n
 | e1RM Epley | `calc/one-rep-max.ts` | `w·(1 + r/30)`, bei r = 1 → w |
 | e1RM Brzycki | `calc/one-rep-max.ts` | `w·36/(37 − r)`, bei r = 1 → w |
 | Volumen | `calc/volume.ts` | Σ Gewicht × Wdh. der abgehakten Sätze je Einheit |
-| Riegel | `calc/riegel.ts` | `T2 = T1·(D2/D1)^1,06` |
+| Riegel | `calc/riegel.ts` | `T2 = T1·(D2/D1)^b`, b nach Riegel 1981 Tab. 1 (Männer 1,07732, 40+ 1,05352 …, Frauen 1,08283); gültig 1,5–42,2 km und 3,5–230 min |
+| Einstufung (McKay 2022) | `calc/tier.ts` | Tier 0–2 aus Umfang der letzten 4 Wochen und Wettkampfangaben (Regel R1) |
+| Paces | `calc/paces.ts` | Riegel-Äquivalente + Abstände aus den Vorlagen (R7) |
+| Hyrox-Gewichte | `calc/hyrox.ts` | Rulebook 26/27 je Division (R8) |
+| PAL-Vorschlag | `calc/pal.ts` | DGE-Spanne, Untergrenze, +0,3 bei Sport (R10) |
+| Session-RPE | `calc/session-load.ts` | Last = RPE × min; Monotonie = Tagesmittel/SD; Strain = Last × Monotonie (R12) |
+| Abgeleitete Werte | `plan/derive.ts` | Regeln R1–R13 mit Rechenweg für den Export |
+| Fragebogen vollständig? | `questionnaire/completeness.ts` | Pflichtangaben je Ziel |
 | Mifflin-St Jeor | `calc/calories.ts` | m: `10·kg + 6,25·cm − 5·Alter + 5`, w: `… − 161`; × PAL |
 | Vorbefüllung | `calc/prefill.ts` | letzte Einheit mit derselben Übungs-ID, Satz n ↔ Satz n (sonst letzter Satz) |
 | WOD-Wiedererkennung | `calc/wod.ts` | gleiche `wodId` oder gleicher normalisierter Bewegungsschlüssel (Typ + Bewegungen + Wdh./Distanz/Kalorien, ohne Gewichte) |
@@ -111,12 +125,18 @@ Coach → Kunde → Plan → „Neuer Plan mit KI“ (`/coach/kunden/[id]/plan/n
 - Coach-Bereich „Einrichtung“: Button „Strava-Webhook registrieren“, Statusanzeige, Abo löschen.
 
 ## 6. Chat mit KI-Vorfilter
-Kundennachricht → Server → Claude (strukturierte Ausgabe `{action, answer, reason}`) mit Kontext: Eskalationsregeln, Wissensbasis/FAQ, Kundenprofil, aktueller Plan, letzte Nachrichten (keine Strava-Werte).
+Kundennachricht → Server → Claude (strukturierte Ausgabe `{action, answer, reason}`) mit Kontext: Eskalationsregeln, Wissensbasis/FAQ, Kundenprofil inkl. Fragebogen, aktueller Plan, letzte Nachrichten (keine Strava-Werte, **keine Gesundheitsangaben** und keine abgeleiteten Werte).
 Zusätzlich deterministische Pflicht-Stichwortprüfung (Schmerz, Verletzung, Krankheitssymptome, Medikamente, Schwangerschaft): Treffer → immer eskalieren. Fehler/Ablehnung der KI → eskalieren.
 `answer` → sichtbar als „KI-Antwort“; `escalate` → Posteingang Coach + Info an Kunden.
 Testroutine: `npm run test:eskalation` gegen `docs/eskalation-testset.json`.
 
 ## 7. Seiten
-Kunde (`/kunde`): Heute · Plan · Training (Verlauf, Erfassen) · Fortschritt (Graphen, Prognosen) · Profil (Testwerte, Kalorien, Strava) · Chat
-Coach (`/coach`): Übersicht · Posteingang · Kunden (Profil, Plan inkl. Neuer Plan mit KI/Editor/Export/Import/Versionen, Training, Fortschritt, Chat) · Wissensbasis · Eskalationsregeln · Einrichtung (Strava-Webhook, Einladungscode, Status)
+Kunde (`/kunde`): Heute · Plan · Training (Verlauf, Erfassen, Session-RPE) · Fortschritt (Graphen, Prognosen) · Profil (Testwerte, Kalorien, Strava, Fragebogen `/kunde/profil/fragebogen` mit Einwilligung und Gesundheitsangaben) · Chat
+Coach (`/coach`): Übersicht · Posteingang · Kunden (Status Fragebogen; Profil, Fragebogen mit abgeleiteten Werten, Plan inkl. Neuer Plan mit KI/Editor/Export/Import/Versionen, Training, Fortschritt, Chat) · Wissensbasis · Eskalationsregeln · Einrichtung (Strava-Webhook, Einladungscode, Status)
 Öffentlich: `/login`, `/registrieren`
+
+## 8. Fragebogen und Regelwerk für die KI-Planung
+- Fragebogen: `docs/FRAGEBOGEN.md` (jede Frage mit der Planentscheidung, die sie steuert; Verzweigung nach Ziel).
+- Regelwerk mit Quellen: `docs/REGELWERK.md` (R1–R13). Die App rechnet, die KI wendet an (Prompt-Regel 6 in `docs/ki-prompt-vorlage.md`).
+- Auswertung der HYROX-Vorlagen: `docs/VORLAGEN-ANALYSE.md`; durchgespielte Profile: `docs/TESTPROFILE.md` (`npm run testprofile:generate`).
+- Pflicht = Hinweis für den Kunden und Status für den Coach; die App wird nicht gesperrt.

@@ -13,6 +13,7 @@ import {
   type BlockResults,
 } from "@/lib/calc/blocks";
 import type { ProgramBlock, ProgramSession } from "@/lib/plan/schema";
+import { parseRpe, SessionRpeField } from "./session-rpe-field";
 
 type Draft = Record<string, { done: boolean; inputs: string[]; note: string }>;
 
@@ -131,12 +132,20 @@ export function ProgramLogger({
 }: {
   session: ProgramSession;
   workoutRef: WorkoutRef;
-  existing: { results: BlockResults | null; notes: string; completed: boolean } | null;
+  existing: {
+    results: BlockResults | null;
+    notes: string;
+    completed: boolean;
+    sessionRpe: number | null;
+    durationSeconds: number | null;
+  } | null;
   sex: "m" | "w" | null;
 }) {
   const router = useRouter();
   const [draft, setDraft] = useState<Draft>(() => initialDraft(session, existing?.results ?? null));
   const [notes, setNotes] = useState(existing?.notes ?? "");
+  const [rpe, setRpe] = useState(existing?.sessionRpe != null ? String(existing.sessionRpe) : "");
+  const [minutes, setMinutes] = useState(existing?.durationSeconds ? String(Math.round(existing.durationSeconds / 60)) : "");
   const [date, setDate] = useState(workoutRef.date);
   const [error, setError] = useState("");
   const [saved, setSaved] = useState("");
@@ -158,7 +167,14 @@ export function ProgramLogger({
     }
     startTransition(async () => {
       try {
-        const { completed } = await saveProgramResults({ ...workoutRef, date, results, notes });
+        const { completed } = await saveProgramResults({
+          ...workoutRef,
+          date,
+          results,
+          notes,
+          sessionRpe: parseRpe(rpe),
+          durationMinutes: minutes ? Math.min(600, Math.max(1, parseInt(minutes, 10))) : null,
+        });
         setSaved(completed ? "Gespeichert – Einheit erledigt." : "Gespeichert.");
         router.refresh();
       } catch (e) {
@@ -187,6 +203,7 @@ export function ProgramLogger({
           <span className="label">Notizen zur Einheit</span>
           <textarea className="input min-h-20" value={notes} onChange={(e) => setNotes(e.target.value)} />
         </label>
+        <SessionRpeField rpe={rpe} onRpe={setRpe} minutes={minutes} onMinutes={setMinutes} />
         {error && <p className="text-sm text-red-700">{error}</p>}
         {saved && <p className="text-sm text-green-700">{saved}</p>}
         <button type="button" className="btn-primary w-full" disabled={pending} onClick={submit}>

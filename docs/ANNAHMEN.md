@@ -88,3 +88,25 @@ Hier steht jede Entscheidung, die der Auftrag offen ließ. Bitte prüfen – all
 65. **Startdatum der Vorlage** ist der nächste Montag; die KI setzt das Startdatum aus der Beschreibung.
 66. **Testdaten:** Die drei HYROX-Pläne liegen als JSON in `src/lib/plan/fixtures/` (Inhalte auf Englisch wie im Original, Jahr ergänzt: Base Builder ab 01.09.2025, Tempo Runner ab 01.12.2025, Threshold Trainer ab 29.12.2025). Tageshinweise → Hinweis des Tages, Session-Hinweise → Hinweis der Einheit, „Rest Day!“ → Ruhetag, aufeinanderfolgende Blöcke derselben Session → eine Einheit.
 67. **Strava ist optional.** Ohne `STRAVA_CLIENT_ID`/`STRAVA_CLIENT_SECRET` blendet die App die Strava-Verbindung im Kundenprofil aus, die Verbinden-Route leitet zurück ins Profil, und die Einrichtung zeigt Strava als „nicht eingerichtet (optional)“. Kunden tragen Ausdauer dann von Hand ein. Sobald beide Werte in Vercel gesetzt sind (und neu deployt wurde), erscheint die Verbindung wieder.
+
+## Fragebogen und Regelwerk (Ergänzung 28.10.2026)
+68. **Pflicht** heißt: Hinweis „Fragebogen unvollständig“ beim Kunden und Status in der Kundenliste des Coaches; Plan, Training und Chat bleiben nutzbar (Entscheidung der Betreiberin).
+69. **Rechnen:** Alle Zahlen (Tier, Startumfang, Testwoche, e1RM, Lasten, Paces, Hyrox-Gewichte, kcal) berechnet die App; die KI übernimmt sie mit Rechenweg (Entscheidung der Betreiberin).
+70. **Max-Tests:** Zeit- und Ausdauertests maximal ab Tier 1, 3RM ab Tier 2 und mit mindestens 6 Monaten Erfahrung mit der Übung (Entscheidung der Betreiberin). Andere Maximaltests der Hyrox-Testwoche (Wall Balls, Ski/Rudern, Klimmzüge, Lunges, Burpees) zählen wie Zeittests.
+71. **e1RM** nur aus Sätzen bis RIR 0 mit weniger als 10 Wdh. (Entscheidung der Betreiberin, streng nach Brzycki). Die Fortschritts-Graphen markieren jetzt Sätze ab 10 Wdh. (statt über 10) als weniger verlässlich.
+72. **Riegel:** Exponenten aus Riegel 1981, Tabelle 1, statt 1,06 (Entscheidung der Betreiberin). Ohne Geschlecht 1,08 (Weltklasse-Wert aus demselben Artikel). Über der Datenbasis der Tabelle (z. B. Männer bis 129 min) wird ein Wert als Extrapolation markiert.
+73. **Kein VDOT:** Paces nur über Riegel und Abstände aus den Vorlagen (Entscheidung der Betreiberin). Abstände ohne Einheit gelten als „pro Meile“.
+74. **Tier 2 „regelmäßig ∼3-mal“** = Mittel der letzten 4 Wochen ≥ 3 Einheiten (Ausdauer + Kraft). „Training mit Wettkampfziel“ = Wettkampf in den letzten 12 Monaten oder geplanter Termin. 1 min intensiv zählt wie 2 min moderat (WHO 150/75).
+75. **Tier 3+** vergibt die App nicht automatisch; bei nationalem/internationalem Niveau erscheint ein Hinweis für den Coach.
+76. **Submaximale Tests:** Lauf 30 min gleichmäßig bei CR-10 ≤ 4; Kraft Satz 5–8 Wdh. bei RIR 2–3; übrige Tests ohne Zeitdruck bei CR-10 ≤ 4 und ohne Testwert. Abnehmen und Fitness bekommen keinen Maximaltest.
+77. *(entfallen, siehe 87)*
+78. **Lasten** werden auf 2,5 kg gerundet.
+79. **PAL-Vorschlag** = Untergrenze der DGE-Spanne (+0,3 bei Sport 4–5×/Woche); der eingestellte PAL-Faktor bleibt maßgeblich, Abweichungen ≥ 0,05 werden markiert.
+80. **Kalorien im Export** nur bei Ziel Abnehmen oder Kraft/Muskelaufbau (Regel der Betreiberin). Die Kalorienkarte im Profil bleibt für alle sichtbar.
+81. **Schlaf unter 7 h** (AASM/SRS-Konsens) führt nur zu einem Hinweis; wie stark die Progression angepasst wird, entscheidet der Coach.
+82. **Plausibilität Hyrox:** Eine Hyrox-Laufpace schneller als die 10-km-Pace nach Riegel wird als unplausibel markiert.
+83. **Session-RPE** nur bei manuellen Einheiten (Entscheidung der Betreiberin); bei Kraft und WOD trägt der Kunde dazu die Dauer ein. Monotonie mit der Standardabweichung über alle 7 Tage (Tage ohne Training = 0).
+84. **Einwilligung:** Nur der Kunde selbst kann sie geben oder widerrufen; der Widerruf löscht die Gesundheitsangaben sofort. Die Textversion wird gespeichert; eine neue Textversion gilt erst für neue Einwilligungen. Gesundheitsangaben gehen nie in den Chat-Kontext.
+85. **Gestrichene Fragen:** „Seit wann trainierst du?“ und Fragen zur Selbsteinschätzung, weil keine Regel sie nutzt; Uhr-/Strava-Export auf Wunsch der Betreiberin. Ernährungsweise nur bei Abnehmen und Muskelaufbau.
+86. **Exportversion 2:** Der Import ignoriert `client` weiterhin; ältere Dateien mit Version 1 lassen sich unverändert importieren.
+87. **Kein Gesundheits-Screening:** PAR-Q+ und ACSM-Fragen sind auf Wunsch der Betreiberin komplett entfernt. Maximaltests richten sich nur nach Stufe und Erfahrung (Nr. 70); die Einwilligung steuert nur, ob Beschwerden, Schlaf und HFmax gespeichert werden, und steht nicht in der Liste fehlender Angaben (freiwillig nach Art. 7 Abs. 4 DSGVO). Beschwerden mit Schmerz beim Training werden markiert, sperren aber keine Tests.

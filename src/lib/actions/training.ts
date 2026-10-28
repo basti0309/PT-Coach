@@ -101,12 +101,16 @@ export async function saveSet(input: z.infer<typeof setInput>): Promise<void> {
   if (error) throw new Error(`Satz konnte nicht gespeichert werden: ${error.message}`);
 }
 
+const sessionRpe = z.int().min(0).max(10).nullable();
+
 const finishInput = z.object({
   clientId: z.uuid(),
   workoutLogId: z.uuid(),
   completed: z.boolean(),
   date: isoDate,
   notes: z.string().max(2000),
+  sessionRpe,
+  durationMinutes: z.int().min(1).max(600).nullable(),
 });
 
 export async function finishWorkout(input: z.infer<typeof finishInput>): Promise<void> {
@@ -115,7 +119,13 @@ export async function finishWorkout(input: z.infer<typeof finishInput>): Promise
   const supabase = await createSupabaseServerClient();
   const { error } = await supabase
     .from("workout_logs")
-    .update({ completed: f.completed, notes: f.notes, performed_on: f.date })
+    .update({
+      completed: f.completed,
+      notes: f.notes,
+      performed_on: f.date,
+      session_rpe: f.sessionRpe,
+      duration_seconds: f.durationMinutes != null ? f.durationMinutes * 60 : null,
+    })
     .eq("id", f.workoutLogId);
   if (error) throw new Error(error.message);
   revalidate();
@@ -127,6 +137,8 @@ const wodInput = workoutRef.extend({
   reps: z.int().min(0).max(10000).nullable(),
   weights: z.string().max(500),
   notes: z.string().max(2000),
+  sessionRpe,
+  durationMinutes: z.int().min(1).max(600).nullable(),
 });
 
 export async function saveWodResult(input: z.infer<typeof wodInput>): Promise<void> {
@@ -137,7 +149,15 @@ export async function saveWodResult(input: z.infer<typeof wodInput>): Promise<vo
   const result = w.timeSeconds != null ? { timeSeconds: w.timeSeconds } : { rounds: w.rounds ?? 0, reps: w.reps ?? 0 };
   const { error } = await supabase
     .from("workout_logs")
-    .update({ wod_result: result, wod_weights: w.weights, notes: w.notes, completed: true, performed_on: w.date })
+    .update({
+      wod_result: result,
+      wod_weights: w.weights,
+      notes: w.notes,
+      completed: true,
+      performed_on: w.date,
+      session_rpe: w.sessionRpe,
+      duration_seconds: w.durationMinutes != null ? w.durationMinutes * 60 : null,
+    })
     .eq("id", id);
   if (error) throw new Error(error.message);
   revalidate();
@@ -152,6 +172,8 @@ const blockResultInput = z.object({
 const programInput = workoutRef.extend({
   results: z.record(z.string().max(64), blockResultInput),
   notes: z.string().max(2000),
+  sessionRpe,
+  durationMinutes: z.int().min(1).max(600).nullable(),
 });
 
 /** Ergebnisse einer Programm-Einheit speichern; "erledigt" ergibt sich aus den Blöcken. */
@@ -175,7 +197,14 @@ export async function saveProgramResults(input: z.infer<typeof programInput>): P
   const id = await ensureWorkoutLog({ ...p, kind: "program" });
   const { error } = await supabase
     .from("workout_logs")
-    .update({ block_results: results, notes: p.notes, completed, performed_on: p.date })
+    .update({
+      block_results: results,
+      notes: p.notes,
+      completed,
+      performed_on: p.date,
+      session_rpe: p.sessionRpe,
+      duration_seconds: p.durationMinutes != null ? p.durationMinutes * 60 : null,
+    })
     .eq("id", id);
   if (error) throw new Error(error.message);
   revalidate();
@@ -196,6 +225,7 @@ const enduranceInput = z.object({
   isTest: z.boolean(),
   notes: z.string().max(2000),
   title: z.string().max(200),
+  sessionRpe,
 });
 
 /** Ausdauer von Hand eintragen (geplant oder ungeplant). */
@@ -211,6 +241,7 @@ export async function saveEnduranceLog(input: z.infer<typeof enduranceInput>): P
     avg_hr: e.avgHr,
     is_test: e.isTest,
     notes: e.notes,
+    session_rpe: e.sessionRpe,
     completed: true,
   };
   let id = e.logId;

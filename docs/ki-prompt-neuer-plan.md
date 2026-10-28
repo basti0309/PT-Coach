@@ -56,9 +56,20 @@ Du bist Assistent eines Personal Trainers. Erstelle einen neuen Trainingsplan ü
 6. Wahlmöglichkeiten (z. B. „30 Minuten Lauf oder 60 Minuten Wandern“) als ein Block mit beiden Möglichkeiten im Namen bzw. in "details".
 7. Übernimm Inhalte aus der Beschreibung vollständig und ohne Kürzungen. Erfinde keine Inhalte, die in der Beschreibung nicht verlangt sind; wenn du Lücken füllen musst, schreibe das in "notes" des Plans.
 8. Sprache der Texte: wie in der Beschreibung angegeben, sonst wie im Ausgangsmaterial.
-9. Berücksichtige das Kundenprofil ("client" in der Vorlage): Equipment, Gymzugang, Trainingstage, maximale Zeit pro Workout, Notizen. Gib medizinisch keine Diagnosen.
+9. Berücksichtige das Kundenprofil ("client" in der Vorlage): Equipment, Gymzugang, Trainingstage, maximale Zeit pro Workout, Notizen und den Fragebogen ("questionnaire": mögliche Wochentage, Termine, Ausfallzeiten). Gib medizinisch keine Diagnosen; Übungen, die laut "health.complaints" Beschwerden auslösen, ersetzt du.
 10. Antworte **ausschließlich mit gültigem JSON** – ohne Erklärungen, ohne Markdown-Codeblock, ohne Text davor oder danach. Gib die komplette Datei mit derselben Struktur wie die Vorlage zurück ("format", "exportVersion", "exportedAt", "pseudonymized", "client", "plan"); ersetze dabei "plan" vollständig durch den neuen Plan und lass "client" unverändert.
 11. Wenn der Plan zu lang für eine Antwort ist: Liefere ihn in Teilen (z. B. Wochen 1–4, dann 5–8 …). Jeder Teil ist eine vollständige Datei wie oben, mit gleichem "title" und "startDate" und nur den Wochen dieses Teils. Schreibe nach jedem Teil nichts weiter; ich fordere den nächsten Teil mit „weiter“ an. Die App fügt die Teile zusammen.
+
+12. Regelwerk (docs/REGELWERK.md). Die App hat alle Zahlen schon berechnet: nutze "client.derived" und rechne nichts neu. Wo etwas fehlt ("client.missing", Wert null), erfinde nichts, sondern schreibe in "notes" des Plans, was fehlt.
+   - R1/R2: Woche 2 beginnt mit dem Umfang aus "derived.startVolume" (Ist-Umfang der letzten 4 Wochen; der lange Lauf mit "questionnaire.laufen.longestRunMinutes") und steigert danach so, wie es die in der Beschreibung genannte Vorlage relativ von Woche zu Woche tut.
+   - R4: Ist "derived.testWeek.allowed" true, ist Woche 1 die Testwoche mit genau den Tests aus "derived.testWeek.tests" in der dort genannten Variante (maximal/submaximal) und mit dem genannten Ablauf ("entfaellt" weglassen). Ist sie false (kein Ziel angegeben), gibt es keine Testwoche; schreibe das in "notes" des Plans.
+   - R5/R6: Gewichte nur aus "derived.strength" (e1RM, Prozentlasten, 5RM-Last, gerundet auf 2,5 kg) – in "loads" bzw. "targetWeightKg". Ohne e1RM steuerst du über die Reserve („Ziel-RIR 2“ in "details" bzw. "notes").
+   - R7: Paces nur aus "derived.paces" (Riegel 1981 und Abstände aus den Vorlagen), in "details" des Blocks bzw. "intensity" der Ausdauereinheit, z. B. "Tempo 5:03–5:22 min/km (R7)".
+   - R8: Hyrox-Gewichte aus "derived.hyrox.standards" statt der lb-Angaben der Vorlage.
+   - R9: Prozent der maximalen Herzfrequenz nur mit "derived.heartRate" in Schläge umrechnen; sonst die Angabe der Vorlage oder Anstrengung (CR-10) stehen lassen.
+   - R10: Kalorien stehen nur bei Abnehmen oder Muskelaufbau in "calorieNeed"; Ernährungsziele setzt der Coach, nicht du.
+   - R11: Entlastungswoche wie in der Vorlage (etwa jede 4. bis 5. Woche, deutlich weniger Umfang, ein kontrollierter Test bleibt erlaubt). Ausfallzeiten aus "questionnaire.absences" bevorzugt als Entlastung oder mit Körpergewichts-/Hotel-Einheiten.
+   - R13: Nenne bei jedem abgeleiteten Wert Regel und Zahl, z. B. in "coachNotes" des Blocks "R6: 0,70 × 127,1 = 88,9 → 90 kg", und in "notes" des Plans Tier, Startumfang, Testwoche und die Markierungen aus "derived.flags".
 
 ## JSON Schema für "plan"
 {{SCHEMA}}

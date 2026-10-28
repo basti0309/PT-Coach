@@ -16,7 +16,7 @@ interface DotProps {
   payload?: StrengthPoint;
 }
 
-/** Punkt: gefüllt = verlässlich, hohl orange = Satz mit mehr als 10 Wdh. */
+/** Punkt: gefüllt = verlässlich, hohl orange = Satz mit 10 oder mehr Wdh. (Brzycki: nur unter 10 gültig) */
 function Dot({ cx, cy, payload }: DotProps) {
   if (cx == null || cy == null) return null;
   const unreliable = payload?.unreliable;
@@ -68,7 +68,7 @@ export function StrengthChart({ records, exercises }: { records: StrengthSetReco
                         1RM ≈ {formatNumber(p.oneRm, 1)} kg (bester Satz {formatNumber(p.bestWeightKg ?? 0)} kg × {p.bestReps})
                       </p>
                     )}
-                    {p.unreliable && <p className="text-amber-700">⚠ Satz mit mehr als 10 Wdh. – Schätzung weniger verlässlich</p>}
+                    {p.unreliable && <p className="text-amber-700">⚠ Satz mit 10 oder mehr Wdh. – Schätzung weniger verlässlich</p>}
                   </div>
                 );
               }}
@@ -86,7 +86,7 @@ export function StrengthChart({ records, exercises }: { records: StrengthSetReco
         </ResponsiveContainer>
       </div>
       {anyUnreliable && (
-        <p className="text-xs text-amber-700">Hohle orange Punkte: bester Satz mit mehr als 10 Wiederholungen – 1RM-Schätzung weniger verlässlich.</p>
+        <p className="text-xs text-amber-700">Hohle orange Punkte: bester Satz mit 10 oder mehr Wiederholungen – 1RM-Schätzung weniger verlässlich.</p>
       )}
     </div>
   );

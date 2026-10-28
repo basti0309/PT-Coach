@@ -1,8 +1,10 @@
 // Zeilentypen der Datenbank (von Hand gepflegt, siehe supabase/migrations).
 import type { BlockResults } from "@/lib/calc/blocks";
 import type { PlanContent } from "@/lib/plan/schema";
+import type { TestKind } from "@/lib/plan/test-kinds";
+import type { Answers, Goal, Health } from "@/lib/questionnaire/schema";
 
-export type TestKind = "run_5k" | "bench_3rm" | "deadlift_3rm" | "squat_3rm" | "mobility" | "body_weight";
+export type { TestKind };
 export type WorkoutKind = "strength" | "wod" | "endurance" | "program";
 
 export interface ProfileRow {
@@ -39,9 +41,35 @@ export interface TestResultRow {
   tested_on: string;
   value: number | null;
   scale: number | null;
+  /** nur *_reps: Wiederholungen und Wiederholungen in Reserve */
+  reps: number | null;
+  rir: number | null;
   note: string;
   created_at: string;
   created_by: string | null;
+}
+
+export interface QuestionnaireRow {
+  client_id: string;
+  goal: Goal | null;
+  answers: Answers;
+  updated_at: string;
+  updated_by: string | null;
+}
+
+export interface HealthConsentRow {
+  id: string;
+  client_id: string;
+  consent_version: string;
+  given_at: string;
+  withdrawn_at: string | null;
+}
+
+export interface ClientHealthRow {
+  client_id: string;
+  data: Health;
+  updated_at: string;
+  updated_by: string | null;
 }
 
 export interface PlanRow {
@@ -94,6 +122,8 @@ export interface WorkoutLogRow {
   wod_weights: string;
   block_results: BlockResults | null;
   notes: string;
+  /** Session-RPE (CR-10, Foster 2001), nur bei manuell erfassten Einheiten */
+  session_rpe: number | null;
   created_at: string;
   updated_at: string;
   created_by: string | null;

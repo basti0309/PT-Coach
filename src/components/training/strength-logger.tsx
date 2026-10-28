@@ -7,6 +7,7 @@ import { ensureWorkoutLog, finishWorkout, saveSet, type WorkoutRef } from "@/lib
 import { formatNumber, parseDecimal } from "@/lib/format";
 import type { StrengthSession } from "@/lib/plan/schema";
 import { RestTimer, type TimerState } from "./rest-timer";
+import { parseRpe, SessionRpeField } from "./session-rpe-field";
 
 interface SetState {
   weight: string;
@@ -33,6 +34,8 @@ export function StrengthLogger({
   existingSets,
   existingCompleted,
   existingNotes,
+  existingRpe,
+  existingMinutes,
   prefill,
 }: {
   session: StrengthSession;
@@ -41,12 +44,16 @@ export function StrengthLogger({
   existingSets: ExistingSet[];
   existingCompleted: boolean;
   existingNotes: string;
+  existingRpe: number | null;
+  existingMinutes: number | null;
   prefill: Record<string, (Placeholder | null)[]>;
 }) {
   const router = useRouter();
   const [logId, setLogId] = useState<string | null>(existingLogId);
   const [timer, setTimer] = useState<TimerState | null>(null);
   const [notes, setNotes] = useState(existingNotes);
+  const [rpe, setRpe] = useState(existingRpe != null ? String(existingRpe) : "");
+  const [minutes, setMinutes] = useState(existingMinutes != null ? String(existingMinutes) : "");
   const [date, setDate] = useState(workoutRef.date);
   const [completed, setCompleted] = useState(existingCompleted);
   const [pending, startTransition] = useTransition();
@@ -136,7 +143,15 @@ export function StrengthLogger({
   const finish = (done: boolean) =>
     startTransition(async () => {
       const id = await ensureLog();
-      await finishWorkout({ clientId: workoutRef.clientId, workoutLogId: id, completed: done, date, notes });
+      await finishWorkout({
+        clientId: workoutRef.clientId,
+        workoutLogId: id,
+        completed: done,
+        date,
+        notes,
+        sessionRpe: parseRpe(rpe),
+        durationMinutes: minutes ? Math.min(600, Math.max(1, parseInt(minutes, 10))) : null,
+      });
       setCompleted(done);
       router.refresh();
     });
@@ -231,11 +246,12 @@ export function StrengthLogger({
             <textarea className="input min-h-20" value={notes} onChange={(e) => setNotes(e.target.value)} />
           </label>
         </div>
+        <SessionRpeField rpe={rpe} onRpe={setRpe} minutes={minutes} onMinutes={setMinutes} />
         {completed ? (
           <div className="flex flex-wrap items-center gap-2">
             <span className="badge bg-green-600 text-white">✓ Training abgeschlossen</span>
             <button type="button" className="btn-secondary btn-small" disabled={pending} onClick={() => finish(true)}>
-              Notizen/Datum speichern
+              Notizen/Datum/RPE speichern
             </button>
             <button type="button" className="btn-secondary btn-small" disabled={pending} onClick={() => finish(false)}>
               Wieder öffnen

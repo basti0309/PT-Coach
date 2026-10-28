@@ -17,6 +17,7 @@ export default async function ClientLayout({ children, params }: LayoutProps<"/c
         items={[
           { href: base, label: "Übersicht", exact: true },
           { href: `${base}/profil`, label: "Profil & Tests" },
+          { href: `${base}/fragebogen`, label: "Fragebogen" },
           { href: `${base}/plan`, label: "Plan" },
           { href: `${base}/training`, label: "Training" },
           { href: `${base}/fortschritt`, label: "Fortschritt" },

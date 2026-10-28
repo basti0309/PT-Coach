@@ -40,7 +40,14 @@ export async function ManualEndurance({ clientId, logId, base }: { clientId: str
         title=""
         initial={
           log
-            ? { durationSeconds: log.duration_seconds, distanceM: log.distance_m, avgHr: log.avg_hr, isTest: log.is_test, notes: log.notes }
+            ? {
+                durationSeconds: log.duration_seconds,
+                distanceM: log.distance_m,
+                avgHr: log.avg_hr,
+                isTest: log.is_test,
+                notes: log.notes,
+                sessionRpe: log.session_rpe,
+              }
             : undefined
         }
         doneHref={base}
