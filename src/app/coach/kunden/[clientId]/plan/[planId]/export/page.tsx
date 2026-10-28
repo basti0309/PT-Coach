@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { JsonExport, PromptBuilder } from "@/components/export-panel";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { loadPlanWithVersion } from "@/lib/data/plans";
-import { loadProfileExport, loadPromptTemplate } from "@/lib/data/profile";
+import { loadKnowledgeForExport, loadProfileExport, loadPromptTemplate } from "@/lib/data/profile";
 import { buildExportFile, exportFileName } from "@/lib/export/profile";
 import { planJsonSchema } from "@/lib/plan/schema";
 
@@ -16,7 +16,8 @@ export default async function ExportPlanPage({ params, searchParams }: PageProps
   const profile = await loadProfileExport(supabase, clientId, !realNames);
   if (!data || !profile || data.plan.client_id !== clientId) notFound();
 
-  const file = buildExportFile(profile, data.version.content);
+  const knowledge = await loadKnowledgeForExport(supabase);
+  const file = buildExportFile(profile, data.version.content, new Date(), { knowledge });
   const json = JSON.stringify(file, null, 2);
   const base = `/coach/kunden/${clientId}/plan/${planId}/export`;
 
@@ -42,7 +43,7 @@ export default async function ExportPlanPage({ params, searchParams }: PageProps
           )}
         </p>
         <p className="muted">
-          Enthalten: Profil, Testwert-Historie (nur manuell eingetragene Werte), Nährstoffziele, Kalorienbedarf und der Plan
+          Enthalten: Profil, Testwert-Historie (nur manuell eingetragene Werte), Nährstoffziele, Kalorienbedarf, deine Wissensbasis ({knowledge.length} Einträge „Wissen“, ohne FAQ) und der Plan
           (Version {data.version.version}). Keine Strava-Daten. Freitexte (Notizen) werden unverändert übernommen – bitte keine
           Namen hineinschreiben, wenn du pseudonymisiert exportierst.
         </p>

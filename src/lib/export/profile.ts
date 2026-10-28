@@ -86,7 +86,14 @@ export interface ExportFile {
   client: ProfileExport;
   /** Trainingsverlauf, nur wenn beim Export gewählt */
   history?: HistoryExportEntry[];
+  /** Wissensbasis des Coaches (nur Einträge der Art „wissen“, keine FAQ) */
+  knowledge?: KnowledgeExportEntry[];
   plan: PlanContent | null;
+}
+
+export interface KnowledgeExportEntry {
+  title: string;
+  content: string;
 }
 
 export function latestTest(tests: TestResultRow[], kind: TestKind): TestResultRow | undefined {
@@ -195,7 +202,7 @@ export function buildExportFile(
   client: ProfileExport,
   plan: PlanContent | null,
   now: Date = new Date(),
-  history?: HistoryExportEntry[],
+  { history, knowledge }: { history?: HistoryExportEntry[]; knowledge?: KnowledgeExportEntry[] } = {},
 ): ExportFile {
   return {
     format: "pt-coach-export",
@@ -204,6 +211,7 @@ export function buildExportFile(
     pseudonymized: client.pseudonymized,
     client,
     ...(history ? { history } : {}),
+    ...(knowledge?.length ? { knowledge } : {}),
     plan,
   };
 }

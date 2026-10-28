@@ -118,3 +118,4 @@ Hier steht jede Entscheidung, die der Auftrag offen ließ. Bitte prüfen – all
 91. **Export & Prompt** ersetzt „Neuer Plan mit KI“. Standard: pseudonymisiert und ohne Trainingsverlauf. Der Prompt ist bewusst kurz; die Formatregeln, die der Import braucht, bleiben enthalten.
 92. **Plan-Ziel** setzt nie die KI: Beim Import (neuer Plan und Import in einen bestehenden Plan) überschreibt die App `goal` mit „<Ziel-Label> – <Freitext>“ aus dem Fragebogen, gekürzt auf 500 Zeichen; ohne Fragebogen-Ziel wird `goal` entfernt. Editor und Wiederherstellen ändern das Ziel nicht automatisch.
 93. **Ziel in eigenen Worten** (`goalNote`) ist freiwillig und zählt nicht zu den Pflichtangaben.
+94. **Wissensbasis im Export:** Auf „Export & Prompt“ und beim Export je Plan steht die Wissensbasis als `knowledge` in der Datei und damit im Prompt – nur Einträge der Art „Wissen“, FAQ nicht (Entscheidung der Betreiberin). Sie ist Information für die KI; das Feld wird beim Import ignoriert.

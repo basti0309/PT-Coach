@@ -4,7 +4,7 @@ import path from "node:path";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { ClientHealthRow, ClientProfileRow, HealthConsentRow, ProfileRow, QuestionnaireRow, TestResultRow } from "@/lib/db-types";
 import type { RpeSession } from "@/lib/calc/session-load";
-import { buildProfileExport, type ProfileExport, type ProfileExtras } from "@/lib/export/profile";
+import { buildProfileExport, type KnowledgeExportEntry, type ProfileExport, type ProfileExtras } from "@/lib/export/profile";
 import { addDays } from "@/lib/format";
 import { extractTemplate } from "@/lib/export/prompt";
 import { appToday } from "@/lib/today";
@@ -62,6 +62,12 @@ export async function loadProfileExport(
 ): Promise<ProfileExport | null> {
   const data = await loadProfileData(supabase, clientId);
   return data ? buildProfileExport(data.profile, data.clientProfile, data.tests, pseudonymized, appToday(), extrasOf(data)) : null;
+}
+
+/** Wissensbasis für Export & Prompt: nur Einträge der Art „wissen“ (FAQ bleiben dem Chat vorbehalten). Lesbar nur für den Coach (RLS). */
+export async function loadKnowledgeForExport(supabase: SupabaseClient): Promise<KnowledgeExportEntry[]> {
+  const { data } = await supabase.from("knowledge_entries").select("title, content").eq("kind", "wissen").order("title");
+  return (data ?? []) as KnowledgeExportEntry[];
 }
 
 export function loadPromptTemplate(): string {

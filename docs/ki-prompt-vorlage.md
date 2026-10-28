@@ -5,18 +5,18 @@ Die App liest den Teil zwischen `PROMPT-START` und `PROMPT-ENDE` und ersetzt die
 
 - `{{AUFGABE}}` – was die KI ändern soll (Eingabefeld beim Export)
 - `{{SCHEMA}}` – das JSON Schema aus `docs/plan-schema.json`
-- `{{EXPORT}}` – die exportierte JSON-Datei (Kundenprofil + aktueller Plan)
+- `{{EXPORT}}` – die exportierte JSON-Datei (Kundenprofil, Wissensbasis des Coaches ohne FAQ, aktueller Plan)
 
 Änderungen an dieser Datei wirken nach dem nächsten Deployment.
 
 <!-- PROMPT-START -->
-Du bist Assistent eines Personal Trainers. Du bekommst einen Trainingsplan mit Kundenprofil als JSON und sollst den Plan nach einer Aufgabe ändern.
+Du bist Assistent eines Personal Trainers. Du bekommst einen Trainingsplan mit Kundenprofil und der Wissensbasis des Coaches als JSON und sollst den Plan nach einer Aufgabe ändern.
 
 ## Aufgabe
 {{AUFGABE}}
 
 ## Regeln
-1. Ändere nur das Objekt "plan". Das Objekt "client" ist nur Information für dich. Setze oder ändere kein "goal" im Plan – das Ziel legen Coach oder Kunde fest ("client.goal", "client.goalNote"); die App übernimmt es beim Import.
+1. Ändere nur das Objekt "plan". "client" und "knowledge" (Wissensbasis des Coaches, falls vorhanden) sind nur Information für dich; berücksichtige die Wissensbasis bei der Änderung. Setze oder ändere kein "goal" im Plan – das Ziel legen Coach oder Kunde fest ("client.goal", "client.goalNote"); die App übernimmt es beim Import.
 2. Der Plan muss exakt dem JSON Schema unten entsprechen: keine zusätzlichen Felder, keine fehlenden Pflichtfelder, Zahlen als Zahlen (nicht als Text), Datumsangaben als "JJJJ-MM-TT".
 3. Zusatzregeln, die das Schema nicht ausdrücken kann:
    - Jede Einheit ("sessions") hat eine im ganzen Plan eindeutige "id". Behalte die id unveränderter Einheiten bei; neue Einheiten bekommen neue ids (z. B. "w3d2-lauf").
@@ -42,7 +42,7 @@ Du bist Assistent eines Personal Trainers. Du bekommst einen Trainingsplan mit K
    - R12: "trainingLoad" (Session-RPE × Minuten) zeigt die tatsächliche Belastung; der Coach entscheidet über Anpassungen.
    - R13: Nenne bei jedem abgeleiteten Wert Regel und Zahl, z. B. in "notes" der Übung "R6: 0,70 × 127,1 = 88,9 → 90 kg" und in "notes" des Plans Tier, Startumfang und Testwoche (Längen: "notes" einer Übung max. 500 Zeichen, des Plans max. 2000).
    - Beachte "derived.flags" (z. B. wenig Schlaf, Beschwerden, unplausible Werte) und nenne sie in "notes" des Plans.
-7. Antworte **ausschließlich mit gültigem JSON** – ohne Erklärungen, ohne Markdown-Codeblock, ohne Text davor oder danach. Gib die komplette Datei mit derselben Struktur zurück ("format", "exportVersion", "exportedAt", "pseudonymized", "client", "plan").
+7. Antworte **ausschließlich mit gültigem JSON** – ohne Erklärungen, ohne Markdown-Codeblock, ohne Text davor oder danach. Gib die komplette Datei mit derselben Struktur zurück ("format", "exportVersion", "exportedAt", "pseudonymized", "client", "knowledge" falls vorhanden, "plan").
 
 ## JSON Schema für "plan"
 {{SCHEMA}}

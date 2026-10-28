@@ -5,7 +5,7 @@ Die App liest den Teil zwischen `PROMPT-START` und `PROMPT-ENDE` und ersetzt die
 
 - `{{BESCHREIBUNG}}` – zusätzliche Wünsche des Coaches (optional, z. B. Planlänge, Vorlage, Startdatum)
 - `{{SCHEMA}}` – das JSON Schema aus `docs/plan-schema.json`
-- `{{VORLAGE}}` – die Export-Datei: Kundendaten (Profil, Fragebogen mit Ziel und Freitext, Testwerte, abgeleitete Werte, optional Trainingsverlauf) und ein leeres Plan-Gerüst als Format
+- `{{VORLAGE}}` – die Export-Datei: Kundendaten (Profil, Fragebogen mit Ziel und Freitext, Testwerte, abgeleitete Werte, optional Trainingsverlauf), die Wissensbasis des Coaches (Einträge „Wissen“, ohne FAQ) und ein leeres Plan-Gerüst als Format
 
 Änderungen an dieser Datei wirken nach dem nächsten Deployment.
 
@@ -18,6 +18,7 @@ Du bist Assistent eines Personal Trainers. Erstelle auf Basis der Kundendaten un
 ## Was du bekommst
 - "client": Profil, Fragebogen ("questionnaire") mit Ziel ("goal") und Ziel in eigenen Worten ("goalNote"), Testwerte ("tests"), von der App berechnete Werte mit Rechenweg ("derived") und fehlende Angaben ("missing").
 - "history" (falls vorhanden): bisheriger Trainingsverlauf.
+- "knowledge" (falls vorhanden): Wissensbasis des Coaches. Berücksichtige sie bei der Planung.
 - "plan": ein leeres Plan-Gerüst, das jede Struktur einmal zeigt. Ersetze es durch den neuen Plan.
 
 ## Wie der Plan aufgebaut ist
