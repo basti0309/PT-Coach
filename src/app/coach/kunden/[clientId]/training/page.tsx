@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { HistoryDelete } from "@/components/training/history-delete";
 import { HistoryList } from "@/components/training/history-list";
+import { deleteTrainingHistory } from "@/lib/actions/training";
 
 export default async function CoachTraining({ params }: PageProps<"/coach/kunden/[clientId]/training">) {
   const { clientId } = await params;
@@ -18,6 +20,7 @@ export default async function CoachTraining({ params }: PageProps<"/coach/kunden
         Von Strava-Einheiten siehst du nur Dauer und Erledigt-Status. Einträge zeigen, wer sie erfasst bzw. geändert hat.
       </p>
       <HistoryList clientId={clientId} base={base} />
+      <HistoryDelete action={deleteTrainingHistory.bind(null, clientId)} />
     </div>
   );
 }

@@ -9,6 +9,7 @@ import type { PlanContent } from "@/lib/plan/schema";
 import { TEST_KIND_META, type TestUnit } from "@/lib/plan/test-kinds";
 import { missingAnswers } from "@/lib/questionnaire/completeness";
 import type { Answers, Goal, Health } from "@/lib/questionnaire/schema";
+import type { HistoryExportEntry } from "./history";
 
 export const TEST_KIND_LABELS: Record<TestKind, string> = Object.fromEntries(
   Object.entries(TEST_KIND_META).map(([k, v]) => [k, v.label]),
@@ -62,6 +63,8 @@ export interface ProfileExport {
   calorieNeed: { bmrKcal: number; totalKcal: number; formula: string } | null;
   tests: TestExport[];
   goal: Goal | null;
+  /** Ziel in eigenen Worten (Freitext aus dem Fragebogen) */
+  goalNote: string;
   /** Antworten aus dem Fragebogen (ohne Gesundheitsangaben) */
   questionnaire: Answers | null;
   /** fehlende Pflichtangaben */
@@ -81,6 +84,8 @@ export interface ExportFile {
   exportedAt: string;
   pseudonymized: boolean;
   client: ProfileExport;
+  /** Trainingsverlauf, nur wenn beim Export gewählt */
+  history?: HistoryExportEntry[];
   plan: PlanContent | null;
 }
 
@@ -175,6 +180,7 @@ export function buildProfileExport(
         return e;
       }),
     goal,
+    goalNote: answers?.goalNote ?? "",
     questionnaire: answers,
     // Chat: Einwilligung ist dort bewusst ausgeblendet – Fehlliste wäre irreführend
     missing: extras.forChat ? [] : missing,
@@ -185,18 +191,24 @@ export function buildProfileExport(
   };
 }
 
-export function buildExportFile(client: ProfileExport, plan: PlanContent | null, now: Date = new Date()): ExportFile {
+export function buildExportFile(
+  client: ProfileExport,
+  plan: PlanContent | null,
+  now: Date = new Date(),
+  history?: HistoryExportEntry[],
+): ExportFile {
   return {
     format: "pt-coach-export",
     exportVersion: 2,
     exportedAt: now.toISOString(),
     pseudonymized: client.pseudonymized,
     client,
+    ...(history ? { history } : {}),
     plan,
   };
 }
 
-export function exportFileName(file: ExportFile, kind: "plan" | "profil" | "vorlage"): string {
+export function exportFileName(file: ExportFile, kind: "plan" | "profil" | "vorlage" | "export"): string {
   const safe = file.client.label.replace(/[^A-Za-z0-9_-]+/g, "-").replace(/^-|-$/g, "") || "kunde";
   return `pt-coach-${kind}-${safe}-${file.exportedAt.slice(0, 10)}.json`;
 }

@@ -6,6 +6,9 @@ import { requireCoach } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { validatePlan } from "@/lib/plan/validate";
 import type { PlanContent } from "@/lib/plan/schema";
+import { applyClientGoal } from "@/lib/plan/goal";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import type { QuestionnaireRow } from "@/lib/db-types";
 import { appToday } from "@/lib/today";
 
 export type SaveResult = { ok: true; version: number } | { ok: false; errors: string[] };
@@ -13,6 +16,13 @@ export type SaveResult = { ok: true; version: number } | { ok: false; errors: st
 function revalidateClient(clientId: string) {
   revalidatePath(`/coach/kunden/${clientId}`, "layout");
   revalidatePath("/kunde", "layout");
+}
+
+/** Ziel aus dem Fragebogen des Kunden in den importierten Plan übernehmen (nie das Ziel der KI). */
+async function withClientGoal(supabase: SupabaseClient, clientId: string, plan: PlanContent): Promise<PlanContent> {
+  const { data } = await supabase.from("client_questionnaires").select("goal, answers").eq("client_id", clientId).maybeSingle();
+  const q = data as Pick<QuestionnaireRow, "goal" | "answers"> | null;
+  return applyClientGoal(plan, q?.goal ?? null, q?.answers?.goalNote ?? null);
 }
 
 export async function createPlan(clientId: string, formData: FormData) {
@@ -48,6 +58,7 @@ export async function createPlanFromImport(clientId: string, content: unknown, n
   const check = validatePlan(content);
   if (!check.ok) return check;
   const supabase = await createSupabaseServerClient();
+  const planContent = await withClientGoal(supabase, clientId, check.plan);
   await supabase.from("plans").update({ is_active: false }).eq("client_id", clientId).eq("is_active", true);
   const { data: plan, error } = await supabase
     .from("plans")
@@ -57,7 +68,7 @@ export async function createPlanFromImport(clientId: string, content: unknown, n
   if (error || !plan) return { ok: false, errors: [`Plan konnte nicht angelegt werden: ${error?.message}`] };
   const { data, error: vErr } = await supabase.rpc("save_plan_version", {
     p_plan_id: plan.id,
-    p_content: check.plan,
+    p_content: planContent,
     p_note: (note || "Neuer Plan (KI)").slice(0, 500),
     p_source: "import",
   });
@@ -78,9 +89,11 @@ export async function savePlanVersion(
   const check = validatePlan(content);
   if (!check.ok) return check;
   const supabase = await createSupabaseServerClient();
+  // Import: Ziel kommt immer aus dem Fragebogen; Editor/Wiederherstellen behalten das Ziel des Coaches.
+  const planContent = source === "import" ? await withClientGoal(supabase, clientId, check.plan) : check.plan;
   const { data, error } = await supabase.rpc("save_plan_version", {
     p_plan_id: planId,
-    p_content: check.plan,
+    p_content: planContent,
     p_note: note.slice(0, 500),
     p_source: source,
   });
@@ -110,6 +123,17 @@ export async function activatePlan(clientId: string, planId: string) {
   await supabase.from("plans").update({ is_active: false }).eq("client_id", clientId).eq("is_active", true);
   await supabase.from("plans").update({ is_active: true }).eq("id", planId);
   revalidateClient(clientId);
+}
+
+/** Plan mit allen Versionen löschen (auch den aktiven). Erfasste Trainings bleiben, ihr Plan-Bezug wird leer (on delete set null). */
+export async function deletePlan(clientId: string, planId: string, formData: FormData) {
+  await requireCoach();
+  if (formData.get("confirm") !== "ja") throw new Error("Bitte das Löschen bestätigen.");
+  const supabase = await createSupabaseServerClient();
+  const { error } = await supabase.from("plans").delete().eq("id", planId).eq("client_id", clientId);
+  if (error) throw new Error(`Plan konnte nicht gelöscht werden: ${error.message}`);
+  revalidateClient(clientId);
+  redirect(`/coach/kunden/${clientId}/plan`);
 }
 
 export async function saveEditorVersion(clientId: string, planId: string, content: unknown, note: string) {

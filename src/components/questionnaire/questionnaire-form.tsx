@@ -40,6 +40,7 @@ interface Week {
 }
 interface Vals {
   goal: Goal | "";
+  goalNote: string;
   weekdays: number[];
   events: { date: string; name: string; kind: (typeof EVENT_KINDS)[number]; detail: string }[];
   absences: { from: string; to: string; option: (typeof ABSENCE_OPTIONS)[number] }[];
@@ -73,6 +74,7 @@ function fromAnswers(a: Answers | null): Vals {
   const x = a ?? {};
   return {
     goal: x.goal ?? "",
+    goalNote: x.goalNote ?? "",
     weekdays: x.weekdays ?? [],
     events: x.events ?? [],
     absences: x.absences ?? [],
@@ -122,6 +124,7 @@ const int = (s: string) => (s.trim() === "" ? null : Number.isInteger(Number(s))
 function toAnswers(v: Vals, gymAccess: boolean | null): Answers {
   const a: Record<string, unknown> = {};
   if (v.goal) a.goal = v.goal;
+  if (v.goalNote.trim()) a.goalNote = v.goalNote.trim();
   if (v.weekdays.length) a.weekdays = [...v.weekdays].sort();
   a.events = v.events;
   a.absences = v.absences;
@@ -233,6 +236,9 @@ export function QuestionnaireForm({
               </option>
             ))}
           </select>
+        </Q>
+        <Q label="Was genau willst du erreichen? (optional)" hint="z. B. „Hyrox unter 65 Minuten im März“ oder „10 kg abnehmen bis zum Sommer“">
+          <textarea className="input min-h-20" maxLength={1000} value={v.goalNote} onChange={(e) => set("goalNote", e.target.value)} />
         </Q>
       </section>
 

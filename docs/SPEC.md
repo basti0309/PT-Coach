@@ -22,7 +22,7 @@ Wer keinen Eintrag in `profiles` hat, sieht nichts (RLS liefert leere Ergebnisse
 | `client_questionnaires` (Fragebogen) | eigenen lesen/anlegen/ändern | alle lesen/anlegen/ändern | – |
 | `health_consents` (Einwilligung Art. 9 DSGVO) | eigene lesen, **nur selbst** erteilen und widerrufen | lesen (kein Erteilen, kein Widerruf) | – |
 | `client_health` (Gesundheitsangaben) | eigene lesen/schreiben **nur mit aktiver Einwilligung**; löschen | wie Kunde (nur mit Einwilligung des Kunden) | – |
-| `plans`, `plan_versions` | eigene lesen | alle lesen/schreiben | – |
+| `plans`, `plan_versions` | eigene lesen | alle lesen/schreiben; Plan löschen (Versionen werden mitgelöscht, erfasste Trainings bleiben ohne Plan-Bezug) | – |
 | `workout_logs` | eigene lesen; eigene **manuelle** anlegen/ändern/löschen | alle lesen; **manuelle** anlegen/ändern/löschen | Strava-Einträge |
 | `set_logs` | eigene lesen/schreiben | alle | – |
 | `strava_connections` (Tokens) | – (nur Status über Funktion `my_strava_status()`) | – | alles |
@@ -82,13 +82,15 @@ Zusatzprüfungen (im JSON Schema nicht ausdrückbar, in den Beschreibungen genan
 { format: "pt-coach-export", exportVersion: 2, exportedAt, pseudonymized, client: Profil-Export, plan: Plan | null }
 ```
 Profil-Export (identisch im Plan- und Profil-Export): Kürzel bzw. Name, Geschlecht, Alter, Größe, Equipment, Gymzugang, Trainingstage, max. Zeit, Notizen, PAL-Faktor, Nährstoffziele, Testwert-Historie (nur manuell eingetragene Werte, keine Strava-Daten; `tests[]` mit `unit` `s`|`kg`|`m`|`reps`, bei Kraftsätzen `reps`/`rir`), errechneter Kalorienbedarf (nur bei Ziel Abnehmen oder Kraft/Muskelaufbau).
-Neu in Version 2: `goal`, `questionnaire` (Antworten), `missing` (fehlende Pflichtangaben), `healthStatus` + `health` (nur mit Einwilligung), `derived` (berechnete Werte mit Regel-ID und Rechenweg, `docs/REGELWERK.md`), `trainingLoad` (Session-RPE der letzten 4 Wochen). Die bisherigen Felder bleiben unverändert.
+Neu in Version 2: `goal`, `questionnaire` (Antworten), `missing` (fehlende Pflichtangaben), `healthStatus` + `health` (nur mit Einwilligung), `derived` (berechnete Werte mit Regel-ID und Rechenweg, `docs/REGELWERK.md`), `trainingLoad` (Session-RPE der letzten 4 Wochen). Die bisherigen Felder bleiben unverändert. Später ergänzt: `client.goalNote` (Ziel in eigenen Worten) und optional `history` (Trainingsverlauf, nur auf „Export & Prompt“).
+**Plan-Ziel:** `plan.goal` setzt nie die KI. Beim Import überschreibt die App es mit dem Ziel aus dem Fragebogen („<Ziel> – <Freitext>“); im Editor kann der Coach es ändern.
+**Löschen:** Der Coach kann jeden Plan (auch den aktiven) löschen und den Trainingsverlauf eines Kunden ganz oder für einen Zeitraum löschen (Datenbankfunktion `delete_training_history`, prüft die Coach-Rolle selbst, löscht auch Strava-Einträge samt Strava-Aktivität).
 Import akzeptiert die ganze Export-Datei (nur `plan` wird übernommen) oder einen nackten Plan.
 
-### Neuer Plan mit KI
-Coach → Kunde → Plan → „Neuer Plan mit KI“ (`/coach/kunden/[id]/plan/neu`):
-1. Beschreibung eingeben → Prompt kopieren oder herunterladen (Vorlage `docs/ki-prompt-neuer-plan.md` mit `{{BESCHREIBUNG}}`, `{{SCHEMA}}`, `{{VORLAGE}}`).
-2. Leere JSON-Vorlage herunterladbar: Export-Datei mit Kundenprofil (standardmäßig pseudonymisiert) und einem schema-gültigen Plan-Gerüst mit Platzhaltern (Einheit mit Blöcken, Ausdauer, Ruhetag).
+### Export & Prompt (neuer Plan)
+Coach → Kunde → Plan → „Export & Prompt“ (`/coach/kunden/[id]/plan/neu`):
+1. Daten: eine Export-Datei mit Profil, Fragebogen (Ziel + `goalNote`), Testwerten, berechneten Werten und einem schema-gültigen Plan-Gerüst als Format. Umschalter: Trainingsverlauf (`history`, Standard: aus; Strava-Einheiten nur mit Datum, Sportart, Dauer, Erledigt) und Klarname (Standard: pseudonymisiert).
+2. Prompt: kurzer Prompt „Trainingsplan auf Basis der Kundendaten“ mit optionalem Feld „Zusätzliche Wünsche“ (Vorlage `docs/ki-prompt-neuer-plan.md` mit `{{BESCHREIBUNG}}`, `{{SCHEMA}}`, `{{VORLAGE}}`).
 3. Antwort der KI hochladen (Datei oder Text), auch in mehreren Teilen (z. B. Wochen 1–4, 5–8): Teile werden zusammengeführt (gleicher Titel und Startdatum, Wochen dürfen sich nicht überschneiden), geprüft und als Vorschau gezeigt. „Plan anlegen“ legt den Plan an, setzt ihn aktiv und speichert Version 1 (Quelle `import`).
 
 ## 4. Fachlogik (reine Funktionen, getestet)
@@ -132,7 +134,7 @@ Testroutine: `npm run test:eskalation` gegen `docs/eskalation-testset.json`.
 
 ## 7. Seiten
 Kunde (`/kunde`): Heute · Plan · Training (Verlauf, Erfassen, Session-RPE) · Fortschritt (Graphen, Prognosen) · Profil (Testwerte, Kalorien, Strava, Fragebogen `/kunde/profil/fragebogen` mit Einwilligung und Gesundheitsangaben) · Chat
-Coach (`/coach`): Übersicht · Posteingang · Kunden (Status Fragebogen; Profil, Fragebogen mit abgeleiteten Werten, Plan inkl. Neuer Plan mit KI/Editor/Export/Import/Versionen, Training, Fortschritt, Chat) · Wissensbasis · Eskalationsregeln · Einrichtung (Strava-Webhook, Einladungscode, Status)
+Coach (`/coach`): Übersicht · Posteingang · Kunden (Status Fragebogen; Profil, Fragebogen mit abgeleiteten Werten, Plan inkl. Export & Prompt/Editor/Export/Import/Versionen/Löschen, Training, Fortschritt, Chat) · Wissensbasis · Eskalationsregeln · Einrichtung (Strava-Webhook, Einladungscode, Status)
 Öffentlich: `/login`, `/registrieren`
 
 ## 8. Fragebogen und Regelwerk für die KI-Planung

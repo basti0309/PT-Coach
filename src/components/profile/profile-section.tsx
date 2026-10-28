@@ -111,7 +111,11 @@ export async function ProfileSection({ clientId, isCoach }: { clientId: string; 
         <section className="card space-y-2">
           <h2 className="h2">Profil exportieren (JSON)</h2>
           <p className="muted">
-            Pseudonymisiert (Kürzel statt Name), identisch zum Profil-Teil des Plan-Exports. Mit Klarnamen: über den Plan-Export.
+            Pseudonymisiert (Kürzel statt Name), identisch zum Profil-Teil des Plan-Exports. Mit Klarnamen, Trainingsverlauf und Prompt:{" "}
+            <Link href={`/coach/kunden/${clientId}/plan/neu`} className="text-brand-700 underline">
+              Export & Prompt
+            </Link>
+            .
           </p>
           <JsonExport json={JSON.stringify(exportFile, null, 2)} fileName={exportFileName(exportFile, "profil")} />
         </section>

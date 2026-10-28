@@ -1,5 +1,5 @@
 // KI-Prompts "KI ohne API": Vorlagen aus docs/ki-prompt-vorlage.md (Plan ändern)
-// und docs/ki-prompt-neuer-plan.md (neuer Plan) mit Platzhaltern.
+// und docs/ki-prompt-neuer-plan.md („Export & Prompt“, neuer Plan) mit Platzhaltern.
 
 export const PROMPT_PLACEHOLDERS = ["{{AUFGABE}}", "{{SCHEMA}}", "{{EXPORT}}"] as const;
 export const NEW_PLAN_PLACEHOLDERS = ["{{BESCHREIBUNG}}", "{{SCHEMA}}", "{{VORLAGE}}"] as const;
@@ -15,7 +15,7 @@ export function buildPrompt(template: string, values: { aufgabe: string; schema:
 }
 
 export function buildNewPlanPrompt(template: string, values: { beschreibung: string; schema: string; vorlage: string }): string {
-  const beschreibung = values.beschreibung.trim() || "(keine Beschreibung angegeben – bitte nachfragen, bevor du einen Plan erstellst)";
+  const beschreibung = values.beschreibung.trim() || "(keine – plane nach den Kundendaten)";
   return fillTemplate(template, { BESCHREIBUNG: beschreibung, SCHEMA: values.schema, VORLAGE: values.vorlage });
 }
 

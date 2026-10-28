@@ -1,4 +1,4 @@
-// Leere Plan-Vorlage für "Neuer Plan mit KI": zeigt jede Struktur einmal, Inhalte sind Platzhalter.
+// Leere Plan-Vorlage für „Export & Prompt“: zeigt jede Struktur einmal, Inhalte sind Platzhalter.
 import { addDays, parseIsoDate } from "@/lib/format";
 import type { PlanContent } from "./schema";
 
@@ -13,7 +13,6 @@ export function planTemplate(startDate: string): PlanContent {
     schemaVersion: 1,
     title: "TITEL DES PLANS",
     startDate,
-    goal: "ZIEL DES PLANS (optional)",
     notes: "ALLGEMEINE HINWEISE (optional)",
     weeks: [
       {
