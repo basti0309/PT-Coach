@@ -1,0 +1,3019 @@
+{
+  "schemaVersion": 1,
+  "title": "HYROX RUN – Tempo Runner",
+  "startDate": "2025-12-01",
+  "notes": "Abschrift aus der App HYROX PRO (Testdaten). Inhalte auf Englisch wie im Original, Gewichte zusätzlich in kg.",
+  "weeks": [
+    {
+      "week": 1,
+      "days": [
+        {
+          "day": 1,
+          "title": "TEMPO RUNNER · New cycle starts today!! · Week 1 - Day 1",
+          "notes": "• After a long hill training cycle we hit the streets and track to help bring up your speed for race day. This is a program for athletes looking to push their result through running.\n• 2-3 speed sessions a week\n• for 5k-half marathon athletes",
+          "sessions": [
+            {
+              "id": "w1d1-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Negative split run - 40 minutes",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Every 10 minute increase the pace by 60s per mile\n• The first half of this run should be held at a comfortable talk pace. The last 20 minutes should range from marathon pace down to 5k pace for the last 5k minutes"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "10 minute cool down run or walk",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "TEMPO RUNNER · Week 1 - Day 2",
+          "sessions": [
+            {
+              "id": "w1d2-1",
+              "type": "program",
+              "title": "75 minute easy bike ride",
+              "blocks": [
+                {
+                  "key": "75-minute-easy-bike-ride",
+                  "name": "75 minute easy bike ride",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "coachNotes": "Keep the effort level between 50-70%"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "TEMPO RUNNER · Week 1 - Day 3",
+          "sessions": [
+            {
+              "id": "w1d3-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "3 rounds:\n• Banded pull aparts 15 rep\n• Kb swing 15 reps\n• Judo push ups 15 reps"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "Conditioning Wod",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "5x2 clean pulls\n• These should be around 70% of your deadlift max\n• max them explosive and while still being heavy\n• 3 minutes rest between"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "Bench Press",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "3x3 Bench press\n• max them explosive and while still being heavy\n• 3 minutes rest between"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "Conditioning Wod",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "rebound jumps - 3x3\n• Step off a short box, land then explode into a high jump"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "CHIPPER",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "▶ KB SWING\n▶ WALL BALL\n• 100 kb swings for time 50 lb (22,7 kg) men /35 lb (15,9 kg) women\n• 100 wall balls for time",
+                  "coachNotes": "Rep this out with explosive speed and perfect form. Don't rush the process just to get quick reps",
+                  "loads": [
+                    {
+                      "label": "100 kb swings for time",
+                      "maleKg": 22.7,
+                      "femaleKg": 15.9
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "TEMPO RUNNER · Week 1 - Day 4",
+          "sessions": [
+            {
+              "id": "w1d4-1",
+              "type": "program",
+              "title": "45 minute easy run",
+              "blocks": [
+                {
+                  "key": "45-minute-easy-run",
+                  "name": "45 minute easy run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Run smooth at 60-70% effort level. The real efforts are coming later this week!"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "TEMPO RUNNER · Week 1 - Day 5 · Cross training",
+          "sessions": [
+            {
+              "id": "w1d5-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Kettlebell warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "• 10 sumo deadlift high pull\n• 10 single leg swing each leg\n• 35 lb (15,9 kg) men / 25 lb (11,3 kg) women",
+                  "loads": [
+                    {
+                      "label": "Kettlebell warm up",
+                      "maleKg": 15.9,
+                      "femaleKg": 11.3
+                    }
+                  ]
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "SLED PUSH",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "▶ SLED PUSH\n8 rounds 20s on/10s off sled push\n• Pick a weight that you can sustain power output for all 8 rounds.\n• Rest 3 minutes after all 8 rounds"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "SLED PULL",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "▶ SLED PULL\n8 rounds 20s on/10s off sled push\n• Pick a weight that you can sustain power output for all 8 rounds.\n• Rest 3 minutes after all 8 rounds"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "SKI",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "▶ SKI ERG\n21 minute EMOM\n• Minute 1- ski erg - 70%\n• Minute 2- run - 70%\n• Minute 3- full rest",
+                  "coachNotes": "Your goal here is to practice form and transitions. Do not push high paces just because you feel good."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "TEMPO RUNNER · Week 1 - Day 6",
+          "sessions": [
+            {
+              "id": "w1d6-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "20 minute easy run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• 20 minute easy run\n• 60% effort"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "2 rounds",
+                  "scoring": {
+                    "type": "distance",
+                    "rounds": 2
+                  },
+                  "details": "• 5 minutes at race pace\n• 5 minutes - 2 minutes slower"
+                },
+                {
+                  "key": "20-minutes-easy-run",
+                  "name": "20 minutes easy run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• 60% effort\n• Fueling is very important during these workouts. Hydrate and fuel before this workout. During you should need to do the same to sustain power output."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "days": [
+        {
+          "day": 1,
+          "title": "TEMPO RUNNER · Week 2 - Day 1",
+          "sessions": [
+            {
+              "id": "w2d1-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Negative split run - 40 minutes",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Every 10 minute increase the pace by 60s per mile\n• The first half of this run should be held at a comfortable talk pace. The last 20 minutes should range from marathon pace down to 5k pace for the last 5k minutes"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "10 minute cool down run or walk",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "TEMPO RUNNER · Week 2 - Day 2",
+          "sessions": [
+            {
+              "id": "w2d2-1",
+              "type": "program",
+              "title": "75 minute easy bike ride",
+              "blocks": [
+                {
+                  "key": "75-minute-easy-bike-ride",
+                  "name": "75 minute easy bike ride",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "coachNotes": "Keep the effort level between 50-70%"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "TEMPO RUNNER · Week 2 - Day 3",
+          "sessions": [
+            {
+              "id": "w2d3-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "3 rounds:\n• Banded pull aparts 15 rep\n• Kb swing 15 reps\n• Judo push ups 15 reps"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "Conditioning Wod",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "5x2 clean pulls\n• These should be around 70% of your deadlift max\n• max them explosive and while still being heavy\n• 3 minutes rest between\n• add 5-10 lb (2,3-4,5 kg) to your lift from last week"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "Bench Press",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "3x3 Bench press\n• max them explosive and while still being heavy\n• 3 minutes rest between\n• add 5-10 lb (2,3-4,5 kg) to your lift from last week"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "Conditioning Wod",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "rebound jumps - 3x3\n• Step off a short box, land then explode into a high jump"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "CONDITIONING WOD",
+                  "scoring": {
+                    "type": "rounds"
+                  },
+                  "details": "15 MINUTE AMRAP\n• 30 wall ball\n• 20 cal ski\n• 10 deadlift 225 lb (102,1 kg) men/165 lb (74,8 kg) women",
+                  "loads": [
+                    {
+                      "label": "10 deadlift",
+                      "maleKg": 102.1,
+                      "femaleKg": 74.8
+                    }
+                  ]
+                },
+                {
+                  "key": "wall-balls",
+                  "name": "WALL BALLS",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "▶ WALL BALLS"
+                },
+                {
+                  "key": "ski",
+                  "name": "SKI",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "▶ SKI ERG"
+                },
+                {
+                  "key": "deadlift",
+                  "name": "DEADLIFT",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "▶ DEADLIFT"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "TEMPO RUNNER · Week 2 - Day 4",
+          "sessions": [
+            {
+              "id": "w2d4-1",
+              "type": "program",
+              "title": "50 minute easy run",
+              "blocks": [
+                {
+                  "key": "50-minute-easy-run",
+                  "name": "50 minute easy run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Run smooth at 60-70% effort level. The real efforts are coming later this week!"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "TEMPO RUNNER · Week 2 - Day 5 · Cross training",
+          "sessions": [
+            {
+              "id": "w2d5-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Kettlebell warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "• 10 sumo deadlift high pull\n• 10 single leg swing each leg\n• 35 lb (15,9 kg) men / 25 lb (11,3 kg) women",
+                  "loads": [
+                    {
+                      "label": "Kettlebell warm up",
+                      "maleKg": 15.9,
+                      "femaleKg": 11.3
+                    }
+                  ]
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "BOX STEP UPS",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 8
+                  },
+                  "details": "• 8 rounds 20s on/10s off box step ups - add 20lb (9,1 kg) if possible\n• Rest 3 minutes",
+                  "loads": [
+                    {
+                      "label": "8 rounds 20s on/10s off box step ups - add",
+                      "kg": 9.1
+                    }
+                  ]
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "BOX JUMP",
+                  "scoring": {
+                    "type": "reps"
+                  },
+                  "details": "▶ BOX JUMP\n• 8 rounds 20s on/10s off box jumps\n• Pick a pace that is sustainable and powerful. This should be 80% plus effort."
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "ROW",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "▶ ROW\n21 minute EMOM\n• Minute 1- row erg - 70%\n• Minute 2- bike erg - 70%\n• Minute 3- full rest\n• Focus on stamina and controlled effort. Smooth is the best result here."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "TEMPO RUNNER · Week 2 - Day 6",
+          "sessions": [
+            {
+              "id": "w2d6-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "20 minute easy run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• 20 minute easy run\n• 60% effort"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "2 rounds",
+                  "scoring": {
+                    "type": "distance",
+                    "rounds": 2
+                  },
+                  "details": "• 5 minutes at race pace\n• 5 minutes - 2 minutes slower"
+                },
+                {
+                  "key": "20-minutes-easy-run",
+                  "name": "20 minutes easy run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• 60% effort\n• Fueling is very important during these workouts. Hydrate and fuel before this workout. During you should need to do the same to sustain power output."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "days": [
+        {
+          "day": 1,
+          "title": "HIGH MILAGE CHALLENGE · Week 3 - Day 1",
+          "sessions": [
+            {
+              "id": "w3d1-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Negative split run - 60 minutes",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Every 10 minute increase the pace by 60s per mile\n• The first half of this run should be held at a comfortable talk pace. The last 20 minutes should range from marathon pace down to 5k pace for the last 5k minutes"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "10 minute cool down run or walk",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "HIGH MILAGE CHALLENGE · Week 3 - Day 2",
+          "sessions": [
+            {
+              "id": "w3d2-1",
+              "type": "program",
+              "title": "Power Hour Cross Training",
+              "blocks": [
+                {
+                  "key": "power-hour-cross-training",
+                  "name": "Power Hour Cross Training",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "10 rounds:\n• 2 minute bike\n• 2 minute ski\n• 2 minute wall balls (20 lb (9,1 kg) men /14 lb (6,4 kg) women)",
+                  "coachNotes": "Hold 60-70% effort.\nYour goal is smooth transitions and even watts.\nRecover on bike if you have to.",
+                  "loads": [
+                    {
+                      "label": "2 minute wall balls",
+                      "maleKg": 9.1,
+                      "femaleKg": 6.4
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "HIGH MILAGE CHALLENGE · Week 3 - Day 3",
+          "sessions": [
+            {
+              "id": "w3d3-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "3 rounds:\n• Banded pull aparts 15 rep\n• Kb swing 15 reps\n• Judo push ups 15 reps"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "Conditioning Wod",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "5x2 clean pulls\n• These should be around 70% of your deadlift max\n• max them explosive and while still being heavy\n• 3 minutes rest between\n• add 5-10 lb (2,3-4,5 kg) to your lift from last week"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "Bench Press",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "3x3 Bench press\n• max them explosive and while still being heavy\n• 3 minutes rest between\n• add 5-10 lb (2,3-4,5 kg) to your lift from last week"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "Conditioning Wod",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "rebound jumps - 3x3\n• Step off a short box, land then explode into a high jump"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "CONDITIONING WOD",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "15 MINUTE AMRAP\n• 8 rep front squat (155 lb (70,3 kg) men /115 lb (52,2 kg) women)\n• 10 deadlift\n• 12 burpee over bar",
+                  "coachNotes": "Your goal is to chip away at this however you feel comfortable. Keep the reps moving the whole workout without big chunks of rest",
+                  "loads": [
+                    {
+                      "label": "8 rep front squat",
+                      "maleKg": 70.3,
+                      "femaleKg": 52.2
+                    }
+                  ]
+                },
+                {
+                  "key": "front-squat",
+                  "name": "FRONT SQUAT",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "▶ FRONT SQUAT"
+                },
+                {
+                  "key": "deadlift",
+                  "name": "DEADLIFT",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "▶ DEADLIFT"
+                },
+                {
+                  "key": "bar-over-burpees",
+                  "name": "BAR OVER BURPEES",
+                  "scoring": {
+                    "type": "reps"
+                  },
+                  "details": "▶ BAR OVER BURPEES"
+                },
+                {
+                  "key": "p6",
+                  "label": "P6",
+                  "name": "10 minute cool down bike",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "HIGH MILAGE CHALLENGE · Week 3 - Day 4",
+          "sessions": [
+            {
+              "id": "w3d4-1",
+              "type": "program",
+              "title": "90 minute easy bike ride",
+              "blocks": [
+                {
+                  "key": "90-minute-easy-bike-ride",
+                  "name": "90 minute easy bike ride",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Keep the effort level between 50-70%\n• Check HAOS nutrition before completing this workout."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "HIGH MILAGE CHALLENGE · Week 3 - Day 5 · Cross training",
+          "sessions": [
+            {
+              "id": "w3d5-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "blocks": [
+                {
+                  "key": "60-minute-easy-run",
+                  "name": "60 minute easy run",
+                  "scoring": {
+                    "type": "distance"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "w3d5-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "3 rounds:\n• 10 sumo deadlift high pull 35/25 kb\n• 10 single leg swing each leg"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "SLED PULL",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "▶ SLED PULL\n• 8 rounds 20s on/10s off all arms sled pull\n• add 20 lb (9,1 kg) from last week if possible\n• Rest 3 minutes before P3"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "MED BALL SLAMS",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "▶ MED BALL SLAMS\n• 8 rounds 20s on/10s off sledgehammer tire slams or ball slams\n• Pick a pace that is sustainable and powerful. This should be 80% plus effort.\n• Rest 3 minutes before P4"
+                },
+                {
+                  "key": "push-ups",
+                  "name": "PUSH UPS",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "▶ Push up\n• 8 rounds 20s on/10s off push ups\n• Pick a pace that is sustainable and powerful. This should be 80% plus effort\n• Wear a vest if you can"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "HIGH MILAGE CHALLENGE · Week 3 - Day 6",
+          "sessions": [
+            {
+              "id": "w3d6-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "20 minute easy run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• 20 minute easy run\n• 60% effort"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "3 rounds",
+                  "scoring": {
+                    "type": "distance",
+                    "rounds": 3
+                  },
+                  "details": "• 6 minutes at race pace\n• 4 minutes - 2 minutes slower"
+                },
+                {
+                  "key": "30-minutes-easy-run",
+                  "name": "30 minutes easy run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• 60% effort\n• Fueling is very important during these workouts. Hydrate and fuel before this workout. During you should need to do the same to sustain power output."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "days": [
+        {
+          "day": 1,
+          "title": "TEMPO RUNNER · Taper week!! · Week 4 - Day 1",
+          "sessions": [
+            {
+              "id": "w4d1-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "15 minute warm up run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "coachNotes": "Gradually build your pace up over this time, hold mile pace for 30s at the end to prep for your effort."
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "1 mile time trial",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• Run this at 90% plus. Leave a little in the tank\n• Your goal is to track progress while keeping the body moving fast during this recovery week"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "15 minute cool down run",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "• Jog or walk this. Take time to stretch and fully cool down after this hard effort."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "TEMPO RUNNER · Week 4 - Day 2",
+          "sessions": [
+            {
+              "id": "w4d2-1",
+              "type": "program",
+              "title": "75 minute easy bike",
+              "blocks": [
+                {
+                  "key": "75-minute-easy-bike",
+                  "name": "75 minute easy bike",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "coachNotes": "This is a beach cruiser type effort. Have fun, stay hydrated :)"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "TEMPO RUNNER · Week 4 - Day 3",
+          "sessions": [
+            {
+              "id": "w4d3-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "3 rounds:\n• Banded pull aparts 15 rep\n• Kb swing 15 reps\n• Judo push ups 15 reps"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "Conditioning Wod",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "3x2 clean pulls\n• These should be around 70% of your deadlift max\n• max them explosive and while still being heavy\n• 3 minutes rest between\n• add 5-10 lb (2,3-4,5 kg) to your lift from last week"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "Bench Press",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "2x3 Bench press\n• max them explosive and while still being heavy\n• 3 minutes rest between\n• add 5-10 lb (2,3-4,5 kg) to your lift from last week"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "Conditioning Wod",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "rebound jumps - 3x3\n• Step off a short box, land then explode into a high jump"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "Conditioning WOD",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• 100 wall balls\n• 100 ttb",
+                  "coachNotes": "If you are unable to complete hanging exercises complete 100 lying leg raises.\nThis workout will test your stamina and grip strength. Do your best to pace it properly so that you can keep the flow of the pace moving at all times."
+                },
+                {
+                  "key": "wall-balls",
+                  "name": "WALL BALLS",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "▶ WALL BALLS"
+                },
+                {
+                  "key": "toes-to-bar",
+                  "name": "TOES TO BAR",
+                  "scoring": {
+                    "type": "reps"
+                  },
+                  "details": "▶ TOES TO BAR"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "TEMPO RUNNER · Week 4 - Day 4",
+          "sessions": [
+            {
+              "id": "w4d4-1",
+              "type": "program",
+              "title": "75 minute easy bike ride",
+              "blocks": [
+                {
+                  "key": "75-minute-easy-bike-ride",
+                  "name": "75 minute easy bike ride",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• This is a beach cruiser type effort. Have fun, stay hydrated :)"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "TEMPO RUNNER · Week 4 - Day 5 · Cross training",
+          "sessions": [
+            {
+              "id": "w4d5-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "3 rounds:\n• 10 sumo deadlift high pull 35/25 kb\n• 10 single leg swing each leg"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "ROW",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "▶ ROW\n4x1000m row\n• Hold 10-15s above race pace\n• Use the first 1000m as part of the warm up\n• 120s rest between"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "Cross training WOD",
+                  "scoring": {
+                    "type": "rounds"
+                  },
+                  "details": "• 5 rounds 30s on/ 30s off jumping lunges\n• Rest 3 minutes\n• 5 rounds 30s on/ 30s off air squats in vest (20 lb (9,1 kg) men / 14 lb (6,4 kg) female)\n• Rest three minutes\n• 5 rounds 30s on/ 30s off kb swing (50 lb (22,7 kg) men/35 lb (15,9 kg) female)",
+                  "loads": [
+                    {
+                      "label": "5 rounds 30s on/ 30s off air squats in vest",
+                      "maleKg": 9.1,
+                      "femaleKg": 6.4
+                    },
+                    {
+                      "label": "5 rounds 30s on/ 30s off kb swing",
+                      "maleKg": 22.7,
+                      "femaleKg": 15.9
+                    }
+                  ]
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "10 minute cool down run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "TEMPO RUNNER · Week 4 - Day 6",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "days": [
+        {
+          "day": 1,
+          "title": "TEMPO RUNNER · Week 5 - Day 1",
+          "sessions": [
+            {
+              "id": "w5d1-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "In and outs",
+                  "scoring": {
+                    "type": "time",
+                    "rounds": 3
+                  },
+                  "details": "• 1 mile run at 90-120s slower than 10k pace\n• 1 mile run at 10k pace",
+                  "coachNotes": "Your goal is to be fast on your hard mile while recovering on the slow mile without dropping the pace too low. If you can't get your heart rate down then you need to pull back on the fast mile."
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "10 minute cool down run or walk",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "TEMPO RUNNER · Week 5 - Day 2 · Power hour cross training",
+          "sessions": [
+            {
+              "id": "w5d2-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "10 rounds EMOM",
+                  "scoring": {
+                    "type": "distance",
+                    "rounds": 10
+                  },
+                  "details": "• Minute 1 ski\n• Minute 2 run\n• Minute 3 bike",
+                  "coachNotes": "Keep this all round 60-70% effort, it isn't mean to be a hard day.\nRest 5 minutes before starting P2."
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "10 rounds EMOM",
+                  "scoring": {
+                    "type": "distance",
+                    "rounds": 10
+                  },
+                  "details": "• Minute 1 run\n• Minute 2 burpee broad jump\n• Minute 3 row",
+                  "coachNotes": "This is will be a harder workout, make sure that you stay conservative or your heart rate will drift up too high."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "TEMPO RUNNER · Week 5 - Day 3",
+          "sessions": [
+            {
+              "id": "w5d3-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "3 rounds:\n• Banded pull aparts 15 rep\n• Kb swing 15 reps\n• Judo push ups 15 reps"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "Conditioning Wod",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "6x1 clean pulls\n• 3 minutes rest between\n• go heavy, not hard"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "Bench Press",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "5x2 Bench press\n• max them explosive and while still being heavy\n• 3 minutes rest between\n• add 5-10 lb (2,3-4,5 kg) to your lift from last week"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "Conditioning Wod",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "rebound jumps - 3x3\n• Step off a short box, land then explode into a high jump"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "Conditioning WOD",
+                  "scoring": {
+                    "type": "time",
+                    "rounds": 5
+                  },
+                  "details": "5 rounds 50/35 lb (22,7/15,9 kg) DB:\n• 10 devil press\n• 10 box step over\n• 10 db deadlift",
+                  "loads": [
+                    {
+                      "label": "5 rounds",
+                      "maleKg": 22.7,
+                      "femaleKg": 15.9
+                    }
+                  ]
+                },
+                {
+                  "key": "p6",
+                  "label": "P6",
+                  "name": "10 minute cool down bike",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "TEMPO RUNNER · Week 5 - Day 4",
+          "sessions": [
+            {
+              "id": "w5d4-1",
+              "type": "program",
+              "title": "90 minute easy bike ride",
+              "blocks": [
+                {
+                  "key": "90-minute-easy-bike-ride",
+                  "name": "90 minute easy bike ride",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Keep the effort level between 50-70%"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "TEMPO RUNNER · Week 5 - Day 5",
+          "sessions": [
+            {
+              "id": "w5d5-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "blocks": [
+                {
+                  "key": "60-minute-easy-run",
+                  "name": "60 minute easy run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Run smooth at 60-70% effort level. The real efforts are coming later this week!"
+                }
+              ]
+            },
+            {
+              "id": "w5d5-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION – Cross training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "3 rounds:\n• 15 judo push ups\n• 15 banded cowboy walks\n• 15 banded good mornings"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "Cross training WOD",
+                  "scoring": {
+                    "type": "reps",
+                    "rounds": 5
+                  },
+                  "details": "• 5 rounds 30s hard/ 30s rest - heavy kb swing - max weight\nRest 3 minutes before thrusters.\n• 5 rounds 30s hard/30s rest - db thrusters 50/35\nPick a pace that is sustainable and powerful. This should be 80% plus effort. Rest 3 minutes before row.\n• 5 rounds 30s hard/ 30s rest - row",
+                  "coachNotes": "Pick a pace that is sustainable and powerful. This should be 80% plus effort. Wear a vest if you can."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "TEMPO RUNNER · Week 5 - Day 6 · Fueling is very important during these workouts. Hydrate and fuel before this workout. During you should need to do the same to sustain power output",
+          "sessions": [
+            {
+              "id": "w5d6-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "70 minute run at 70% effort level",
+                  "scoring": {
+                    "type": "distance"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "1 mile run at max controllable pace",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "10-15 minute cool down jog or walk",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "days": [
+        {
+          "day": 1,
+          "title": "TEMPO RUNNER · Week 6 - Day 1",
+          "sessions": [
+            {
+              "id": "w6d1-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "In and outs",
+                  "scoring": {
+                    "type": "time",
+                    "rounds": 4
+                  },
+                  "details": "• 1 mile run at 90-120s slower than 10k pace\n• 1 mile run at 10k pace",
+                  "coachNotes": "Your goal is to be fast on your hard mile while recovering on the slow mile without dropping the pace too low. If you can't get your heart rate down then you need to pull back on the fast mile."
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "10 minute cool down run or walk",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "TEMPO RUNNER · Week 6 - Day 2 · Power hour cross training",
+          "sessions": [
+            {
+              "id": "w6d2-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "10 rounds EMOM",
+                  "scoring": {
+                    "type": "distance",
+                    "rounds": 10
+                  },
+                  "details": "• Minute 1 run\n• Minute 2 bike\n• Minute 3 wall ball 20/14",
+                  "coachNotes": "Keep this all round 60-70% effort, it isn't mean to be a hard day.\nRest 5 minutes before starting P2."
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "10 rounds EMOM",
+                  "scoring": {
+                    "type": "distance",
+                    "rounds": 10
+                  },
+                  "details": "• Minute 1 run\n• Minute 2 bike\n• Minute 3 burpee broad jump",
+                  "coachNotes": "This will be a harder workout, make sure that you stay conservative or your heart rate will drift up too high. Keep it below 80%"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "TEMPO RUNNER · Week 6 - Day 3",
+          "sessions": [
+            {
+              "id": "w6d3-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "3 rounds:\n• Banded pull aparts 15 rep\n• Kb swing 15 reps\n• Judo push ups 15 reps"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "Conditioning Wod",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "6x1 clean pulls\n• 3 minutes rest between\n• go heavy, not hard\n• your goal is to add 5-10lb (2,3-4,5 kg) from last week"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "Bench Press",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "5x2 Bench press\n• max them explosive and while still being heavy\n• 3 minutes rest between\n• add 5-10 lb (2,3-4,5 kg) to your lift from last week"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "Conditioning Wod",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "rebound jumps - 3x3\n• Step off a short box, land then explode into a high jump"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "Conditioning WOD",
+                  "scoring": {
+                    "type": "time",
+                    "rounds": 3
+                  },
+                  "details": "• 30 calorie bike\n• 50m lunge 65/45lb (29,5/20,4 kg) on your back",
+                  "coachNotes": "Your goal is to go as hard as you can handle. This is all about your quads. If you can suffer you will succeed.",
+                  "loads": [
+                    {
+                      "label": "50m lunge",
+                      "maleKg": 29.5,
+                      "femaleKg": 20.4
+                    }
+                  ]
+                },
+                {
+                  "key": "p6",
+                  "label": "P6",
+                  "name": "10 minute cool down bike",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "TEMPO RUNNER · Week 6 - Day 4",
+          "sessions": [
+            {
+              "id": "w6d4-1",
+              "type": "program",
+              "title": "90 minute easy bike ride",
+              "blocks": [
+                {
+                  "key": "90-minute-easy-bike-ride",
+                  "name": "90 minute easy bike ride",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Keep the effort level between 50-70%"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "TEMPO RUNNER · Week 6 - Day 5",
+          "sessions": [
+            {
+              "id": "w6d5-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "blocks": [
+                {
+                  "key": "60-minute-easy-run",
+                  "name": "60 minute easy run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Run smooth at 60-70% effort level. The real efforts are coming later this week!"
+                }
+              ]
+            },
+            {
+              "id": "w6d5-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION – Cross training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "3 rounds:\n• 15 judo push ups\n• 15 banded cowboy walks\n• 15 banded good mornings"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "Cross training WOD",
+                  "scoring": {
+                    "type": "reps",
+                    "rounds": 5
+                  },
+                  "details": "• 5 rounds 30s hard/ 30s rest - ski erg or sledgehammer tire slam (focus on your core and power)\nRest 3 minutes\n• 5 rounds 30s hard/30s rest - all arms sled drag or max barbell row at body weight.\nRest 3 minutes.\n• 5 rounds 30s hard/ 30s rest - assault bike or echo bike",
+                  "coachNotes": "Pick a pace that is sustainable and powerful. This should be 80% plus effort"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "TEMPO RUNNER · Week 6 - Day 6 · Fueling is very important during these workouts. Hydrate and fuel before this workout. During you should need to do the same to sustain power output",
+          "sessions": [
+            {
+              "id": "w6d6-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "80 minute run at 70% effort level",
+                  "scoring": {
+                    "type": "distance"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "1 mile run at max controllable pace",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "10-15 minute cool down jog or walk",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "days": [
+        {
+          "day": 1,
+          "title": "TEMPO RUNNER · Week 7 - Day 1",
+          "sessions": [
+            {
+              "id": "w7d1-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "In and outs",
+                  "scoring": {
+                    "type": "time",
+                    "rounds": 5
+                  },
+                  "details": "• 1 mile run at 90-120s slower than 10k pace\n• 1 mile run at 10k pace",
+                  "coachNotes": "Your goal is to be fast on your hard mile while recovering on the slow mile without dropping the pace too low. If you can't get your heart rate down then you need to pull back on the fast mile."
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "10 minute cool down run or walk",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "TEMPO RUNNER · Week 7 - Day 2 · Power hour cross training",
+          "sessions": [
+            {
+              "id": "w7d2-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "10 rounds EMOM",
+                  "scoring": {
+                    "type": "distance",
+                    "rounds": 10
+                  },
+                  "details": "• Minute 1 run\n• Minute 2 bike\n• Minute 3 tire slam or ski erg",
+                  "coachNotes": "Keep this all round 60-70% effort, it isn't mean to be a hard day.\nRest 5 minutes before starting P2."
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "10 rounds EMOM",
+                  "scoring": {
+                    "type": "distance",
+                    "rounds": 10
+                  },
+                  "details": "• Minute 1 run\n• Minute 2 bike\n• Minute 3 light sled push - 50% of race weight",
+                  "coachNotes": "This will be a harder workout, make sure that you stay conservative or your heart rate will drift up too high. Keep it below 80%"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "TEMPO RUNNER · Week 7 - Day 3",
+          "sessions": [
+            {
+              "id": "w7d3-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "3 rounds:\n• Banded pull aparts 15 rep\n• Kb swing 15 reps\n• Judo push ups 15 reps"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "Conditioning Wod",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "6x1 clean pulls\n• 3 minutes rest between\n• go heavy, not hard\n• your goal is to add 5-10lb (2,3-4,5 kg) from last week"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "Bench Press",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "5x2 Bench press\n• max them explosive and while still being heavy\n• 3 minutes rest between\n• add 5-10 lb (2,3-4,5 kg) to your lift from last week"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "Conditioning Wod",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "rebound jumps - 3x3\n• Step off a short box, land then explode into a high jump"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "Bikes and balls",
+                  "scoring": {
+                    "type": "time",
+                    "rounds": 5
+                  },
+                  "details": "• 30 calories on air bike\n• 30 wall balls 20/14",
+                  "coachNotes": "Keep heart rate at 85% or less"
+                },
+                {
+                  "key": "p6",
+                  "label": "P6",
+                  "name": "10 minute cool down bike",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "TEMPO RUNNER · Week 7 - Day 4",
+          "sessions": [
+            {
+              "id": "w7d4-1",
+              "type": "program",
+              "title": "90 minute easy bike ride",
+              "blocks": [
+                {
+                  "key": "90-minute-easy-bike-ride",
+                  "name": "90 minute easy bike ride",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Keep the effort level between 50-70%"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "TEMPO RUNNER · Week 7 - Day 5",
+          "sessions": [
+            {
+              "id": "w7d5-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "blocks": [
+                {
+                  "key": "60-minute-easy-run",
+                  "name": "60 minute easy run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Run smooth at 60-70% effort level. The real efforts are coming later this week!"
+                }
+              ]
+            },
+            {
+              "id": "w7d5-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION – Cross training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "3 rounds:\n• 15 judo push ups\n• 15 banded cowboy walks\n• 15 banded good mornings"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "Cross training WOD",
+                  "scoring": {
+                    "type": "reps",
+                    "rounds": 6
+                  },
+                  "details": "• 6 rounds 30s hard/ 30s rest - stationary bike\nRest 3 minutes\n• 6 rounds 30s hard/30s rest - row\nRest 3 minutes.\n• 6 rounds 30s hard/ 30s rest - box step ups (45 lbs (20,4 kg)/35 lbs (15,9 kg))",
+                  "coachNotes": "Pick a pace that is sustainable and powerful. This should be 80% plus effort",
+                  "loads": [
+                    {
+                      "label": "6 rounds 30s hard/ 30s rest - box step ups",
+                      "maleKg": 20.4,
+                      "femaleKg": 15.9
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "TEMPO RUNNER · Week 7 - Day 6 · Fueling is very important during these workouts. Hydrate and fuel before this workout. During you should need to do the same to sustain power output",
+          "sessions": [
+            {
+              "id": "w7d6-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "90 minute run at 70% effort level",
+                  "scoring": {
+                    "type": "distance"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "1 mile run at max controllable pace",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "10-15 minute cool down jog or walk",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 8,
+      "days": [
+        {
+          "day": 1,
+          "title": "TEMPO RUNNER · Week 8 - Day 1",
+          "sessions": [
+            {
+              "id": "w8d1-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "15 minute warm up run",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "• Slowly build up the pace over these 15 minutes until you are at race pace for the last minute\n• Take 5-10 minutes before your test"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "5k run test",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "coachNotes": "Push 90% of your capabilities. If you are feeling fit for a PR go for it!"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "take 20-30 minutes to cool down with a walk or easy bike",
+                  "scoring": {
+                    "type": "distance"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "TEMPO RUNNER · Week 8 - Day 2",
+          "sessions": [
+            {
+              "id": "w8d2-1",
+              "type": "program",
+              "title": "60-75 minute easy bike",
+              "blocks": [
+                {
+                  "key": "60-75-minute-easy-bike",
+                  "name": "60-75 minute easy bike",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Keep the effort level between 50-70%"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "TEMPO RUNNER · Week 8 - Day 3",
+          "sessions": [
+            {
+              "id": "w8d3-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "10 rounds EMOM",
+                  "scoring": {
+                    "type": "distance",
+                    "rounds": 10
+                  },
+                  "details": "• Minute 1 run\n• Minute 2 bike\n• Minute 3 5 reps heavy pull up 70-80% of max",
+                  "coachNotes": "Keep this all round 60-70% effort, it isn't mean to be a hard day.\nRest 5 minutes before starting P2."
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "10 rounds EMOM",
+                  "scoring": {
+                    "type": "distance",
+                    "rounds": 10
+                  },
+                  "details": "• Minute 1 run\n• Minute 2 bike\n• Minute 3 5 rep heavy box squat 70-80% of max",
+                  "coachNotes": "This will be a harder workout, make sure that you stay conservative or your heart rate will drift up too high. Keep it below 80%"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "TEMPO RUNNER · Week 8 - Day 4",
+          "sessions": [
+            {
+              "id": "w8d4-1",
+              "type": "program",
+              "title": "60-75 minute easy bike",
+              "blocks": [
+                {
+                  "key": "60-75-minute-easy-bike",
+                  "name": "60-75 minute easy bike",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Your goal is to recover the legs form the hard effort yesterday"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "TEMPO RUNNER · Week 8 - Day 5",
+          "sessions": [
+            {
+              "id": "w8d5-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "3 rounds:\n• Banded pull aparts 15 rep\n• Kb swing 15 reps\n• Judo push ups 15 reps"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "Conditioning Wod",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "6x1 clean pulls\n• 3 minutes rest between\n• go heavy, not hard\n• your goal is to add 5-10lb (2,3-4,5 kg) from last week"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "Bench Press",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "5x2 Bench press\n• max them explosive and while still being heavy\n• 3 minutes rest between\n• add 5-10 lb (2,3-4,5 kg) to your lift from last week"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "Conditioning Wod",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "rebound jumps - 3x3\n• Step off a short box, land then explode into a high jump"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "WOD",
+                  "scoring": {
+                    "type": "time",
+                    "rounds": 2
+                  },
+                  "details": "• 1000m row\n• 30 burpee over rover",
+                  "coachNotes": "Keep heart rate at 85% or less"
+                },
+                {
+                  "key": "p6",
+                  "label": "P6",
+                  "name": "10 minute cool down bike",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "TEMPO RUNNER · Week 8 - Day 6 · Fueling is very important during these workouts. Hydrate and fuel before this workout. During you should need to do the same to sustain power output",
+          "sessions": [
+            {
+              "id": "w8d6-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "80 minute run at 70% effort level",
+                  "scoring": {
+                    "type": "distance"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "1 mile run at max controllable pace",
+                  "scoring": {
+                    "type": "time"
+                  }
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "10-15 minute cool down jog or walk",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 9,
+      "days": [
+        {
+          "day": 1,
+          "title": "TEMPO RUNNER · Week 9 - Day 1",
+          "sessions": [
+            {
+              "id": "w9d1-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "15 minute warm up run",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "• Slowly build up the pace over these 15 minutes until you are at race pace for the last minute\n• Take 5-10 minutes before your test"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "Speed work",
+                  "scoring": {
+                    "type": "time",
+                    "rounds": 8
+                  },
+                  "details": "• 800m run - hold 5k pace plus\n• 400m recovery run - 2 minutes slower than 800m pace",
+                  "coachNotes": "This workout is here to increase your speed. If you need to go slower during the recovery 400, take the extra time"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "TEMPO RUNNER · Week 9 - Day 2",
+          "sessions": [
+            {
+              "id": "w9d2-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM",
+              "blocks": [
+                {
+                  "key": "am",
+                  "label": "AM",
+                  "name": "40 minute easy run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "3 minutes slower than 10k pace"
+                }
+              ]
+            },
+            {
+              "id": "w9d2-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM",
+              "blocks": [
+                {
+                  "key": "pm",
+                  "label": "PM",
+                  "name": "40 minute easy run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "3 minutes slower than 10k pace"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "TEMPO RUNNER · Week 9 - Day 3",
+          "sessions": [
+            {
+              "id": "w9d3-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "3 rounds:\n• Banded pull aparts 15 rep\n• Kb swing 15 reps\n• Judo push ups 15 reps"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "Conditioning Wod",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "6x1 clean pulls\n• 3 minutes rest between\n• go heavy, not hard\n• your goal is to add 5-10lb (2,3-4,5 kg) from last week"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "Bench Press",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "5x2 Bench press\n• max them explosive and while still being heavy\n• 3 minutes rest between\n• add 5-10 lb (2,3-4,5 kg) to your lift from last week"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "Conditioning Wod",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "rebound jumps - 3x3\n• Step off a short box, land then explode into a high jump"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "10 minute WOD",
+                  "scoring": {
+                    "type": "reps"
+                  },
+                  "details": "• 2k row\n• Max box jumps with the remaining time (20/24”)",
+                  "coachNotes": "Keep heart rate at 85% or less"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "TEMPO RUNNER · Week 9 - Day 4",
+          "sessions": [
+            {
+              "id": "w9d4-1",
+              "type": "program",
+              "title": "90 minute easy bike",
+              "blocks": [
+                {
+                  "key": "90-minute-easy-bike",
+                  "name": "90 minute easy bike",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Keep the effort level between 50-70%\n• Check HAOS nutrition before completing this workout"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "TEMPO RUNNER · Week 9 - Day 5",
+          "sessions": [
+            {
+              "id": "w9d5-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM",
+              "blocks": [
+                {
+                  "key": "am",
+                  "label": "AM",
+                  "name": "40 minute easy run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "3 minutes slower than 10k pace"
+                }
+              ]
+            },
+            {
+              "id": "w9d5-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM",
+              "blocks": [
+                {
+                  "key": "pm",
+                  "label": "PM",
+                  "name": "30 minute tempo run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "P1. 10 minute warm up run\n• Gradually add pace as you warm up\nP2. 30 minute run\n• 60-90 seconds slower than 10k pace\n• This shouldn't be a hard run. Use this workout to get better at controlling your pace and heart rate\nP3. 10 minute cool down run"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "TEMPO RUNNER · Week 9 - Day 6",
+          "sessions": [
+            {
+              "id": "w9d6-1",
+              "type": "program",
+              "title": "90 minute easy run",
+              "blocks": [
+                {
+                  "key": "90-minute-easy-run",
+                  "name": "90 minute easy run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "coachNotes": "Keep the pace and effort lower today so that you are fresh for your speed work on Monday."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 10,
+      "days": [
+        {
+          "day": 1,
+          "title": "TEMPO RUNNER · Week 10 - Day 1",
+          "sessions": [
+            {
+              "id": "w10d1-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "15 minute warm up run",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "• Slowly build up the pace over these 15 minutes until you are at race pace for the last minute\n• Take 5-10 minutes before your test"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "Speed work",
+                  "scoring": {
+                    "type": "time",
+                    "rounds": 9
+                  },
+                  "details": "• 800m run - hold 5k pace plus\n• 400m recovery run - 2 minutes slower than 800m pace",
+                  "coachNotes": "This workout is here to increase your speed. If you need to go slower during the recovery 400, take the extra time"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "15 minute recovery run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "TEMPO RUNNER · Week 10 - Day 2",
+          "sessions": [
+            {
+              "id": "w10d2-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM",
+              "blocks": [
+                {
+                  "key": "am",
+                  "label": "AM",
+                  "name": "50 minute easy run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "3 minutes slower than 10k pace"
+                }
+              ]
+            },
+            {
+              "id": "w10d2-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM",
+              "blocks": [
+                {
+                  "key": "pm",
+                  "label": "PM",
+                  "name": "50 minute easy run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "3 minutes slower than 10k pace"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "TEMPO RUNNER · Week 10 - Day 3",
+          "sessions": [
+            {
+              "id": "w10d3-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "3 rounds:\n• Banded pull aparts 15 rep\n• Kb swing 15 reps\n• Judo push ups 15 reps"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "Conditioning Wod",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "6x1 clean pulls\n• 3 minutes rest between\n• go heavy, not hard\n• your goal is to add 5-10lb (2,3-4,5 kg) from last week"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "Bench Press",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "5x2 Bench press\n• max them explosive and while still being heavy\n• 3 minutes rest between\n• add 5-10 lb (2,3-4,5 kg) to your lift from last week"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "Conditioning Wod",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "rebound jumps - 3x3\n• Step off a short box, land then explode into a high jump"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "21 minute EMOM",
+                  "scoring": {
+                    "type": "reps",
+                    "rounds": 7
+                  },
+                  "details": "• Minute 1 - row\n• Minute 2 - kb swing\n• Minute 3 - run",
+                  "coachNotes": "Hold this around 85% of your heart rate max. It is a tempo effort for all 21 minutes. Warm up before so that you are prepped to push hard from the start"
+                },
+                {
+                  "key": "p6",
+                  "label": "P6",
+                  "name": "10 minute cool down bike",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "TEMPO RUNNER · Week 10 - Day 4",
+          "sessions": [
+            {
+              "id": "w10d4-1",
+              "type": "program",
+              "title": "90 minute easy bike",
+              "blocks": [
+                {
+                  "key": "90-minute-easy-bike",
+                  "name": "90 minute easy bike",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Keep the effort level between 50-70%\n• Check HAOS nutrition before completing this workout"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "TEMPO RUNNER · Week 10 - Day 5",
+          "sessions": [
+            {
+              "id": "w10d5-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM",
+              "blocks": [
+                {
+                  "key": "am",
+                  "label": "AM",
+                  "name": "40 minute easy run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "3 minutes slower than 10k pace"
+                }
+              ]
+            },
+            {
+              "id": "w10d5-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM",
+              "blocks": [
+                {
+                  "key": "pm",
+                  "label": "PM",
+                  "name": "40 minute tempo run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "P1. 10 minute warm up run\n• Gradually add pace as you warm up\nP2. 40 minute run\n• 60-90 seconds slower than 10k pace\n• This shouldn't be a hard run. Use this workout to get better at controlling your pace and heart rate\nP3. 10 minute cool down run"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "TEMPO RUNNER · Week 10 - Day 6",
+          "sessions": [
+            {
+              "id": "w10d6-1",
+              "type": "program",
+              "title": "90 minute easy run",
+              "blocks": [
+                {
+                  "key": "90-minute-easy-run",
+                  "name": "90 minute easy run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "coachNotes": "Keep the pace and effort lower today so that you are fresh for your speed work on Monday."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 11,
+      "days": [
+        {
+          "day": 1,
+          "title": "TEMPO RUNNER · Week 11 - Day 1",
+          "sessions": [
+            {
+              "id": "w11d1-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "10 minute warm up run",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "• Gradually pick up the pace over these 10 minutes\n• 5 minute active stretching"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "5k time trial",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• Embrace the pain! From here we will work on the skill of speed to increase this capacity.\n• Focus on even splits or negative splits for this run. Three miles can become a lot longer than you expect if paced poorly."
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "10-15 minute recovery run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "TEMPO RUNNER · Week 11 - Day 2",
+          "notes": "Your goal is to move weight. Stay strong and healthy for all of the running that we will be doing. You don't need to max out these efforts, keep between 70-80% effort. This means you could do 2-3 more reps at the same weight without failing.",
+          "sessions": [
+            {
+              "id": "w11d2-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "ROW",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "▶ ROW\n2k row"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "FRONT SQUAT",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "▶ FRONT SQUAT\nFront squat to box 3x8\n• 3 minutes rest between sets"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "BARBELL ROW",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "Barbell row 3x10\n• 120s rest between sets"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "DUMBBELL STEP UPS",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "DB step up 3x8 each leg\n• 120s between each set"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "Bench Press",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "Bench press 3x8\n• 120s rest between each set"
+                },
+                {
+                  "key": "p6",
+                  "label": "P6",
+                  "name": "Core and carriers",
+                  "scoring": {
+                    "type": "time",
+                    "rounds": 3
+                  },
+                  "details": "• 50ft single arm farmer carry (each side) max weight\n• 30 weighted russian twists\n• 20 weighted sit ups\n• 10 pull up bar windshield wipers",
+                  "coachNotes": "120s between rounds\nThis workout is designed to build a strong body that can conquer every obstacle. Put your focus in to getting strong each week.\nTake today easy, your body needs the recovery from yesterday's hard run"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "TEMPO RUNNER · Week 11 - Day 3",
+          "sessions": [
+            {
+              "id": "w11d3-1",
+              "type": "program",
+              "title": "45 minute easy run",
+              "blocks": [
+                {
+                  "key": "45-minute-easy-run",
+                  "name": "45 minute easy run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• RPE 6-7\n• This workout is here to flush out your legs from the prior hard efforts. Enjoy your easy day, tomorrow we push the pace again."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "TEMPO RUNNER · Week 11 - Day 4",
+          "sessions": [
+            {
+              "id": "w11d4-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "1 mile warm up run",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "coachNotes": "Every 60s drop down for 10 push ups and 10 jumping lunges"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "20 minute AMRAP",
+                  "scoring": {
+                    "type": "rounds"
+                  },
+                  "details": "• 400m run\n• 20 box step up (1x 50/35lb (22,7/15,9 kg) db)\n• 10 burpee to box jump\n• 5 pull up strict - add weight if your feeling strong",
+                  "coachNotes": "Keep this effort around 80% of your max heart rate or perceived effort. Learn to control your effort across all movements",
+                  "loads": [
+                    {
+                      "label": "20 box step up",
+                      "maleKg": 22.7,
+                      "femaleKg": 15.9
+                    }
+                  ]
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "STEEL WORKER",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 4
+                  },
+                  "details": "4x15s front rack weight hold\n• 60s rest between sets\n• Add up accumulated weight at end to find your score"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "TEMPO RUNNER · Week 11 - Day 5",
+          "sessions": [
+            {
+              "id": "w11d5-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM",
+              "blocks": [
+                {
+                  "key": "am",
+                  "label": "AM",
+                  "name": "40 minute easy run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Today is meant to be focused on rest, if you are really tired feel free to do a 60 minute hike instead."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "TEMPO RUNNER · Week 11 - Day 6",
+          "notes": "This workout needs to be done on the road, track or treadmill. It is very important to keep your pacing dialed in to get better at this. Avoid any hills if possible.",
+          "sessions": [
+            {
+              "id": "w11d6-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "10 minute warm up run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "In and outs",
+                  "scoring": {
+                    "type": "time",
+                    "rounds": 3
+                  },
+                  "details": "• 1 mile 60-70% ex - 7 minute per mile pace\n• 1 mile 80-85% ex- 6 minute per mile pace",
+                  "coachNotes": "This workout is designed to hold sustained speed. Do not go too hard on the first two rounds. If you want to run hard save it for the last round."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 12,
+      "days": [
+        {
+          "day": 1,
+          "title": "COMPROMISED RUNNING · Deload week!! · Week 12 - Day 1",
+          "sessions": [
+            {
+              "id": "w12d1-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "15 minute warm up run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "coachNotes": "Gradually build your pace up over this time, hold mile pace for 30s at the end to prep for your effort."
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "1 mile time trial",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• Run this at 90% plus. Leave a little in the tank\n• Your goal is to track progress while keeping the body moving fast during this recovery week"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "15 minute cool down run",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "• Jog or walk this. Take time to stretch and fully cool down after this hard effort."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "COMPROMISED RUNNING · Week 12 - Day 2",
+          "sessions": [
+            {
+              "id": "w12d2-1",
+              "type": "program",
+              "title": "75 minute easy bike",
+              "blocks": [
+                {
+                  "key": "75-minute-easy-bike",
+                  "name": "75 minute easy bike",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "coachNotes": "This is a beach cruiser type effort. Have fun, stay hydrated :)"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "COMPROMISED RUNNING · Week 12 - Day 3",
+          "sessions": [
+            {
+              "id": "w12d3-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "3 rounds:\n• Banded pull aparts 15 rep\n• Kb swing 15 reps\n• Judo push ups 15 reps"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "Conditioning Wod",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "3x2 clean pulls\n• These should be around 70% of your deadlift max\n• max them explosive and while still being heavy\n• 3 minutes rest between"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "Bench Press",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 6
+                  },
+                  "details": "6x2 Bench Press\nThis should be at about 70% of your max bench press"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "Conditioning Wod",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "rebound jumps - 3x3\n• Step off a short box, land then explode into a high jump"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "Conditioning WOD",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• 100 wall balls\n• 100 ttb",
+                  "coachNotes": "If you are unable to complete hanging exercises complete 100 lying leg raises.\nThis workout will test your stamina and grip strength. Do your best to pace it properly so that you can keep the flow of the pace moving at all times."
+                },
+                {
+                  "key": "wall-balls",
+                  "name": "WALL BALLS",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "▶ WALL BALLS"
+                },
+                {
+                  "key": "toes-to-bar",
+                  "name": "TOES TO BAR",
+                  "scoring": {
+                    "type": "reps"
+                  },
+                  "details": "▶ TOES TO BAR"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "COMPROMISED RUNNING · Week 12 - Day 4",
+          "sessions": [
+            {
+              "id": "w12d4-1",
+              "type": "program",
+              "title": "75 minute easy bike ride",
+              "blocks": [
+                {
+                  "key": "75-minute-easy-bike-ride",
+                  "name": "75 minute easy bike ride",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• This is a beach cruiser type effort. Have fun, stay hydrated :)"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "COMPROMISED RUNNING · Week 12 - Day 5 · Cross training",
+          "sessions": [
+            {
+              "id": "w12d5-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "3 rounds:\n• 10 sumo deadlift high pull 35/25 kb\n• 10 single leg swing each leg"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "ROW",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "▶ ROW\n4x1000m row\n• Hold 10-15s above race pace\n• Use the first 1000m as part of the warm up\n• 120s rest between"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "Cross training WOD",
+                  "scoring": {
+                    "type": "rounds"
+                  },
+                  "details": "• 5 rounds 30s on/ 30s off jumping lunges\n• Rest 3 minutes\n• 5 rounds 30s on/ 30s off air squats in vest (20 lb (9,1 kg) men / 14 lb (6,4 kg) female)\n• Rest three minutes\n• 5 rounds 30s on/ 30s off kb swing (50 lb (22,7 kg) men/35 lb (15,9 kg) female)",
+                  "loads": [
+                    {
+                      "label": "5 rounds 30s on/ 30s off air squats in vest",
+                      "maleKg": 9.1,
+                      "femaleKg": 6.4
+                    },
+                    {
+                      "label": "5 rounds 30s on/ 30s off kb swing",
+                      "maleKg": 22.7,
+                      "femaleKg": 15.9
+                    }
+                  ]
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "10 minute cool down run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "COMPROMISED RUNNING · Week 12 - Day 6",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    }
+  ]
+}

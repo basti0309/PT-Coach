@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # End-to-End-Test gegen ein lokales Supabase (Docker) mit Mocks für Strava und die Claude API.
 # Nur für Entwicklungsumgebungen mit Docker (z. B. Claude Code). Die Betreiberin braucht das nicht.
-# Ablauf: Supabase starten (Migrationen + Seed), App bauen und starten, Szenarien A–D ausführen.
+# Ablauf: Supabase starten (Migrationen + Seed), App bauen und starten, Szenarien A–E ausführen.
 set -euo pipefail
 E2E="$(cd "$(dirname "$0")" && pwd)"
 ROOT="$(cd "$E2E/.." && pwd)"
@@ -49,7 +49,7 @@ sleep 5
 
 # 3) Szenarien
 cd "$E2E"
-for s in szenario-a-coach szenario-b-kunde szenario-c-strava-chat szenario-d-plan-versionen; do
+for s in szenario-a-coach szenario-b-kunde szenario-c-strava-chat szenario-d-plan-versionen szenario-e-neuer-plan-ki; do
   echo "== $s"
   node "$s.mjs"
 done

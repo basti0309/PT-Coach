@@ -1,6 +1,7 @@
 import { ProfileSection } from "@/components/profile/profile-section";
 import { StravaCard } from "@/components/strava-card";
 import { requireClient } from "@/lib/auth";
+import { env } from "@/lib/env";
 
 export default async function KundeProfil({ searchParams }: PageProps<"/kunde/profil">) {
   const viewer = await requireClient();
@@ -13,7 +14,7 @@ export default async function KundeProfil({ searchParams }: PageProps<"/kunde/pr
           <button className="btn-secondary btn-small">Abmelden</button>
         </form>
       </div>
-      <StravaCard status={typeof strava === "string" ? strava : undefined} />
+      {env.stravaEnabled() && <StravaCard status={typeof strava === "string" ? strava : undefined} />}
       <ProfileSection clientId={viewer.userId} isCoach={false} />
     </div>
   );

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { samplePlan } from "./fixtures";
+import { samplePlan, sampleProgramPlan } from "./fixtures";
+import { nextMonday, planTemplate } from "./template";
 import { parsePlanImport, validatePlan } from "./validate";
 
 describe("Plan-Validierung", () => {
@@ -41,7 +42,7 @@ describe("Plan-Validierung", () => {
     expect(r.ok).toBe(false);
     if (!r.ok) {
       expect(r.errors).toContain("Plan: unbekannte(s) Feld(er): „titel“ (Tippfehler? Nicht erlaubt.)");
-      expect(r.errors.some((e) => e === 'Woche 1 › Tag 2 › Einheit „w1d2-lauf“ › Typ („type“): muss "strength", "wod" oder "endurance" sein (gefunden: "cardio")')).toBe(true);
+      expect(r.errors.some((e) => e === 'Woche 1 › Tag 2 › Einheit „w1d2-lauf“ › Typ („type“): muss "strength", "wod", "endurance" oder "program" sein (gefunden: "cardio")')).toBe(true);
     }
   });
 
@@ -82,5 +83,45 @@ describe("Import-Text", () => {
   it("leerer Text", () => {
     const r = parsePlanImport("  ");
     expect(r.ok).toBe(false);
+  });
+
+  it("Programm-Einheit mit Blöcken und Ruhetag ist gültig, ebenso die leere Vorlage", () => {
+    expect(validatePlan(sampleProgramPlan()).ok).toBe(true);
+    expect(validatePlan(planTemplate("2026-11-02")).ok).toBe(true);
+  });
+
+  it("Zusatzregeln für Programm-Einheiten und Ruhetage", () => {
+    const plan = sampleProgramPlan();
+    const s = plan.weeks[0].days[0].sessions[0];
+    if (s.type !== "program") throw new Error("Testdaten");
+    s.blocks[1].key = "p1";
+    s.blocks[2].loads = [{ label: "Wall Ball" }];
+    plan.weeks[0].days[1] = { day: 7, sessions: [] };
+    const r = validatePlan(plan);
+    expect(r.ok).toBe(false);
+    if (!r.ok) {
+      expect(r.errors).toEqual([
+        "Woche 1 › Tag 1 › Einheit „w1d1-pm“: Block-Kennung „p1“ kommt mehrfach vor.",
+        "Woche 1 › Tag 1 › Einheit „w1d1-pm“ › Block „p3“: Gewicht „Wall Ball“ braucht maleKg, femaleKg oder kg.",
+        "Woche 1 › Tag 7: Tag ohne Einheiten (Ruhetag) braucht einen Titel („title“) oder Hinweis („notes“).",
+      ]);
+    }
+  });
+
+  it("unbekannte Wertung wird verständlich gemeldet", () => {
+    const plan = sampleProgramPlan() as unknown as { weeks: { days: { sessions: { blocks: { scoring: { type: string } }[] }[] }[] }[] };
+    plan.weeks[0].days[0].sessions[0].blocks[0].scoring.type = "Distance";
+    const r = validatePlan(plan);
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.errors[0]).toContain("Block 1 „2k row warm up“ › Wertung („scoring“) › Typ („type“): ungültiger Wert \"Distance\"");
+  });
+
+  it("Startdatum der Vorlage: nächster Montag", () => {
+    // 27.10.2026 ist ein Dienstag → +6 Tage = Montag 02.11.2026
+    expect(nextMonday("2026-10-27")).toBe("2026-11-02");
+    // 26.10.2026 ist ein Montag → eine Woche später
+    expect(nextMonday("2026-10-26")).toBe("2026-11-02");
+    // 01.11.2026 ist ein Sonntag → +1 Tag
+    expect(nextMonday("2026-11-01")).toBe("2026-11-02");
   });
 });

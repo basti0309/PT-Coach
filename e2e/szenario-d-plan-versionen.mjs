@@ -13,6 +13,8 @@ await coach.fill("input[placeholder='Was wurde geändert? (optional)']", "Lauf a
 await coach.click("button:has-text('Als neue Version speichern')");
 await coach.waitForSelector("text=Gespeichert als Version 3", { timeout: 15000 });
 check(true, "Editor speichert neue Version 3");
+// nach dem Speichern baut die Seite den Editor mit der neuen Version neu auf – erst danach weiter bearbeiten
+await coach.waitForSelector("text=(aktuell Version 3)");
 // ungültige Eingabe → Fehlermeldung
 await coach.locator("label:has-text('Intensität') input").last().fill("");
 await coach.click("button:has-text('Als neue Version speichern')");

@@ -1,5 +1,5 @@
 -- PT-Coach: Kunden-Fragebogen, Einwilligung (Art. 9 DSGVO), Gesundheitsangaben, Session-RPE.
--- Erst ausführen, nachdem 20261028000100_testarten.sql gelaufen ist.
+-- Erst ausführen, nachdem 20261028000200_testarten.sql gelaufen ist.
 
 -- ---------------------------------------------------------------------------
 -- Testwerte: Wiederholungen und Wiederholungen in Reserve für submaximale Kraftsätze

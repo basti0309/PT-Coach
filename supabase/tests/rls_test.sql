@@ -58,6 +58,8 @@ begin
       values (log_a, a, 'endurance', current_date, 'manual', true, 'laufen', 1800, 5000),
              (log_b, b, 'strength', current_date, 'manual', true, null, null, null),
              (log_strava_a, a, 'endurance', current_date, 'strava', true, 'laufen', 2400, null);
+    insert into public.workout_logs (client_id, kind, performed_on, source, completed, block_results)
+      values (b, 'program', current_date, 'manual', true, '{"p1": {"done": true, "values": [165], "note": ""}}');
     insert into public.set_logs (workout_log_id, client_id, performed_on, exercise_id, set_no, weight_kg, reps)
       values (log_b, b, current_date, 'kniebeuge', 1, 100, 5);
     insert into public.strava_activities (client_id, strava_activity_id, workout_log_id, strava_sport_type, sport,
@@ -156,7 +158,13 @@ begin
       jsonb_build_object('u','C','exp','zero','d','Nach Widerruf: Coach liest keine Gesundheitsangaben von A','sql','select count(*) from public.client_health where client_id = ''{A}'''),
       jsonb_build_object('u','A','exp','error','d','Kraftsatz-Test ohne Wdh./RIR wird abgelehnt','sql','insert into public.test_results (client_id, kind, tested_on, value) values (''{A}'', ''squat_reps'', current_date, 60)'),
       jsonb_build_object('u','A','exp','pos','d','Kraftsatz-Test mit Gewicht × Wdh. × RIR','sql','with x as (insert into public.test_results (client_id, kind, tested_on, value, reps, rir) values (''{A}'', ''squat_reps'', current_date, 60, 6, 2) returning 1) select count(*) from x'),
-      jsonb_build_object('u','A','exp','pos','d','A trägt Session-RPE bei manueller Einheit ein','sql','with x as (update public.workout_logs set session_rpe = 6 where id = ''{LOG_A}'' returning 1) select count(*) from x')
+      jsonb_build_object('u','A','exp','pos','d','A trägt Session-RPE bei manueller Einheit ein','sql','with x as (update public.workout_logs set session_rpe = 6 where id = ''{LOG_A}'' returning 1) select count(*) from x'),
+      -- Programm-Einheiten (Blockergebnisse)
+      jsonb_build_object('u','A','exp','pos','d','A legt eigene Programm-Einheit mit Blockergebnissen an','sql','with x as (insert into public.workout_logs (client_id, kind, performed_on, block_results) values (''{A}'', ''program'', current_date, ''{"p1": {"done": true, "values": [60, 62.5], "note": ""}}'') returning 1) select count(*) from x'),
+      jsonb_build_object('u','A','exp','zero','d','A liest keine Blockergebnisse von B','sql','select count(*) from public.workout_logs where block_results is not null and client_id = ''{B}'''),
+      jsonb_build_object('u','A','exp','rows0','d','A ändert keine Blockergebnisse von B','sql','update public.workout_logs set block_results = ''{}'' where client_id = ''{B}'' and kind = ''program'''),
+      jsonb_build_object('u','C','exp','pos','d','Coach liest Blockergebnisse seiner Kunden','sql','select count(*) from public.workout_logs where client_id = ''{B}'' and block_results ? ''p1'''),
+      jsonb_build_object('u','A','exp','error','d','Blockergebnisse müssen ein Objekt sein','sql','insert into public.workout_logs (client_id, kind, performed_on, block_results) values (''{A}'', ''program'', current_date, ''[1, 2]'')')
     );
 
     for t in select * from jsonb_array_elements(tests) loop

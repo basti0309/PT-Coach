@@ -198,7 +198,7 @@ export function buildExportFile(client: ProfileExport, plan: PlanContent | null,
   };
 }
 
-export function exportFileName(file: ExportFile, kind: "plan" | "profil"): string {
+export function exportFileName(file: ExportFile, kind: "plan" | "profil" | "vorlage"): string {
   const safe = file.client.label.replace(/[^A-Za-z0-9_-]+/g, "-").replace(/^-|-$/g, "") || "kunde";
   return `pt-coach-${kind}-${safe}-${file.exportedAt.slice(0, 10)}.json`;
 }

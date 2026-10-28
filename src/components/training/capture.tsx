@@ -14,6 +14,7 @@ import type { WorkoutRef } from "@/lib/actions/training";
 import { StrengthLogger } from "./strength-logger";
 import { WodLogger } from "./wod-logger";
 import { EnduranceForm } from "./endurance-form";
+import { ProgramLogger } from "./program-logger";
 import { DeviationView } from "./deviation-view";
 
 /** Erfassung einer geplanten Einheit – gemeinsam für Kunde und Coach. */
@@ -84,6 +85,26 @@ export async function CaptureSession({
             : null
         }
         last={last ? { date: last.performed_on, result: last.wod_result, weights: last.wod_weights } : null}
+      />
+    );
+  } else if (s.type === "program") {
+    const { data: cp } = await supabase.from("client_profiles").select("sex").eq("client_id", clientId).maybeSingle();
+    body = (
+      <ProgramLogger
+        session={s}
+        workoutRef={ref}
+        existing={
+          log
+            ? {
+                results: log.block_results,
+                notes: log.notes,
+                completed: log.completed,
+                sessionRpe: log.session_rpe,
+                durationSeconds: log.duration_seconds,
+              }
+            : null
+        }
+        sex={(cp?.sex as "m" | "w" | null | undefined) ?? null}
       />
     );
   } else {
@@ -163,7 +184,9 @@ export async function CaptureSession({
           Geplant: {formatDate(item.date)} (Woche {item.week}, Tag {item.day})
           {log?.completed && " · ✓ erledigt"}
         </p>
-        {s.type !== "strength" && (
+        {item.dayTitle && <p className="text-sm font-semibold text-slate-700">{item.dayTitle}</p>}
+        {s.type === "program" && s.notes && <p className="whitespace-pre-line text-sm italic text-slate-500">{s.notes}</p>}
+        {s.type !== "strength" && s.type !== "program" && (
           <ul className="mt-1 text-sm text-slate-600">
             {sessionDetails(s).map((l, i) => (
               <li key={i}>{l}</li>

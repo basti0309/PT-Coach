@@ -1,6 +1,6 @@
 -- PT-Coach: neue Testarten für Testwochen und Fragebogen (docs/VORLAGEN-ANALYSE.md, docs/REGELWERK.md R4).
 -- Eigene Datei: Neue Enum-Werte dürfen erst nach dem Abschluss dieser Ausführung verwendet werden.
--- Im Supabase-SQL-Editor allein ausführen, danach 20261028000200_fragebogen.sql.
+-- Im Supabase-SQL-Editor allein ausführen, danach 20261028000300_fragebogen.sql.
 alter type public.test_kind add value if not exists 'run_1mile';
 alter type public.test_kind add value if not exists 'run_30min';
 alter type public.test_kind add value if not exists 'run_30min_submax';

@@ -1,10 +1,11 @@
 // Zeilentypen der Datenbank (von Hand gepflegt, siehe supabase/migrations).
+import type { BlockResults } from "@/lib/calc/blocks";
 import type { PlanContent } from "@/lib/plan/schema";
 import type { TestKind } from "@/lib/plan/test-kinds";
 import type { Answers, Goal, Health } from "@/lib/questionnaire/schema";
 
 export type { TestKind };
-export type WorkoutKind = "strength" | "wod" | "endurance";
+export type WorkoutKind = "strength" | "wod" | "endurance" | "program";
 
 export interface ProfileRow {
   id: string;
@@ -119,6 +120,7 @@ export interface WorkoutLogRow {
   wod_movements_key: string | null;
   wod_result: WodResult | null;
   wod_weights: string;
+  block_results: BlockResults | null;
   notes: string;
   /** Session-RPE (CR-10, Foster 2001), nur bei manuell erfassten Einheiten */
   session_rpe: number | null;

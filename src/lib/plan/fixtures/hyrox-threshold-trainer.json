@@ -1,0 +1,2472 @@
+{
+  "schemaVersion": 1,
+  "title": "HYROX PRO – Threshold Trainer",
+  "startDate": "2025-12-29",
+  "notes": "Abschrift aus der App HYROX PRO (Testdaten). Inhalte auf Englisch wie im Original, Gewichte zusätzlich in kg.",
+  "weeks": [
+    {
+      "week": 1,
+      "days": [
+        {
+          "day": 1,
+          "title": "THRESHOLD TRAINER · New cycle begins today!! · Week 1 - Day 1",
+          "notes": "• This cycle focuses on developing race pace effort stamina. This is one of the most important cycles to reaching peak performance. If you skip this portion of training you will fall apart at then end of the race\n• If you are looking to be a champion the back half of the race then this is the cycle for you.\n• 20-60 minute long sweat filled workouts just below race pace to help you make the break through you've been looking for.\nWORKOUT NOTES\nThis is a very important test. Do your best, there is no perfect score. This is an important baseline test. Wear a heart rate monitor if you can\nYou can do this on your treadmill, however if you do you must retest on a treadmill too.",
+          "sessions": [
+            {
+              "id": "w1d1-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "10 minute warm up run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "30 minute max distance test",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• This is all about bringing the heart rate down and flushing the legs out to enhance your recovery time.\n• It is best to negative split this run, don't have fast miles in the beginning then have sloppy miles at the end."
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "10 minute cool down run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "THRESHOLD TRAINER · Week 1 - Day 2",
+          "sessions": [
+            {
+              "id": "w1d2-1",
+              "type": "program",
+              "title": "30 minute easy run OR 60 minute hike",
+              "blocks": [
+                {
+                  "key": "30-minute-easy-run-or-60-minute-hike",
+                  "name": "30 minute easy run OR 60 minute hike",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Make the choice based off how you feel from the hard effort from yesterday\n• Some of you will have harder times recovering from speed work, ideally we want to spend more time running but it is more important to stay healthy and strong during your training. The bike is great if you need more recovery time."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "THRESHOLD TRAINER · Week 1 - Day 3 · Strength Test",
+          "sessions": [
+            {
+              "id": "w1d3-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "deadlift",
+                  "name": "DEADLIFT",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "▶ DEADLIFT\nTake 15 minutes to find your 3 rep max deadlift.\n• This is to find you max strength\n• Be smart and safe with this test. Remember you aren't a powerlifter, you are an athlete."
+                },
+                {
+                  "key": "wall-balls",
+                  "name": "WALL BALLS",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "▶ WALL BALLS\n100 wall balls for time - 20 lb (9,1 kg) men /14 lb (6,4 kg) women\n• Rest 5-8 minutes after this",
+                  "loads": [
+                    {
+                      "label": "100 wall balls for time",
+                      "maleKg": 9.1,
+                      "femaleKg": 6.4
+                    }
+                  ]
+                },
+                {
+                  "key": "row",
+                  "name": "ROW",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "▶ ROW\n5k row test\n• Warm up the body for 5 minutes with an easy row before you start the test. This is a muscular endurance test. Very different from your run test but just as hard, make sure to fuel properly before this."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "THRESHOLD TRAINER · Week 1 - Day 4",
+          "sessions": [
+            {
+              "id": "w1d4-1",
+              "type": "program",
+              "title": "30 minute easy run or 60 minute hike.",
+              "blocks": [
+                {
+                  "key": "30-minute-easy-run-or-60-minute-hike",
+                  "name": "30 minute easy run or 60 minute hike.",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Make the choice based off how you feel from the hard effort from yesterday\n• Go very easy on this"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "THRESHOLD TRAINER · Week 1 - Day 5",
+          "sessions": [
+            {
+              "id": "w1d5-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Bench Press",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "• Take 15 minutes to find you 3 rep max bench press\n• This is to find you max strength"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "PULL UPS",
+                  "scoring": {
+                    "type": "reps"
+                  },
+                  "details": "▶ PULL UPS\nMax strict pull up test - 2 minutes\n• Take as many breaks as possible. This is a strength endurance test, no kipping and no dropping from the top.\n• Chin over the bar at the top, full arm extension at the bottom.\n• Rest 5 minutes after this"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "WALKING LUNGE",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• 100m walking lunge test 65 lb (29,5 kg) men / 45 lb (20,4 kg) women on back\n• Knee must touch the ground, fully stand at the top of each rep.",
+                  "loads": [
+                    {
+                      "label": "100m walking lunge test",
+                      "maleKg": 29.5,
+                      "femaleKg": 20.4
+                    }
+                  ]
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "BAR OVER BURPEES",
+                  "scoring": {
+                    "type": "reps"
+                  },
+                  "details": "▶ BAR OVER BURPEES\n5 minute max rep bar facing burpee test.\n• Each burpee must be to the floor and you must be fully facing the barbell each rep. At the top of each rep you must jump fully over the bar to the other side.\n• The plate must have a 45 lb (20,4 kg) plate on each side to create specific height for the jump performed in each rep.",
+                  "loads": [
+                    {
+                      "label": "The plate must have a",
+                      "kg": 20.4
+                    }
+                  ]
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "1 mile cool down run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "THRESHOLD TRAINER · Week 1 - Day 6",
+          "sessions": [
+            {
+              "id": "w1d6-1",
+              "type": "program",
+              "title": "Go for your long hike or bike - 90 minutes",
+              "blocks": [
+                {
+                  "key": "go-for-your-long-hike-or-bike-90-minutes",
+                  "name": "Go for your long hike or bike - 90 minutes",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• This effort is here to build endurance. Since we had a heavy test week we want to keep the intensity very low to make sure that you are fully recovered for next week's training.\n• Keep your RPE or heart rate below 70% effort level. This will become a key session each week for you to build the endurance needed for race day."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "days": [
+        {
+          "day": 1,
+          "title": "THRESHOLD TRAINER · Week 2 - Day 1",
+          "sessions": [
+            {
+              "id": "w2d1-1",
+              "type": "program",
+              "title": "10-15 minute warm up run",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "10-15 minute warm up run",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "coachNotes": "Add pace as time goes on"
+                }
+              ]
+            },
+            {
+              "id": "w2d1-2",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "blocks": [
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "FARTLEK",
+                  "scoring": {
+                    "type": "time",
+                    "rounds": 5
+                  },
+                  "details": "• 5x1000m run at race pace or time trial pace",
+                  "coachNotes": "Recovery between - walk or jog until you hit 60% of max heart rate\nIf your heart rate goes above 87% during this session you need to slow down your hard intervals"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "15 minute cool down run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "w2d1-3",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "SKI",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "▶ SKI ERG\n2k ski warm up"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "15 minute AMRAP",
+                  "scoring": {
+                    "type": "rounds"
+                  },
+                  "details": "300m ski\n12.5m sled push at 80% of race weight\n• Complete as many rounds as possible at 87% of max heart rate"
+                },
+                {
+                  "key": "ski",
+                  "name": "SKI",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "▶ SKI ERG"
+                },
+                {
+                  "key": "sled-push",
+                  "name": "SLED PUSH",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "▶ SLED PUSH"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "THRESHOLD TRAINER · Week 2 - Day 2",
+          "sessions": [
+            {
+              "id": "w2d2-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "am-session",
+                  "name": "AM SESSION",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• 75 minute bike session\n• 60-70% effort level",
+                  "coachNotes": "This is here to build endurance"
+                },
+                {
+                  "key": "pm-session",
+                  "name": "PM SESSION",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• 30 minute run\n• 60-70% endurance session"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "THRESHOLD TRAINER · Week 2 - Day 3",
+          "sessions": [
+            {
+              "id": "w2d3-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Core warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "3 Rounds:\n• 10-20 atomic push ups\n• 15-25 back extensions\n• 30-60s plank"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "SPLIT SQUAT",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "• 3x8 split squat - each leg\n• Focus on being 2 reps shy of a max effort on each lift\n• Rest 3 minutes between each lift"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "DUMBBELL SHOULDER PRESS",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "• 3x5 shoulder press\n• Focus on being 2 reps shy of a max effort on each lift\n• Rest 3 minutes between each lift"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "BARBELL ROW",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "• 4x3 barbell row\n• Focus on being 2 reps shy of a max effort on each lift\n• Rest 3 minutes between each lift"
+                },
+                {
+                  "key": "p5",
+                  "label": "P5",
+                  "name": "SLED PULL",
+                  "scoring": {
+                    "type": "weight"
+                  },
+                  "details": "▶ SLED PULL\n• 5x10m - super heavy sled pull\n• Don't let this be sloppy. Make it heavy not hard!\n• 1 minute rest between sets"
+                }
+              ]
+            },
+            {
+              "id": "w2d3-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION",
+              "blocks": [
+                {
+                  "key": "60-minute-run-at-60-70-effort",
+                  "name": "60 minute run at 60-70% effort",
+                  "scoring": {
+                    "type": "distance"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "THRESHOLD TRAINER · Week 2 - Day 4",
+          "sessions": [
+            {
+              "id": "w2d4-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "am-session",
+                  "name": "AM SESSION",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• 75 minute bike session\n• 60-70% effort level\n• This is here to build endurance."
+                },
+                {
+                  "key": "pm-session",
+                  "name": "PM SESSION",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• 30 minute run\n• 60-70% endurance session"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "THRESHOLD TRAINER · Week 2 - Day 5",
+          "sessions": [
+            {
+              "id": "w2d5-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION – EMOM ENDURANCE",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "10 minute EMOM",
+                  "scoring": {
+                    "type": "distance",
+                    "rounds": 5
+                  },
+                  "details": "• Minute 1 run\n• Minute 2 ski",
+                  "coachNotes": "Rest 3 minutes after 5 rounds"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "10 minute EMOM",
+                  "scoring": {
+                    "type": "reps",
+                    "rounds": 5
+                  },
+                  "details": "• Minute 1 run\n• Minute 2 burpee to plate",
+                  "coachNotes": "Rest 3 minutes after 5 rounds"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "10 minute EMOM",
+                  "scoring": {
+                    "type": "distance",
+                    "rounds": 5
+                  },
+                  "details": "• Minute 1 run\n• Minute 2 row",
+                  "coachNotes": "Keep this effort at 80-87% of your max heart rate. Focus on controlling all efforts, master your craft."
+                }
+              ]
+            },
+            {
+              "id": "w2d5-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "15 minute AMRAP",
+                  "scoring": {
+                    "type": "rounds"
+                  },
+                  "details": "• 30 cal bike\n• 40 air squats",
+                  "coachNotes": "Wear a vest.\nKeep this effort at 80-87% of your max heart rate. Focus on controlling all efforts, master your craft."
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "15 minute recovery bike",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "THRESHOLD TRAINER · Week 2 - Day 6",
+          "sessions": [
+            {
+              "id": "w2d6-1",
+              "type": "program",
+              "title": "2 hour bike ride",
+              "blocks": [
+                {
+                  "key": "2-hour-bike-ride",
+                  "name": "2 hour bike ride",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Keep this at 60-70% effort levels for the whole workout\n• Bring fuel, eat often"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "days": [
+        {
+          "day": 1,
+          "title": "THRESHOLD TRAINER · Week 3 - Day 1",
+          "sessions": [
+            {
+              "id": "w3d1-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "10-15 minute warmup run",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "coachNotes": "add pace as time goes on"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "6x1000m run at race pace or time trial pace",
+                  "scoring": {
+                    "type": "time",
+                    "rounds": 6
+                  },
+                  "details": "• Recovery between - walk or jog until you hit 60% of max heart rate\n• If your heart rate goes above 87% during this session you need to slow down your hard intervals"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "15 minute recovery run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "w3d1-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k ski warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "18 minutes",
+                  "scoring": {
+                    "type": "rounds"
+                  },
+                  "details": "• 500m run\n• 12.5m sled pull at 80% of race weight\n• 25 wall balls",
+                  "coachNotes": "Complete as many rounds as possible at 87% of max heart rate"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "15 minute recovery bike",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "THRESHOLD TRAINER · Week 3 - Day 2",
+          "sessions": [
+            {
+              "id": "w3d2-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM",
+              "blocks": [
+                {
+                  "key": "am",
+                  "label": "AM",
+                  "name": "80 minute easy bike ride",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "Keep the effort level between 60-70%"
+                }
+              ]
+            },
+            {
+              "id": "w3d2-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM",
+              "blocks": [
+                {
+                  "key": "pm",
+                  "label": "PM",
+                  "name": "40 minute run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "60-70% endurance session"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "THRESHOLD TRAINER · Week 3 - Day 3",
+          "sessions": [
+            {
+              "id": "w3d3-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Core warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "3 rounds:\n• 10-20 atomic push ups\n• 15-25 back extensions\n• 30-60s plank"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "Full Body Strength",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 3x8 split squat - each leg\n• 3x5 shoulder press\n• 4x3 barbell row",
+                  "coachNotes": "Focus on being 2 reps shy of a max effort on each lift. Rest 3 minutes between each lift."
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "5x10m - super heavy sled pull",
+                  "scoring": {
+                    "type": "rounds"
+                  },
+                  "details": "• Don't let this be sloppy. Make it heavy not hard.\n• 1 minute rest between sets"
+                }
+              ]
+            },
+            {
+              "id": "w3d3-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION",
+              "blocks": [
+                {
+                  "key": "70-minute-run-at-60-70-effort",
+                  "name": "70 minute run at 60-70% effort",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "coachNotes": "Stay relaxed during this run. Focus on keeping the pace even."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "THRESHOLD TRAINER · Week 3 - Day 4",
+          "sessions": [
+            {
+              "id": "w3d4-1",
+              "type": "program",
+              "label": "AM/PM",
+              "title": "AM SESSION / PM SESSION",
+              "blocks": [
+                {
+                  "key": "40-minute-run",
+                  "name": "40 minute run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "60-70% endurance session"
+                },
+                {
+                  "key": "80-minute-bike-session",
+                  "name": "80 minute bike session",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "This is here to build endurance."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "THRESHOLD TRAINER · Week 3 - Day 5 · Cross training",
+          "sessions": [
+            {
+              "id": "w3d5-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "10 minute warm up run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "12 minute EMOM",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Minute 1 run\n• Minute 2 sled push",
+                  "coachNotes": "Rest 3 minutes before P3"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "12 minute EMOM",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Minute 1 run\n• Minute 2 heavy farmer carry",
+                  "coachNotes": "Keep this effort at 80-87% of your max heart rate. Focus on controlling all efforts, master your craft."
+                },
+                {
+                  "key": "p3-2",
+                  "label": "P3",
+                  "name": "BOX JUMP",
+                  "scoring": {
+                    "type": "reps"
+                  },
+                  "details": "▶ BOX JUMP\n• 8 rounds 20s on/10s off box jumps\n• Pick a pace that is sustainable and powerful. This should be 80% plus effort."
+                }
+              ]
+            },
+            {
+              "id": "w3d5-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "18 Minute AMRAP",
+                  "scoring": {
+                    "type": "rounds"
+                  },
+                  "details": "• 500m run\n• 10 deadlift (225 lb (102,1 kg) men/185 lb (83,9 kg) women)\n• 15 burpee over bar",
+                  "coachNotes": "Wear a vest.\nKeep this effort at 80-87% of your max heart rate. Focus on controlling all efforts, master your craft.",
+                  "loads": [
+                    {
+                      "label": "10 deadlift",
+                      "maleKg": 102.1,
+                      "femaleKg": 83.9
+                    }
+                  ]
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "15 minute recovery bike",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "THRESHOLD TRAINER · Week 3 - Day 6",
+          "sessions": [
+            {
+              "id": "w3d6-1",
+              "type": "program",
+              "title": "2 hour 15 minute bike ride",
+              "blocks": [
+                {
+                  "key": "2-hour-15-minute-bike-ride",
+                  "name": "2 hour 15 minute bike ride",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Keep this at 60-70% effort levels for the whole workout.\n• Bring fuel, eat often."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "days": [
+        {
+          "day": 1,
+          "title": "THRESHOLD TRAINER · Week 4 - Day 1",
+          "sessions": [
+            {
+              "id": "w4d1-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "10-15 minute warmup run",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "coachNotes": "add pace as time goes on"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "7x1000m run at race pace or time trial pace",
+                  "scoring": {
+                    "type": "time",
+                    "rounds": 7
+                  },
+                  "details": "• Recovery between - walk or jog until you hit 60% of max heart rate\n• If your heart rate goes above 87% during this session you need to slow down your hard intervals"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "15 minute recovery run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "w4d1-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION",
+              "blocks": [
+                {
+                  "key": "row",
+                  "name": "ROW",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "▶ ROW\n2k row warm up"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "20 minutes",
+                  "scoring": {
+                    "type": "rounds"
+                  },
+                  "details": "• 500m run\n• 8 power clean (155 lb (70,3 kg) men/115 lb (52,2 kg) women)\n• 12 box jump\n• 16 wall balls",
+                  "coachNotes": "Complete as many rounds as possible at 87% of max heart rate",
+                  "loads": [
+                    {
+                      "label": "8 power clean",
+                      "maleKg": 70.3,
+                      "femaleKg": 52.2
+                    }
+                  ]
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "15 minute recovery bike",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "THRESHOLD TRAINER · Week 4 - Day 2",
+          "sessions": [
+            {
+              "id": "w4d2-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM",
+              "blocks": [
+                {
+                  "key": "am",
+                  "label": "AM",
+                  "name": "90 minute easy bike ride",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "Keep the effort level between 60-70%"
+                }
+              ]
+            },
+            {
+              "id": "w4d2-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM",
+              "blocks": [
+                {
+                  "key": "pm",
+                  "label": "PM",
+                  "name": "50 minute run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "60-70% endurance session"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "THRESHOLD TRAINER · Week 4 - Day 3",
+          "sessions": [
+            {
+              "id": "w4d3-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Core warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "3 rounds:\n• 10-20 atomic push ups\n• 15-25 back extensions\n• 30-60s plank"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "Full Body Strength",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 3x8 split squat - each leg\n• 3x5 shoulder press\n• 4x3 barbell row",
+                  "coachNotes": "Focus on being 2 reps shy of a max effort on each lift. Rest 3 minutes between each lift."
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "5x10m - super heavy sled pull",
+                  "scoring": {
+                    "type": "rounds"
+                  },
+                  "details": "• Don't let this be sloppy. Make it heavy not hard.\n• 1 minute rest between sets"
+                }
+              ]
+            },
+            {
+              "id": "w4d3-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION",
+              "blocks": [
+                {
+                  "key": "80-minute-run-at-60-70-effort",
+                  "name": "80 minute run at 60-70% effort",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "coachNotes": "Stay relaxed during this run. Focus on keeping the pace even."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "THRESHOLD TRAINER · Week 4 - Day 4",
+          "sessions": [
+            {
+              "id": "w4d4-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "blocks": [
+                {
+                  "key": "90-minute-bike-session",
+                  "name": "90 minute bike session",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "This is here to build endurance."
+                },
+                {
+                  "key": "50-minute-run",
+                  "name": "50 minute run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "60-70% endurance session"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "THRESHOLD TRAINER · Week 4 - Day 5 · Cross training",
+          "sessions": [
+            {
+              "id": "w4d5-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "10 minute warm up run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "14 minute EMOM",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "• Minute 1 run\n• Minute 2 row",
+                  "coachNotes": "Rest 3 minutes before P3"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "14 minute EMOM",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "• Minute 1 run\n• Minute 2 bodyweight bench press"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "14 minute EMOM",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "• Minute 1 run\n• Minute 2 db thruster (35 lb (15,9 kg) men/25 lb (11,3 kg) women)",
+                  "coachNotes": "Keep this effort at 80-87% of your max heart rate. Focus on controlling all efforts, master your craft.",
+                  "loads": [
+                    {
+                      "label": "Minute 2 db thruster",
+                      "maleKg": 15.9,
+                      "femaleKg": 11.3
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "w4d5-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "20 Minute AMRAP",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "• 500m run\n• 20 cal ski\n• 20 alternating db snatch 50/35",
+                  "coachNotes": "Keep this effort at 80-87% of your max heart rate. Focus on controlling all efforts, master your craft."
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "15 minute recovery bike",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "THRESHOLD TRAINER · Week 4 - Day 6",
+          "sessions": [
+            {
+              "id": "w4d6-1",
+              "type": "program",
+              "title": "2 hour 30 minute bike ride",
+              "blocks": [
+                {
+                  "key": "2-hour-30-minute-bike-ride",
+                  "name": "2 hour 30 minute bike ride",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• Keep this at 60-70% effort levels for the whole workout.\n• Bring fuel, eat often."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "days": [
+        {
+          "day": 1,
+          "title": "THRESHOLD TRAINER · Deload Week!! · Week 5 - Day 1",
+          "sessions": [
+            {
+              "id": "w5d1-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "10-15 minute warmup run",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "coachNotes": "add pace as time goes on"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "3x1000m run at race pace or time trial pace",
+                  "scoring": {
+                    "type": "time",
+                    "rounds": 3
+                  },
+                  "details": "• Recovery between - walk or jog until you hit 60% of max heart rate\n• If your heart rate goes above 87% during this session you need to slow down your hard intervals"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "15 minute recovery run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "w5d1-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "SKI",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "▶ SKI ERG\n2k ski warm up"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "10 minute AMRAP",
+                  "scoring": {
+                    "type": "rounds"
+                  },
+                  "details": "• 1 minute run\n• 10 bench at body weight\n• 20 wall balls",
+                  "coachNotes": "Complete as many rounds as possible at 87% of max heart rate"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "15 minute recovery bike",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "THRESHOLD TRAINER · Week 5 - Day 2",
+          "sessions": [
+            {
+              "id": "w5d2-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM",
+              "blocks": [
+                {
+                  "key": "am",
+                  "label": "AM",
+                  "name": "40 minute easy bike ride",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "Keep the effort level between 60-70%. This is to build endurance."
+                }
+              ]
+            },
+            {
+              "id": "w5d2-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM",
+              "blocks": [
+                {
+                  "key": "pm",
+                  "label": "PM",
+                  "name": "40 minute run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "60-70% endurance session"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "THRESHOLD TRAINER · Week 5 - Day 3",
+          "sessions": [
+            {
+              "id": "w5d3-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Core warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "3 rounds:\n• 10-20 atomic push ups\n• 15-25 back extensions\n• 30-60s plank"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "Full Body Strength",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 3x8 split squat - each leg\n• 3x5 shoulder press\n• 4x3 barbell row",
+                  "coachNotes": "Focus on being 2 reps shy of a max effort on each lift. Rest 3 minutes between each lift."
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "3x10m - super heavy sled pull",
+                  "scoring": {
+                    "type": "rounds"
+                  },
+                  "details": "• Don't let this be sloppy. Make it heavy not hard.\n• 1 minute rest between sets"
+                }
+              ]
+            },
+            {
+              "id": "w5d3-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION",
+              "blocks": [
+                {
+                  "key": "40-minute-run-at-60-70-effort",
+                  "name": "40 minute run at 60-70% effort",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "coachNotes": "Stay relaxed during this run. Focus on keeping the pace even."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "THRESHOLD TRAINER · Week 5 - Day 4",
+          "sessions": [
+            {
+              "id": "w5d4-1",
+              "type": "program",
+              "title": "60 minutes of very easy bike or walk",
+              "blocks": [
+                {
+                  "key": "60-minutes-of-very-easy-bike-or-walk",
+                  "name": "60 minutes of very easy bike or walk",
+                  "scoring": {
+                    "type": "distance"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "THRESHOLD TRAINER · Week 5 - Day 5 · FULL HYROX SIMULATION DAY",
+          "sessions": [
+            {
+              "id": "w5d5-1",
+              "type": "program",
+              "title": "Training",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "10 minute warm up run",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "• warm up part 1\n• the last minute of this run hold your race pace the entire time"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "SKI",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "▶ SKI ERG\n• warm up part 2\n• the last minute should be held at race pace\n• hit a few stations that you need to focus on then start the workout"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "Full race pace simulation at 90%",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "• Make sure to fully hydrate and fuel before this workout"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "20-30 minute bike cool down",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "coachNotes": "▶ Video „SIMULATION DAY – THE TRIAL“\nCheck out Hunter's recent video for race day simulation tips!"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "THRESHOLD TRAINER · Week 5 - Day 6",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "days": [
+        {
+          "day": 1,
+          "title": "THRESHOLD TRAINER · Week 6 - Day 1",
+          "sessions": [
+            {
+              "id": "w6d1-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "10-15 minute warmup run",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "coachNotes": "add pace as time goes on"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "8x1000m run at race pace or time trial pace",
+                  "scoring": {
+                    "type": "time",
+                    "rounds": 8
+                  },
+                  "details": "• Recovery between - walk or jog until you hit 60% of max heart rate\n• If your heart rate goes above 87% during this session you need to slow down your hard intervals"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "15 minute recovery run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "w6d1-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION",
+              "blocks": [
+                {
+                  "key": "row",
+                  "name": "ROW",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "▶ ROW\n2k row warm up"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "15 minute recovery bike",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "25 minute AMRAP",
+                  "scoring": {
+                    "type": "rounds"
+                  },
+                  "details": "• 500m run\n• 8 barbell row 155/115\n• 12 burpee broad jump\n• 24 wall balls",
+                  "coachNotes": "Complete as many rounds as possible at 87% of max heart rate"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "THRESHOLD TRAINER · Week 6 - Day 2",
+          "sessions": [
+            {
+              "id": "w6d2-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM",
+              "blocks": [
+                {
+                  "key": "am",
+                  "label": "AM",
+                  "name": "100 minute bike ride",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "Keep the effort level between 60-70%. This is to build endurance."
+                }
+              ]
+            },
+            {
+              "id": "w6d2-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM",
+              "blocks": [
+                {
+                  "key": "pm",
+                  "label": "PM",
+                  "name": "60 minute run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "60-70% endurance session"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "THRESHOLD TRAINER · Week 6 - Day 3",
+          "sessions": [
+            {
+              "id": "w6d3-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Core warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "3 rounds:\n• 10-20 atomic push ups\n• 15-25 back extensions\n• 30-60s plank"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "Full Body Strength",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 3x8 split squat - each leg\n• 3x5 shoulder press\n• 4x3 barbell row",
+                  "coachNotes": "Focus on being 2 reps shy of a max effort on each lift. Rest 3 minutes between each lift."
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "5x10m - super heavy sled pull",
+                  "scoring": {
+                    "type": "rounds"
+                  },
+                  "details": "• Don't let this be sloppy. Make it heavy not hard.\n• 1 minute rest between sets"
+                }
+              ]
+            },
+            {
+              "id": "w6d3-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION",
+              "blocks": [
+                {
+                  "key": "80-minute-run-at-60-70-effort",
+                  "name": "80 minute run at 60-70% effort",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "coachNotes": "Stay relaxed during this run. Focus on keeping the pace even."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "THRESHOLD TRAINER · Week 6 - Day 4",
+          "sessions": [
+            {
+              "id": "w6d4-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM",
+              "blocks": [
+                {
+                  "key": "am",
+                  "label": "AM",
+                  "name": "100 minute bike session",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "60-70% effort level. This is here to build endurance."
+                }
+              ]
+            },
+            {
+              "id": "w6d4-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM",
+              "blocks": [
+                {
+                  "key": "pm",
+                  "label": "PM",
+                  "name": "60 minute run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "60-70% endurance session."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "THRESHOLD TRAINER · Week 6 - Day 5",
+          "sessions": [
+            {
+              "id": "w6d5-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION – EMOM endurance",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "10 minute warm up run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "20 minute EMOM",
+                  "scoring": {
+                    "type": "distance",
+                    "rounds": 10
+                  },
+                  "details": "• Minute 1 - run\n• Minute 2 - ski",
+                  "coachNotes": "Rest 3 minutes before P3"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "20 minute EMOM",
+                  "scoring": {
+                    "type": "reps",
+                    "rounds": 10
+                  },
+                  "details": "• Minute 1 - run\n• Minute 2 - walking lunge (unweighted)"
+                },
+                {
+                  "key": "p4",
+                  "label": "P4",
+                  "name": "20 minute EMOM",
+                  "scoring": {
+                    "type": "reps",
+                    "rounds": 10
+                  },
+                  "details": "• Minute 1 run\n• Minute 2 db snatch 50/35",
+                  "coachNotes": "Keep this effort at 80-87% of your max heart rate. Focus on controlling all efforts, master your craft."
+                }
+              ]
+            },
+            {
+              "id": "w6d5-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "20 minute AMRAP",
+                  "scoring": {
+                    "type": "rounds"
+                  },
+                  "details": "• 500m run\n• 20m sled pull\n• 20 cal bike",
+                  "coachNotes": "Keep this effort at 80-87% of your max heart rate. Focus on controlling all efforts, master your craft."
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "15 minute recovery bike",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "THRESHOLD TRAINER · Week 6 - Day 6",
+          "sessions": [
+            {
+              "id": "w6d6-1",
+              "type": "program",
+              "title": "2.5 hour bike ride",
+              "blocks": [
+                {
+                  "key": "2-5-hour-bike-ride",
+                  "name": "2.5 hour bike ride",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "Keep this at 60-70% effort levels for the whole workout\nBring fuel, eat often"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "days": [
+        {
+          "day": 1,
+          "title": "THRESHOLD TRAINER · Week 7 - Day 1",
+          "sessions": [
+            {
+              "id": "w7d1-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "10-15 minute warmup run",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "coachNotes": "add pace as time goes on"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "9x1000m run at race pace or time trial pace",
+                  "scoring": {
+                    "type": "time",
+                    "rounds": 9
+                  },
+                  "details": "• Recovery between - walk or jog until you hit 60% of max heart rate\n• If your heart rate goes above 87% during this session you need to slow down your hard intervals"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "15 minute recovery run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "w7d1-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION",
+              "blocks": [
+                {
+                  "key": "row",
+                  "name": "ROW",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "▶ ROW\n2k row warm up"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "15 minute recovery bike",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "28 minute AMRAP",
+                  "scoring": {
+                    "type": "rounds"
+                  },
+                  "details": "• 500m run\n• 50m sled pull\n• 10 burpee over bar\n• 5 power cleans 185/135",
+                  "coachNotes": "Complete as many rounds as possible at 87% of max heart rate"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "THRESHOLD TRAINER · Week 7 - Day 2",
+          "sessions": [
+            {
+              "id": "w7d2-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM",
+              "blocks": [
+                {
+                  "key": "am",
+                  "label": "AM",
+                  "name": "100 minute bike ride",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "Keep the effort level between 60-70%. This is to build endurance."
+                }
+              ]
+            },
+            {
+              "id": "w7d2-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM",
+              "blocks": [
+                {
+                  "key": "pm",
+                  "label": "PM",
+                  "name": "60 minute run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "60-70% endurance session"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "THRESHOLD TRAINER · Week 7 - Day 3",
+          "sessions": [
+            {
+              "id": "w7d3-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Core warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "3 rounds:\n• 10-20 atomic push ups\n• 15-25 back extensions\n• 30-60s plank"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "Full Body Strength",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 3x8 split squat - each leg\n• 3x5 shoulder press\n• 4x3 barbell row",
+                  "coachNotes": "Focus on being 2 reps shy of a max effort on each lift. Rest 3 minutes between each lift."
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "4x10m - super heavy sled push",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 4
+                  },
+                  "details": "• Don't let this be sloppy. Make it heavy not hard.\n• 1 minute rest between sets"
+                }
+              ]
+            },
+            {
+              "id": "w7d3-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION",
+              "blocks": [
+                {
+                  "key": "80-minute-run-at-60-70-effort",
+                  "name": "80 minute run at 60-70% effort",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "coachNotes": "Stay relaxed during this run. Focus on keeping the pace even."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "THRESHOLD TRAINER · Week 7 - Day 4",
+          "sessions": [
+            {
+              "id": "w7d4-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM",
+              "blocks": [
+                {
+                  "key": "am",
+                  "label": "AM",
+                  "name": "100 minute bike session",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "60-70% effort level. This is here to build endurance."
+                }
+              ]
+            },
+            {
+              "id": "w7d4-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM",
+              "blocks": [
+                {
+                  "key": "pm",
+                  "label": "PM",
+                  "name": "60 minute run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "60-70% endurance session."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "THRESHOLD TRAINER · Week 7 - Day 5",
+          "sessions": [
+            {
+              "id": "w7d5-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION – EMOM endurance",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "10 minute warm up run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "30 minute EMOM",
+                  "scoring": {
+                    "type": "distance",
+                    "rounds": 15
+                  },
+                  "details": "• Minute 1 - ski\n• Minute 2 - bike",
+                  "coachNotes": "Rest 3 minutes before P3"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "20 minute EMOM",
+                  "scoring": {
+                    "type": "reps",
+                    "rounds": 10
+                  },
+                  "details": "• Minute 1 - run\n• Minute 2 - row"
+                }
+              ]
+            },
+            {
+              "id": "w7d5-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "2k row warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "25 minute AMRAP",
+                  "scoring": {
+                    "type": "rounds"
+                  },
+                  "details": "• 500m run\n• 20m burpee broad jump\n• 30m lunge\n• 40 wall balls",
+                  "coachNotes": "Keep this effort at 80-87% of your max heart rate. Focus on controlling all efforts, master your craft."
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "15 minute recovery bike",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "THRESHOLD TRAINER · Week 6 - Day 6",
+          "sessions": [
+            {
+              "id": "w7d6-1",
+              "type": "program",
+              "title": "2.5 hour bike ride",
+              "blocks": [
+                {
+                  "key": "2-5-hour-bike-ride",
+                  "name": "2.5 hour bike ride",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "Keep this at 60-70% effort levels for the whole workout\nBring fuel, eat often"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    },
+    {
+      "week": 8,
+      "days": [
+        {
+          "day": 1,
+          "title": "THRESHOLD TRAINER · Week 8 - Day 1",
+          "sessions": [
+            {
+              "id": "w8d1-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "10-15 minute warmup run",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "coachNotes": "add pace as time goes on"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "10x1000m run at race pace or time trial pace",
+                  "scoring": {
+                    "type": "time",
+                    "rounds": 10
+                  },
+                  "details": "• Recovery between - walk or jog until you hit 60% of max heart rate\n• If your heart rate goes above 87% during this session you need to slow down your hard intervals"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "15 minute recovery run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "w8d1-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION",
+              "blocks": [
+                {
+                  "key": "row",
+                  "name": "ROW",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "▶ ROW\n2k row warm up"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "15 minute recovery bike",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "30 minute AMRAP",
+                  "scoring": {
+                    "type": "rounds"
+                  },
+                  "details": "• 1000m run\n• 20m burpee broad jump\n• 30m walking lunge\n• 40 wall ball 20/14",
+                  "coachNotes": "Complete as many rounds as possible at 87% of max heart rate"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "title": "THRESHOLD TRAINER · Week 8 - Day 2",
+          "sessions": [
+            {
+              "id": "w8d2-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM",
+              "blocks": [
+                {
+                  "key": "am",
+                  "label": "AM",
+                  "name": "100 minute bike ride",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "Keep the effort level between 60-70%. This is to build endurance."
+                }
+              ]
+            },
+            {
+              "id": "w8d2-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM",
+              "blocks": [
+                {
+                  "key": "pm",
+                  "label": "PM",
+                  "name": "60 minute run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "60-70% endurance session"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "title": "THRESHOLD TRAINER · Week 8 - Day 3",
+          "sessions": [
+            {
+              "id": "w8d3-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "Core warm up",
+                  "scoring": {
+                    "type": "checkmark"
+                  },
+                  "details": "3 rounds:\n• 10-20 atomic push ups\n• 15-25 back extensions\n• 30-60s plank"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "Full Body Strength",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 3
+                  },
+                  "details": "• 3x8 split squat - each leg\n• 3x5 shoulder press\n• 4x3 barbell row",
+                  "coachNotes": "Focus on being 2 reps shy of a max effort on each lift. Rest 3 minutes between each lift."
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "5x20m - super heavy sled pull",
+                  "scoring": {
+                    "type": "weight",
+                    "rounds": 5
+                  },
+                  "details": "• Don't let this be sloppy. Make it heavy not hard.\n• 1 minute rest between sets"
+                }
+              ]
+            },
+            {
+              "id": "w8d3-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION",
+              "blocks": [
+                {
+                  "key": "80-minute-run-at-60-70-effort",
+                  "name": "80 minute run at 60-70% effort",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "coachNotes": "Stay relaxed during this run. Focus on keeping the pace even."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "title": "THRESHOLD TRAINER · Week 8 - Day 4",
+          "sessions": [
+            {
+              "id": "w8d4-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM",
+              "blocks": [
+                {
+                  "key": "am",
+                  "label": "AM",
+                  "name": "100 minute bike session",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "60-70% effort level. This is here to build endurance."
+                }
+              ]
+            },
+            {
+              "id": "w8d4-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM",
+              "blocks": [
+                {
+                  "key": "pm",
+                  "label": "PM",
+                  "name": "60 minute run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "60-70% endurance session."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "title": "THRESHOLD TRAINER · Week 8 - Day 5",
+          "sessions": [
+            {
+              "id": "w8d5-1",
+              "type": "program",
+              "label": "AM",
+              "title": "AM SESSION",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "15 minute warm up run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• increasing pace until you reach your race pace for the last 2 minutes"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "1st half HYROX",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "complete the first 4 stations and 1k runs of HYROX at 87% of your max heart rate"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "15 minute cool down run",
+                  "scoring": {
+                    "type": "distance"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "w8d5-2",
+              "type": "program",
+              "label": "PM",
+              "title": "PM SESSION",
+              "blocks": [
+                {
+                  "key": "p1",
+                  "label": "P1",
+                  "name": "15 minute warm up run",
+                  "scoring": {
+                    "type": "distance"
+                  },
+                  "details": "• increasing pace until you reach your race pace for the last 2 minutes"
+                },
+                {
+                  "key": "p2",
+                  "label": "P2",
+                  "name": "2nd half HYROX",
+                  "scoring": {
+                    "type": "time"
+                  },
+                  "details": "complete the last 4 stations and 1k runs of a HYROX at 87% of your max heart rate"
+                },
+                {
+                  "key": "p3",
+                  "label": "P3",
+                  "name": "15 minute cool down run",
+                  "scoring": {
+                    "type": "checkmark"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "title": "THRESHOLD TRAINER · Week 8 - Day 6",
+          "sessions": [
+            {
+              "id": "w8d6-1",
+              "type": "program",
+              "title": "90 minute very easy bike ride",
+              "blocks": [
+                {
+                  "key": "90-minute-very-easy-bike-ride",
+                  "name": "90 minute very easy bike ride",
+                  "scoring": {
+                    "type": "distance"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "title": "Rest Day!",
+          "notes": "▶ World Champ Rest Day Protocol",
+          "sessions": []
+        }
+      ]
+    }
+  ]
+}

@@ -42,6 +42,30 @@ export async function createPlan(clientId: string, formData: FormData) {
   redirect(`/coach/kunden/${clientId}/plan/${plan.id}/bearbeiten`);
 }
 
+/** Neuer Plan aus einer KI-Antwort (Upload): wird angelegt, aktiv gesetzt und als Version 1 gespeichert. */
+export async function createPlanFromImport(clientId: string, content: unknown, note: string): Promise<SaveResult & { planId?: string }> {
+  await requireCoach();
+  const check = validatePlan(content);
+  if (!check.ok) return check;
+  const supabase = await createSupabaseServerClient();
+  await supabase.from("plans").update({ is_active: false }).eq("client_id", clientId).eq("is_active", true);
+  const { data: plan, error } = await supabase
+    .from("plans")
+    .insert({ client_id: clientId, title: check.plan.title, is_active: true })
+    .select("id")
+    .single();
+  if (error || !plan) return { ok: false, errors: [`Plan konnte nicht angelegt werden: ${error?.message}`] };
+  const { data, error: vErr } = await supabase.rpc("save_plan_version", {
+    p_plan_id: plan.id,
+    p_content: check.plan,
+    p_note: (note || "Neuer Plan (KI)").slice(0, 500),
+    p_source: "import",
+  });
+  if (vErr) return { ok: false, errors: [`Speichern fehlgeschlagen: ${vErr.message}`] };
+  revalidateClient(clientId);
+  return { ok: true, version: data as number, planId: plan.id };
+}
+
 /** Speichert einen Plan als neue Version (Editor, Import oder Wiederherstellung). */
 export async function savePlanVersion(
   clientId: string,

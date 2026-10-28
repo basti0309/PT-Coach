@@ -2,7 +2,9 @@ import { describe, expect, it } from "vitest";
 import type { ClientHealthRow, ClientProfileRow, QuestionnaireRow, TestResultRow } from "@/lib/db-types";
 import { samplePlan } from "@/lib/plan/fixtures";
 import { buildExportFile, buildProfileExport, type ProfileExtras } from "./profile";
-import { buildPrompt, extractTemplate } from "./prompt";
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import { NEW_PLAN_PLACEHOLDERS, PROMPT_PLACEHOLDERS, buildNewPlanPrompt, buildPrompt, extractTemplate } from "./prompt";
 
 const cp: ClientProfileRow = {
   client_id: "c1",
@@ -110,5 +112,16 @@ describe("KI-Prompt", () => {
     const tpl = "Text\n<!-- PROMPT-START -->\nA: {{AUFGABE}}\nS: {{SCHEMA}}\nE: {{EXPORT}}\n<!-- PROMPT-ENDE -->\nRest";
     const p = buildPrompt(extractTemplate(tpl), { aufgabe: "Woche 3 ergänzen", schema: '{"$id":"x"}', exportJson: "{}" });
     expect(p).toBe('A: Woche 3 ergänzen\nS: {"$id":"x"}\nE: {}');
+  });
+  it("Prompt für neuen Plan: Platzhalter und leere Beschreibung", () => {
+    const tpl = "B: {{BESCHREIBUNG}}\nS: {{SCHEMA}}\nV: {{VORLAGE}}";
+    expect(buildNewPlanPrompt(tpl, { beschreibung: " 8 Wochen HYROX ", schema: "$&", vorlage: "{}" })).toBe("B: 8 Wochen HYROX\nS: $&\nV: {}");
+    expect(buildNewPlanPrompt(tpl, { beschreibung: "", schema: "", vorlage: "" })).toContain("keine Beschreibung angegeben");
+  });
+  it("beide Prompt-Vorlagen in docs/ enthalten alle Platzhalter", () => {
+    const edit = extractTemplate(readFileSync(path.join(process.cwd(), "docs", "ki-prompt-vorlage.md"), "utf8"));
+    for (const p of PROMPT_PLACEHOLDERS) expect(edit).toContain(p);
+    const neu = extractTemplate(readFileSync(path.join(process.cwd(), "docs", "ki-prompt-neuer-plan.md"), "utf8"));
+    for (const p of NEW_PLAN_PLACEHOLDERS) expect(neu).toContain(p);
   });
 });

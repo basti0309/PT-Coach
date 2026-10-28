@@ -3,7 +3,7 @@ import { SessionCard } from "@/components/plan-view";
 import { requireClient } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { loadActivePlan, loadSessionLogs } from "@/lib/data/plans";
-import { listScheduledSessions, planWeekOf } from "@/lib/plan/dates";
+import { findDay, listScheduledSessions, planWeekOf } from "@/lib/plan/dates";
 import { formatDate } from "@/lib/format";
 import { appToday } from "@/lib/today";
 
@@ -16,6 +16,7 @@ export default async function KundeHeute() {
   const items = active ? listScheduledSessions(active.version.content) : [];
   const week = active ? planWeekOf(active.version.content, today) : null;
   const todays = items.filter((i) => i.date === today);
+  const todayDay = active ? findDay(active.version.content, today) : undefined;
   const openThisWeek = items.filter((i) => i.week === week && i.date !== today && !logs.get(i.session.id)?.completed);
   const href = (sessionId: string) => `/kunde/training/erfassen?plan=${active!.plan.id}&einheit=${encodeURIComponent(sessionId)}`;
   const status = (id: string) => {
@@ -34,8 +35,9 @@ export default async function KundeHeute() {
 
       {active && (
         <section className="space-y-2">
-          <h2 className="h2">Heute</h2>
-          {todays.length === 0 && <p className="card muted">Heute ist nichts geplant.</p>}
+          <h2 className="h2">Heute{todayDay?.title && <span className="font-normal text-slate-500"> · {todayDay.title}</span>}</h2>
+          {todayDay?.notes && <p className="card whitespace-pre-line text-sm text-slate-700">{todayDay.notes}</p>}
+          {todays.length === 0 && <p className="card muted">{todayDay ? "Ruhetag" : "Heute ist nichts geplant."}</p>}
           {todays.map((i) => (
             <SessionCard key={i.session.id} item={i} status={status(i.session.id)} href={href(i.session.id)} />
           ))}

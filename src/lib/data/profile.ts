@@ -71,3 +71,11 @@ export function loadPromptTemplate(): string {
     return "Ändere den Plan gemäß Aufgabe und gib nur gültiges JSON nach dem Schema zurück.\n\nAufgabe: {{AUFGABE}}\n\nSchema:\n{{SCHEMA}}\n\nDatei:\n{{EXPORT}}";
   }
 }
+
+export function loadNewPlanPromptTemplate(): string {
+  try {
+    return extractTemplate(readFileSync(path.join(process.cwd(), "docs", "ki-prompt-neuer-plan.md"), "utf8"));
+  } catch {
+    return "Erstelle einen Trainingsplan nach der Beschreibung und gib nur gültiges JSON nach dem Schema zurück.\n\nBeschreibung: {{BESCHREIBUNG}}\n\nSchema:\n{{SCHEMA}}\n\nVorlage:\n{{VORLAGE}}";
+  }
+}
