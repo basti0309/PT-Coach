@@ -34,7 +34,7 @@ const tests: TestResultRow[] = [
 ];
 
 const questionnaire: QuestionnaireRow = { client_id: "c1", goal: "abnehmen", answers: { goal: "abnehmen", workActivity: "sitzend_gehend", sportOften: false }, updated_at: "", updated_by: null };
-const health: ClientHealthRow = { client_id: "c1", data: { sleepHours: 6, parq: { date: "2026-10-01", result: "alle_nein" } }, updated_at: "", updated_by: null };
+const health: ClientHealthRow = { client_id: "c1", data: { sleepHours: 6, hrMax: 188 }, updated_at: "", updated_by: null };
 const extras: ProfileExtras = { questionnaire, health, hasConsent: true, rpeSessions: [] };
 
 describe("Profil-Export", () => {
@@ -68,7 +68,7 @@ describe("Profil-Export", () => {
     expect(noConsent.derived?.flags.some((f) => f.includes("Schlaf"))).toBe(false);
     const chat = buildProfileExport({ full_name: "A", short_code: "K01" }, cp, tests, true, TODAY, { ...extras, forChat: true });
     expect(chat).toMatchObject({ healthStatus: "ausgeblendet", health: null, derived: null });
-    expect(JSON.stringify(chat)).not.toContain("parq");
+    expect(JSON.stringify(chat)).not.toContain("hrMax");
   });
   it("neue Testarten mit Einheit, Wdh. und RIR", () => {
     const more: TestResultRow[] = [

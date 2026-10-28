@@ -70,7 +70,7 @@ export async function QuestionnaireSection({ clientId, isCoach }: { clientId: st
       ) : isCoach ? (
         <section className="card space-y-2">
           <h2 className="h2">Gesundheitsangaben</h2>
-          <p className="muted">Keine Einwilligung des Kunden – Gesundheitsangaben werden nicht gespeichert, Maximaltests sind nicht vorgesehen.</p>
+          <p className="muted">Keine Einwilligung des Kunden – Beschwerden, Schlaf und HFmax werden nicht gespeichert.</p>
         </section>
       ) : (
         <ConsentCard action={giveHealthConsent.bind(null, clientId)} />

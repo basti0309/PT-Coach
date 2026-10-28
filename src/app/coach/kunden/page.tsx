@@ -3,7 +3,6 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { formatDate } from "@/lib/format";
 import type { ClientHealthRow, ClientProfileRow, QuestionnaireRow, TestKind } from "@/lib/db-types";
 import { missingAnswers } from "@/lib/questionnaire/completeness";
-import { appToday } from "@/lib/today";
 
 export default async function ClientsPage() {
   const supabase = await createSupabaseServerClient();
@@ -29,7 +28,6 @@ export default async function ClientsPage() {
     supabase.from("client_health").select("*"),
     supabase.from("test_results").select("client_id, kind"),
   ]);
-  const today = appToday();
   const missing = new Map<string, string[]>();
   for (const c of clients ?? []) {
     const cp = ((cps ?? []) as ClientProfileRow[]).find((x) => x.client_id === c.id) ?? null;
@@ -49,7 +47,6 @@ export default async function ClientsPage() {
         answers: q?.answers ?? null,
         hasConsent: consent,
         health,
-        today,
       }),
     );
   }

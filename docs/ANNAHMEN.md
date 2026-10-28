@@ -91,7 +91,7 @@ Hier steht jede Entscheidung, die der Auftrag offen ließ. Bitte prüfen – all
 
 ## Fragebogen und Regelwerk (Ergänzung 28.10.2026)
 68. **Pflicht** heißt: Hinweis „Fragebogen unvollständig“ beim Kunden und Status in der Kundenliste des Coaches; Plan, Training und Chat bleiben nutzbar (Entscheidung der Betreiberin).
-69. **Rechnen:** Alle Zahlen (Tier, Startumfang, Screening, Testwoche, e1RM, Lasten, Paces, Hyrox-Gewichte, kcal) berechnet die App; die KI übernimmt sie mit Rechenweg (Entscheidung der Betreiberin).
+69. **Rechnen:** Alle Zahlen (Tier, Startumfang, Testwoche, e1RM, Lasten, Paces, Hyrox-Gewichte, kcal) berechnet die App; die KI übernimmt sie mit Rechenweg (Entscheidung der Betreiberin).
 70. **Max-Tests:** Zeit- und Ausdauertests maximal ab Tier 1, 3RM ab Tier 2 und mit mindestens 6 Monaten Erfahrung mit der Übung (Entscheidung der Betreiberin). Andere Maximaltests der Hyrox-Testwoche (Wall Balls, Ski/Rudern, Klimmzüge, Lunges, Burpees) zählen wie Zeittests.
 71. **e1RM** nur aus Sätzen bis RIR 0 mit weniger als 10 Wdh. (Entscheidung der Betreiberin, streng nach Brzycki). Die Fortschritts-Graphen markieren jetzt Sätze ab 10 Wdh. (statt über 10) als weniger verlässlich.
 72. **Riegel:** Exponenten aus Riegel 1981, Tabelle 1, statt 1,06 (Entscheidung der Betreiberin). Ohne Geschlecht 1,08 (Weltklasse-Wert aus demselben Artikel). Über der Datenbasis der Tabelle (z. B. Männer bis 129 min) wird ein Wert als Extrapolation markiert.
@@ -99,7 +99,7 @@ Hier steht jede Entscheidung, die der Auftrag offen ließ. Bitte prüfen – all
 74. **Tier 2 „regelmäßig ∼3-mal“** = Mittel der letzten 4 Wochen ≥ 3 Einheiten (Ausdauer + Kraft). „Training mit Wettkampfziel“ = Wettkampf in den letzten 12 Monaten oder geplanter Termin. 1 min intensiv zählt wie 2 min moderat (WHO 150/75).
 75. **Tier 3+** vergibt die App nicht automatisch; bei nationalem/internationalem Niveau erscheint ein Hinweis für den Coach.
 76. **Submaximale Tests:** Lauf 30 min gleichmäßig bei CR-10 ≤ 4; Kraft Satz 5–8 Wdh. bei RIR 2–3; übrige Tests ohne Zeitdruck bei CR-10 ≤ 4 und ohne Testwert. Abnehmen und Fitness bekommen keinen Maximaltest.
-77. **Ärztliche Freigabe** gilt wie der PAR-Q+ 12 Monate.
+77. *(entfallen, siehe 87)*
 78. **Lasten** werden auf 2,5 kg gerundet.
 79. **PAL-Vorschlag** = Untergrenze der DGE-Spanne (+0,3 bei Sport 4–5×/Woche); der eingestellte PAL-Faktor bleibt maßgeblich, Abweichungen ≥ 0,05 werden markiert.
 80. **Kalorien im Export** nur bei Ziel Abnehmen oder Kraft/Muskelaufbau (Regel der Betreiberin). Die Kalorienkarte im Profil bleibt für alle sichtbar.
@@ -109,3 +109,4 @@ Hier steht jede Entscheidung, die der Auftrag offen ließ. Bitte prüfen – all
 84. **Einwilligung:** Nur der Kunde selbst kann sie geben oder widerrufen; der Widerruf löscht die Gesundheitsangaben sofort. Die Textversion wird gespeichert; eine neue Textversion gilt erst für neue Einwilligungen. Gesundheitsangaben gehen nie in den Chat-Kontext.
 85. **Gestrichene Fragen:** „Seit wann trainierst du?“ und Fragen zur Selbsteinschätzung, weil keine Regel sie nutzt; Uhr-/Strava-Export auf Wunsch der Betreiberin. Ernährungsweise nur bei Abnehmen und Muskelaufbau.
 86. **Exportversion 2:** Der Import ignoriert `client` weiterhin; ältere Dateien mit Version 1 lassen sich unverändert importieren.
+87. **Kein Gesundheits-Screening:** PAR-Q+ und ACSM-Fragen sind auf Wunsch der Betreiberin komplett entfernt. Maximaltests richten sich nur nach Stufe und Erfahrung (Nr. 70); die Einwilligung steuert nur, ob Beschwerden, Schlaf und HFmax gespeichert werden, und steht nicht in der Liste fehlender Angaben (freiwillig nach Art. 7 Abs. 4 DSGVO). Beschwerden mit Schmerz beim Training werden markiert, sperren aber keine Tests.

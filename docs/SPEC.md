@@ -42,7 +42,7 @@ Alle Tabellen mit `created_at`, `updated_at` sowie – wo Nutzer schreiben – `
 - **test_results** (Historie, nur anfügen/löschen, nie überschreiben): `kind` (Liste mit Einheit in `src/lib/plan/test-kinds.ts`: Zeiten in s wie `run_5k`, `run_1mile`, `wallballs_100`, `ski_5k`, `row_5k`, `lunge_100m`; Meter `run_30min`, `run_30min_submax`; Wdh. `pullups_2min`, `burpee_bar_5min`; kg `*_3rm`, `body_weight`; Kraftsätze `squat_reps`/`bench_reps`/`deadlift_reps` mit `reps` und `rir`; `mobility` Skala 1–10 + Freitext), `tested_on`, `value`, `scale`, `reps`, `rir`, `note`
 - **client_questionnaires** (1:1): `goal`, `answers` (jsonb, Zod-Schema `src/lib/questionnaire/schema.ts`), siehe `docs/FRAGEBOGEN.md`
 - **health_consents**: `consent_version`, `given_at`, `withdrawn_at`; höchstens eine aktive Einwilligung je Kunde; nur Widerruf änderbar (Trigger)
-- **client_health** (1:1): `data` (jsonb, gleiches Zod-Schema): PAR-Q+-Ergebnis, ärztliche Abklärung, ACSM-Fragen, Beschwerden, Schlaf, gemessene HFmax. Lesen/Schreiben nur bei aktiver Einwilligung (RLS); der Widerruf löscht die Zeile (Trigger).
+- **client_health** (1:1): `data` (jsonb, gleiches Zod-Schema): Beschwerden, Schlaf, gemessene HFmax. Lesen/Schreiben nur bei aktiver Einwilligung (RLS); der Widerruf löscht die Zeile (Trigger).
 - **plans**: je Kunde, `title`, `is_active` (höchstens ein aktiver Plan je Kunde), `current_version`
 - **plan_versions**: unveränderliche Versionen, `version` (1, 2, …), `content` (JSON nach Plan-Schema), `change_note`, `source` (`editor`|`import`|`restore`|`seed`). Neue Version nur über Funktion `save_plan_version()` (atomar).
 - **workout_logs**: eine durchgeführte Einheit. `kind` (`strength`|`wod`|`endurance`|`program`), `performed_on`, `title`, Bezug zum Plan (`plan_id`, `plan_version`, `session_id`), `source` (`manual`|`strava`), `completed`, Ausdauer (`sport`, `duration_seconds`, `distance_m`, `avg_hr`, `is_test`), WOD (`wod_id`, `wod_movements_key`, `wod_result` JSON, `wod_weights`), Programm-Einheit (`block_results` JSON: je Block-Kennung `{ done, values[], note }`; Zeit in s, Distanz in m, Gewicht in kg, sonst ganze Zahlen), `notes`, `session_rpe` (0–10, Foster 2001).
@@ -100,7 +100,6 @@ Coach → Kunde → Plan → „Neuer Plan mit KI“ (`/coach/kunden/[id]/plan/n
 | Volumen | `calc/volume.ts` | Σ Gewicht × Wdh. der abgehakten Sätze je Einheit |
 | Riegel | `calc/riegel.ts` | `T2 = T1·(D2/D1)^b`, b nach Riegel 1981 Tab. 1 (Männer 1,07732, 40+ 1,05352 …, Frauen 1,08283); gültig 1,5–42,2 km und 3,5–230 min |
 | Einstufung (McKay 2022) | `calc/tier.ts` | Tier 0–2 aus Umfang der letzten 4 Wochen und Wettkampfangaben (Regel R1) |
-| Screening | `calc/screening.ts` | PAR-Q+-Ergebnis + ACSM-Modell (Riebe 2015) → Testwoche/Maximaltests (R3) |
 | Paces | `calc/paces.ts` | Riegel-Äquivalente + Abstände aus den Vorlagen (R7) |
 | Hyrox-Gewichte | `calc/hyrox.ts` | Rulebook 26/27 je Division (R8) |
 | PAL-Vorschlag | `calc/pal.ts` | DGE-Spanne, Untergrenze, +0,3 bei Sport (R10) |

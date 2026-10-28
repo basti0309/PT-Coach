@@ -31,8 +31,8 @@ describe("Testprofil Einsteigerin (Tier 0, Abnehmen)", () => {
     expect(d.tier?.tier).toBe(0);
     expect(d.startVolume).toMatchObject({ sessionsPerWeek: 2, enduranceMinutes: 60, runKm: 0, strengthSessions: 0 });
   });
-  it("inaktiv und gesund → Testwoche nur submaximal, ohne Gym keine Krafttests", () => {
-    expect(d.screening).toMatchObject({ status: "ok", testWeekAllowed: true, maxTestsAllowed: false });
+  it("Tier 0 → Testwoche nur submaximal, ohne Gym keine Krafttests", () => {
+    expect(d.testWeek.allowed).toBe(true);
     const byKind = Object.fromEntries(d.testWeek.tests.map((t) => [t.kind, t.variant]));
     expect(byKind).toMatchObject({ run_30min_submax: "submax", squat_3rm: "entfaellt", bench_3rm: "entfaellt", deadlift_3rm: "entfaellt" });
   });
@@ -93,16 +93,33 @@ describe("Testprofil Coach (Hyrox)", () => {
   });
 });
 
-describe("Screening sperrt Testwoche", () => {
-  it("PAR-Q+ mit Ja ohne Abklärung → keine Testwoche", () => {
+describe("Testwoche nur nach Stufe (ohne Gesundheitsprüfung)", () => {
+  it("ohne Einwilligung/Gesundheitsangaben trotzdem Maximaltests nach Stufe", () => {
     const p = profile("coach");
-    const d = deriveAll({ ...p, health: { ...p.health, parq: { date: "2026-10-15", result: "mind_ein_ja" } } });
-    expect(d.testWeek).toMatchObject({ allowed: false, tests: [] });
+    const d = deriveAll({ ...p, health: null });
+    expect(d.testWeek.tests.find((t) => t.kind === "deadlift_3rm")?.variant).toBe("max");
+    expect(d.testWeek.tests.find((t) => t.kind === "run_30min")?.variant).toBe("max");
   });
-  it("ohne Einwilligung: nur submaximal", () => {
+  it("Tier 1 → Zeittests maximal, 3RM submaximal", () => {
     const p = profile("coach");
-    const d = deriveAll({ ...p, health: null, hasConsent: false });
+    // ohne Wettkampf kein Tier 2; Äquivalent 160 + 2·40 = 240 ≥ 150 und 2 Krafteinheiten → Tier 1
+    const vol = p.answers!.volume!.map((w) => ({ ...w, strengthSessions: 2 }));
+    const d = deriveAll({ ...p, answers: { ...p.answers, events: [], competedLast12Months: false, volume: vol } });
+    expect(d.tier?.tier).toBe(1);
+    expect(d.testWeek.tests.find((t) => t.kind === "run_30min")?.variant).toBe("max");
     expect(d.testWeek.tests.find((t) => t.kind === "deadlift_reps")?.variant).toBe("submax");
-    expect(d.testWeek.tests.find((t) => t.kind === "run_30min_submax")?.variant).toBe("submax");
+  });
+  it("ohne Ziel keine Testwoche", () => {
+    const p = profile("coach");
+    expect(deriveAll({ ...p, answers: { ...p.answers, goal: undefined } }).testWeek).toMatchObject({ allowed: false, tests: [] });
+  });
+  it("Beschwerden mit Schmerz werden markiert, sperren aber nichts", () => {
+    const p = profile("coach");
+    const d = deriveAll({
+      ...p,
+      health: { ...p.health, complaints: [{ region: "knie", since: "2026", painInTraining: true, clarified: false, triggers: "Lunges" }] },
+    });
+    expect(d.flags.some((f) => f.includes("knie") && f.includes("Lunges"))).toBe(true);
+    expect(d.testWeek.tests.find((t) => t.kind === "lunge_100m")?.variant).toBe("max");
   });
 });

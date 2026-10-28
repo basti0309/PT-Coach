@@ -13,8 +13,7 @@ Annahmen:
 - Annahme: Büro (DGE „sitzend“), kein Sport 4–5×/Woche, eingestellter PAL 1,4
 - Annahme: kein Gym, 3 Trainingstage à max. 45 min
 - Annahme: letzte 4 Wochen je 2 × 30 min Spazierengehen, kein Krafttraining, keine Wettkämpfe
-- Annahme: PAR-Q+ am 20.10.2026 alle Nein; ACSM: nicht regelmäßig aktiv, keine Erkrankung, keine Symptome
-- Annahme: Schlaf Ø 6,5 h, keine gemessene HFmax, Zielgewicht 80 kg
+- Annahme: Einwilligung erteilt; Schlaf Ø 6,5 h, keine gemessene HFmax, Zielgewicht 80 kg
 
 **R1 Einstufung:** Tier 0
    - Mittel der letzten 4 Wochen: 2 Einheiten/Woche (Ausdauer 2 + Kraft 0)
@@ -25,12 +24,8 @@ Annahmen:
 **R2 Startumfang:** 2 Einheiten, 60 min Ausdauer, 0 km, 0 × Kraft pro Woche
    - Startumfang = Mittel der letzten 4 Wochen: 2 Einheiten, 60 min Ausdauer, 0 km Laufen, 0 Krafteinheiten pro Woche
    - Obergrenze aus Trainingstagen × max. Minuten: 3 × 45 = 135 min/Woche
-**R3 Screening:** Testwoche erlaubt, Maximaltests nicht erlaubt
-   - PAR-Q+ vom 2026-10-20: alle Fragen mit Nein beantwortet; ärztliche Abklärung in den letzten 12 Monaten: nein
-   - ACSM (Riebe 2015): regelmäßig aktiv nein, bekannte Herz-Kreislauf-/Stoffwechsel-/Nierenerkrankung nein, Anzeichen/Symptome nein
-   - Inaktiv, gesund: „may begin light- to moderate-intensity exercise without medical clearance“, hohe Intensität erst nach schrittweiser Steigerung → nur submaximale Tests.
 **R4 Testwoche:** 
-   - Zeit-/Ausdauertests maximal: Screening ✗ und Tier ≥ 1 (0) ✗ → submaximal
+   - Zeit-/Ausdauertests maximal ab Tier 1: Tier 0 → submaximal
    - Abnehmen/Fitness: Ausgangswerte ohne Maximaltest (Festlegung).
 
 | Test | Variante | Ablauf | Grund |
@@ -67,7 +62,7 @@ Annahmen:
 - Annahme: kein Gym, 3 Trainingstage à max. 75 min
 - Annahme: letzte 4 Wochen je 3 Läufe, 180 min (davon 30 min intensiv), 25 km, kein Krafttraining
 - Annahme: 10 km in 48:30 am 20.09.2026 (Volkslauf), Halbmarathon am 11.04.2027 geplant
-- Annahme: PAR-Q+ am 15.10.2026 alle Nein; ACSM: regelmäßig aktiv, keine Erkrankung, keine Symptome; Schlaf Ø 7,5 h
+- Annahme: Einwilligung erteilt; Schlaf Ø 7,5 h
 
 **R1 Einstufung:** Tier 2
    - Mittel der letzten 4 Wochen: 3 Einheiten/Woche (Ausdauer 3 + Kraft 0)
@@ -77,12 +72,8 @@ Annahmen:
 **R2 Startumfang:** 3 Einheiten, 180 min Ausdauer, 25 km, 0 × Kraft pro Woche
    - Startumfang = Mittel der letzten 4 Wochen: 3 Einheiten, 180 min Ausdauer, 25 km Laufen, 0 Krafteinheiten pro Woche
    - Obergrenze aus Trainingstagen × max. Minuten: 3 × 75 = 225 min/Woche
-**R3 Screening:** Testwoche erlaubt, Maximaltests erlaubt
-   - PAR-Q+ vom 2026-10-15: alle Fragen mit Nein beantwortet; ärztliche Abklärung in den letzten 12 Monaten: nein
-   - ACSM (Riebe 2015): regelmäßig aktiv ja, bekannte Herz-Kreislauf-/Stoffwechsel-/Nierenerkrankung nein, Anzeichen/Symptome nein
-   - Aktiv, gesund: „may continue their usual exercise and progress gradually“ → Maximaltests erlaubt.
 **R4 Testwoche:** 
-   - Zeit-/Ausdauertests maximal: Screening ✓ und Tier ≥ 1 (2) ✓ → maximal
+   - Zeit-/Ausdauertests maximal ab Tier 1: Tier 2 → maximal
    - Vorlage: Tempo Runner (5-km-Test/-Zeitlauf Wo. 8/11); Kraftwerte für „70 % of your deadlift max“.
 
 | Test | Variante | Ablauf | Grund |
@@ -147,7 +138,7 @@ Annahmen:
 - Annahme: Büro, Sport 4–5×/Woche, eingestellter PAL 1,7; Gym mit Schlitten, SkiErg, Rudergerät, Wall Ball
 - Annahme: 5 Trainingstage à max. 90 min; letzte 4 Wochen je 3 Ausdauereinheiten (200 min, davon 40 intensiv, 30 km) + 1 Krafteinheit
 - Annahme: Kreuzheben 120 kg × 3 und Bankdrücken 70 kg × 5, jeweils bis RIR 0 (10.10.2026); 24 Monate Erfahrung je Übung
-- Annahme: nächster Hyrox am 20.03.2027; PAR-Q+ am 15.10.2026 alle Nein; ACSM: aktiv, gesund; Schlaf Ø 7 h; keine HFmax
+- Annahme: nächster Hyrox am 20.03.2027; Einwilligung erteilt; Schlaf Ø 7 h; keine HFmax
 
 **R1 Einstufung:** Tier 2
    - Mittel der letzten 4 Wochen: 4 Einheiten/Woche (Ausdauer 3 + Kraft 1)
@@ -157,15 +148,11 @@ Annahmen:
 **R2 Startumfang:** 4 Einheiten, 200 min Ausdauer, 30 km, 1 × Kraft pro Woche
    - Startumfang = Mittel der letzten 4 Wochen: 4 Einheiten, 200 min Ausdauer, 30 km Laufen, 1 Krafteinheiten pro Woche
    - Obergrenze aus Trainingstagen × max. Minuten: 5 × 90 = 450 min/Woche
-**R3 Screening:** Testwoche erlaubt, Maximaltests erlaubt
-   - PAR-Q+ vom 2026-10-15: alle Fragen mit Nein beantwortet; ärztliche Abklärung in den letzten 12 Monaten: nein
-   - ACSM (Riebe 2015): regelmäßig aktiv ja, bekannte Herz-Kreislauf-/Stoffwechsel-/Nierenerkrankung nein, Anzeichen/Symptome nein
-   - Aktiv, gesund: „may continue their usual exercise and progress gradually“ → Maximaltests erlaubt.
 **R4 Testwoche:** 
-   - Zeit-/Ausdauertests maximal: Screening ✓ und Tier ≥ 1 (2) ✓ → maximal
+   - Zeit-/Ausdauertests maximal ab Tier 1: Tier 2 → maximal
    - Vorlage: Woche 1 aus Base Builder / Threshold Trainer (Tag 1 Lauf, Tag 3 Kreuzheben + Wall Balls + Ski/Rudern, Tag 5 Bankdrücken + Klimmzüge + Lunges + Burpees, übrige Tage locker < 70 %).
-   - Kreuzheben 3RM: Screening ✓, Tier ≥ 2 ✓, Erfahrung ≥ 6 Monate (24) ✓
-   - Bankdrücken 3RM: Screening ✓, Tier ≥ 2 ✓, Erfahrung ≥ 6 Monate (24) ✓
+   - Kreuzheben 3RM: Tier ≥ 2 ✓, Erfahrung ≥ 6 Monate (24) ✓
+   - Bankdrücken 3RM: Tier ≥ 2 ✓, Erfahrung ≥ 6 Monate (24) ✓
 
 | Test | Variante | Ablauf | Grund |
 |---|---|---|---|

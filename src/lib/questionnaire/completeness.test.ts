@@ -13,9 +13,8 @@ const fromProfile = (key: string): CompletenessInput => {
     maxMinutesPerWorkout: p.maxMinutesPerWorkout,
     testKinds: p.tests.map((t) => t.kind),
     answers: p.answers,
-    hasConsent: p.hasConsent,
+    hasConsent: p.health != null,
     health: p.health,
-    today: p.today,
   };
 };
 
@@ -23,11 +22,11 @@ describe("Vollständigkeit des Fragebogens", () => {
   it("die drei Testprofile sind vollständig", () => {
     for (const key of ["einsteigerin", "laeufer", "coach"]) expect(missingAnswers(fromProfile(key))).toEqual([]);
   });
-  it("leeres Profil: Stammdaten, Ziel und Einwilligung fehlen", () => {
+  it("leeres Profil: Stammdaten und Ziel fehlen; die Einwilligung ist freiwillig und fehlt nie", () => {
     const m = missingAnswers({ ...fromProfile("coach"), sex: null, answers: null, hasConsent: false, health: null });
     expect(m).toContain("Geschlecht");
     expect(m).toContain("Ziel");
-    expect(m.some((x) => x.startsWith("Einwilligung"))).toBe(true);
+    expect(m.some((x) => x.includes("Einwilligung") || x.startsWith("Schlaf"))).toBe(false);
   });
   it("Zweig Laufen verlangt Bestzeit; Kraft-Erfahrung nur mit Gym", () => {
     const c = fromProfile("laeufer");
@@ -36,9 +35,8 @@ describe("Vollständigkeit des Fragebogens", () => {
     expect(m).not.toContain("Erfahrung je Übung (Monate)");
     expect(missingAnswers({ ...c, gymAccess: true })).toContain("Erfahrung je Übung (Monate)");
   });
-  it("PAR-Q+ älter als 12 Monate", () => {
+  it("mit Einwilligung wird nach Schlaf gefragt", () => {
     const c = fromProfile("coach");
-    const m = missingAnswers({ ...c, health: { ...c.health, parq: { date: "2025-10-01", result: "alle_nein" } } });
-    expect(m).toContain("PAR-Q+ älter als 12 Monate – neu ausfüllen");
+    expect(missingAnswers({ ...c, health: { complaints: [] } })).toContain("Schlaf (Stunden pro Nacht)");
   });
 });

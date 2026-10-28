@@ -119,7 +119,6 @@ export function buildProfileExport(
     answers,
     hasConsent: extras.hasConsent,
     health: healthData,
-    today,
   });
   const derived = extras.forChat
     ? null
@@ -134,7 +133,6 @@ export function buildProfileExport(
         palFactor: pal,
         answers,
         health: healthData,
-        hasConsent: extras.hasConsent,
         tests: tests.map((t) => ({ kind: t.kind, date: t.tested_on, value: t.value, reps: t.reps ?? null, rir: t.rir ?? null })),
         today,
       });

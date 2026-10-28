@@ -22,8 +22,6 @@ function render(d: Derived): string {
     );
     out.push(steps(d.startVolume.steps));
   }
-  out.push(`**R3 Screening:** Testwoche ${d.screening.testWeekAllowed ? "erlaubt" : "gesperrt"}, Maximaltests ${d.screening.maxTestsAllowed ? "erlaubt" : "nicht erlaubt"}`);
-  out.push(steps(d.screening.steps));
   out.push(`**R4 Testwoche:** ${d.testWeek.allowed ? "" : "keine"}`);
   out.push(steps(d.testWeek.steps));
   if (d.testWeek.tests.length) {

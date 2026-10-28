@@ -59,14 +59,6 @@ export function DerivedView({ d }: { d: Derived }) {
       )}
 
       <div className="space-y-1">
-        <h3 className="font-semibold">R3 Screening</h3>
-        <p>
-          Testwoche {d.screening.testWeekAllowed ? "erlaubt" : "gesperrt"} · Maximaltests {d.screening.maxTestsAllowed ? "erlaubt" : "nicht erlaubt"}
-        </p>
-        <Steps steps={d.screening.steps} />
-      </div>
-
-      <div className="space-y-1">
         <h3 className="font-semibold">R4 Testwoche</h3>
         {d.testWeek.tests.length === 0 ? (
           <p className="muted">{d.testWeek.steps.join(" ")}</p>

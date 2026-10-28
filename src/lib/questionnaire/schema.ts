@@ -150,12 +150,6 @@ export type Answers = z.infer<typeof answersSchema>;
 
 export const healthSchema = z
   .object({
-    /** Ergebnis des offiziellen PAR-Q+ (nur verlinkt, nicht nachgebaut) */
-    parq: z.object({ date: isoDate, result: z.enum(["alle_nein", "mind_ein_ja"]) }).strict().nullable(),
-    /** Datum der ärztlichen Abklärung / Freigabe */
-    medicalClearance: z.object({ date: isoDate }).strict().nullable(),
-    /** ACSM-Screening nach Riebe et al. 2015 */
-    acsm: z.object({ regularlyActive: z.boolean(), knownDisease: z.boolean(), symptoms: z.boolean() }).strict().nullable(),
     complaints: z
       .array(
         z
@@ -178,10 +172,10 @@ export const healthSchema = z
 export type Health = z.infer<typeof healthSchema>;
 
 /** Version des Einwilligungstexts; wird mit jeder Einwilligung gespeichert (Nachweis nach Art. 7 Abs. 1 DSGVO). Bei Textänderung erhöhen. */
-export const CONSENT_VERSION = "2026-10-28";
+export const CONSENT_VERSION = "2026-10-28b";
 export const CONSENT_TEXT = [
-  "Ich willige ausdrücklich ein, dass meine Gesundheitsangaben aus diesem Fragebogen (PAR-Q+-Ergebnis, ärztliche Abklärung, Vorerkrankungen und Symptome nach dem ACSM-Screening, Beschwerden, Schlaf, maximale Herzfrequenz) gespeichert und für meine Trainingsplanung verarbeitet werden (Art. 9 Abs. 2 lit. a DSGVO).",
+  "Ich willige ausdrücklich ein, dass meine Gesundheitsangaben aus diesem Fragebogen (Beschwerden, Schlaf, gemessene maximale Herzfrequenz) gespeichert und für meine Trainingsplanung verarbeitet werden (Art. 9 Abs. 2 lit. a DSGVO).",
   "Mein Coach sieht diese Angaben. Für die Planerstellung können sie ohne meinen Namen (mit Kürzel) an einen KI-Dienst übergeben werden. Im Chat mit der KI werden sie nicht verwendet.",
-  "Die Einwilligung ist freiwillig. Ohne sie nutze ich die App weiter; mein Coach plant dann ohne Gesundheitsangaben und ohne Maximaltests.",
+  "Die Einwilligung ist freiwillig. Ohne sie nutze ich die App weiter; mein Coach plant dann ohne diese Angaben.",
   "Ich kann die Einwilligung jederzeit hier im Profil widerrufen. Dann werden die Gesundheitsangaben gelöscht; die Verarbeitung bis zum Widerruf bleibt rechtmäßig.",
 ];

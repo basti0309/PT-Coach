@@ -70,26 +70,16 @@ Grundsätze:
 
 | Frage | Feld `health.` | Pflicht | Steuert |
 |---|---|---|---|
-| PAR-Q+ ausgefüllt am / Ergebnis „alle Nein“ oder „mind. ein Ja“ | `parq` {date, result} | ja | R3: mind. ein Ja ohne Abklärung → keine Testwoche; älter als 12 Monate → neu |
-| Ärztlich abgeklärt / freigegeben am | `medicalClearance` {date} | nein | R3 (gilt 12 Monate) |
-| ACSM 1: seit ≥ 3 Monaten an ≥ 3 Tagen/Woche je ≥ 30 min moderat aktiv? | `acsm.regularlyActive` | ja | R3 |
-| ACSM 2: bekannte Herz-Kreislauf-, Stoffwechsel- (Diabetes Typ 1/2) oder Nierenerkrankung? | `acsm.knownDisease` | ja | R3 |
-| ACSM 3: Anzeichen oder Symptome (Liste nach Riebe et al. 2015)? | `acsm.symptoms` | ja | R3 |
 | Beschwerden {Region, seit, Schmerz beim Training, abgeklärt, auslösende Übungen} | `complaints[]` | nein | Übungsausschluss/-ersatz (Hinweis in `derived.flags`) – keine Diagnose |
-| Schlaf pro Nacht (Ø 4 Wochen) | `sleepHours` | ja | Hinweis bei < 7 h (Watson et al. 2015) für vorsichtige Progression |
+| Schlaf pro Nacht (Ø 4 Wochen) | `sleepHours` | ja (nur mit Einwilligung) | Hinweis bei < 7 h (Watson et al. 2015) für vorsichtige Progression |
 | Gemessene maximale Herzfrequenz | `hrMax` | nein | R9: HF-Prozentangaben der Vorlagen in Schläge umrechnen |
-
-**PAR-Q+:**
-- Die App verlinkt nur das offizielle PDF (eparmedx.com, Version 2025) und erfasst Datum und Ergebnis.
-- Laut Nutzungsbedingungen ist ohne schriftliche Erlaubnis der PAR-Q+ Collaboration kein Einbau in elektronische Formulare oder Apps erlaubt („may not be incorporated into electronic surveys … without the express written consent“).
-- Die kostenlose Nutzung gilt laut Bedingungen für „eligible individual, clinical, educational, and non-commercial research purposes“. Ob die Nutzung im PT-Betrieb darunter fällt, muss die Betreiberin klären (Kontakt: eparmedx@gmail.com).
 
 ## E. Einwilligung (Art. 9 Abs. 2 lit. a DSGVO)
 
 - **Eigener Schritt**, Kästchen nicht vorausgewählt (ErwG 32). Nur der Kunde selbst kann einwilligen; die Datenbank-Policy erlaubt dem Coach das nicht.
 - Text in `CONSENT_TEXT`, gespeichert wird `consent_version` mit Zeitpunkt. So lässt sich nach Art. 7 Abs. 1 nachweisen, wer wann eingewilligt hat.
 - Der Widerruf ist ebenso einfach wie die Einwilligung: ein Button im Fragebogen (Art. 7 Abs. 3). Ein Datenbank-Trigger löscht dabei sofort `client_health`.
-- Ohne Einwilligung bleibt die App nutzbar (Art. 7 Abs. 4). Die Gesundheitsangaben werden dann nicht gespeichert, und Maximaltests sind nicht vorgesehen (R3).
+- Ohne Einwilligung bleibt die App nutzbar (Art. 7 Abs. 4). Beschwerden, Schlaf und HFmax werden dann nicht gespeichert; Testwoche und Maximaltests richten sich unabhängig davon nach der Stufe (R4). Die Einwilligung erscheint deshalb nicht in der Liste fehlender Angaben.
 - Gesundheitsangaben gehen nur in den Plan-/Profil-Export an die KI, **nie** in den Chat-Kontext.
 - **Hinweis:** Den Einwilligungstext sollte jemand mit Datenschutz-Kenntnis prüfen. Er ersetzt keine Datenschutzerklärung.
 

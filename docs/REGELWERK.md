@@ -28,8 +28,6 @@ Herkunft der Vorlagen-Angaben: [VORLAGEN-ANALYSE.md](VORLAGEN-ANALYSE.md).
 | Foster 2001 | Foster C et al. A New Approach to Monitoring Exercise Training. J Strength Cond Res 2001;15(1):109–115 | Volltext |
 | Foster 1998 | Foster C. Monitoring training in athletes with reference to overtraining syndrome. Med Sci Sports Exerc 1998;30(7):1164–1168 | nur zitierte Definition (Monotonie, Strain) |
 | Haddad 2017 | Haddad M et al. Session-RPE Method for Training Load Monitoring. Front Neurosci 2017;11:612 | Wiedergabe der CR-10-Beschriftung (Sekundärquelle) |
-| Riebe 2015 | Riebe D et al. Updating ACSM's Recommendations for Exercise Preparticipation Health Screening. Med Sci Sports Exerc 2015;47(11):2473–2479. doi:10.1249/MSS.0000000000000664 | Volltext |
-| PAR-Q+ 2025 | PAR-Q+ Collaboration, eparmedx.com (Formular 2025; Warburton et al., Health Fit J Can 2011;4(2):3–23) | Formular + Nutzungsbedingungen |
 | HYROX 26/27 | HYROX Rulebook Singles/Doubles 26/27, Stand 14.09.2026, maintain.hyrox.com/rulebooks/ | PDF, Kap. 4.1 und 8 |
 | Watson 2015 | Watson NF et al. Recommended Amount of Sleep for a Healthy Adult. Sleep 2015;38(6):843–844. doi:10.5665/sleep.4716 | Volltext |
 
@@ -77,33 +75,17 @@ Herkunft der Vorlagen-Angaben: [VORLAGEN-ANALYSE.md](VORLAGEN-ANALYSE.md).
   - Bei Kraft, Abnehmen und Fitness gibt es keine passende Vorlage. Dort übernimmt die KI nur die Testwoche und die Entlastungsmuster.
   - Die Wahl trifft der Coach in der Aufgabe an die KI.
 
-## R3 Gesundheits-Screening (`src/lib/calc/screening.ts`)
+## R3 – entfallen
 
-**Quelle PAR-Q+ 2025:**
-- „If you answered NO to all of the questions above, you are cleared for physical activity.“
-- „If you answered YES to one or more … COMPLETE PAGES 2 AND 3.“
-- Gültigkeit „valid for a maximum of 12 months“.
-
-**Quelle Riebe 2015** (drei Faktoren: Aktivitätsniveau; Anzeichen/Symptome oder bekannte Herz-Kreislauf-, Stoffwechsel-, Nierenerkrankung; gewünschte Intensität):
-- Aktiv, gesund: „may continue their usual exercise and progress gradually“.
-- Aktiv mit Symptomen: „discontinue exercise and seek medical clearance before resuming exercise of any intensity“.
-- Aktiv mit bekannter Erkrankung, ohne Symptome: leicht bis moderat ohne Freigabe, für hohe Intensität ärztliche Freigabe.
-- Inaktiv, gesund: „may begin light- to moderate-intensity exercise without medical clearance“.
-- Inaktiv mit Erkrankung oder Symptomen: „should seek medical clearance before starting an exercise program, regardless of the intensity“.
-
-**Ablauf:**
-1. Keine Einwilligung oder Angaben fehlen → Testwoche nur submaximal.
-2. PAR-Q+ älter als 12 Monate → wie fehlend.
-3. PAR-Q+ mit mind. einem Ja und keine ärztliche Abklärung in den letzten 12 Monaten → **keine Testwoche** (Vorgabe der Betreiberin).
-4. ACSM-Fälle wie oben. Maximaltests gelten als hohe Intensität und sind nur bei „aktiv, gesund“ oder „aktiv mit Erkrankung/Symptomen + Freigabe“ erlaubt. Inaktive bekommen nie Maximaltests, auch nicht mit Freigabe, weil die Quelle zuerst eine schrittweise Steigerung verlangt.
-5. Festlegung: Die ärztliche Freigabe gilt 12 Monate (angelehnt an Riebe „within the last 12 months“).
+Auf Wunsch der Betreiberin gibt es kein Gesundheits-Screening mehr. Die Testwoche richtet sich nur nach Ziel, Stufe und Erfahrung (R4). Angegebene Beschwerden markiert die App für den Coach (`derived.flags`), sie sperren aber keine Tests.
 
 ## R4 Testwoche je Ziel (`planTestWeek` in `src/lib/plan/derive.ts`)
 
 **Festlegung der Betreiberin:**
 - Zeit- und Ausdauertests maximal ab Tier 1.
 - 3RM ab Tier 2 und mit ≥ 6 Monaten Erfahrung mit genau dieser Übung.
-- Beides nur, wenn R3 Maximaltests erlaubt. Sonst gilt die submaximale Variante.
+- Sonst gilt die submaximale Variante.
+- Ohne Ziel gibt es keine Testwoche. Die Einwilligung spielt für die Testwoche keine Rolle.
 
 | Ziel | Tests (Vorlage) | maximal | submaximal |
 |---|---|---|---|

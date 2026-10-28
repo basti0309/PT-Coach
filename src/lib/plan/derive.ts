@@ -6,7 +6,6 @@ import { brzycki, brzyckiLoadForReps, roundToStep, UNRELIABLE_FROM_REPS } from "
 import { derivePaces, MILE_M, type PaceReference, type PaceResult } from "@/lib/calc/paces";
 import { riegelDataMaxMinutes } from "@/lib/calc/riegel";
 import { suggestPal } from "@/lib/calc/pal";
-import { evaluateScreening, type ScreeningResult } from "@/lib/calc/screening";
 import { classifyTier, weeklyMeans, type TierResult } from "@/lib/calc/tier";
 import { formatDuration, formatNumber } from "@/lib/format";
 import { TEST_KIND_META, type TestKind } from "@/lib/plan/test-kinds";
@@ -45,7 +44,6 @@ export interface DeriveInput {
   answers: Answers | null;
   /** null, wenn keine Einwilligung oder nichts erfasst */
   health: Health | null;
-  hasConsent: boolean;
   tests: TestInput[];
   today: string;
 }
@@ -73,7 +71,6 @@ export interface Derived {
   goal: Goal | null;
   tier: ({ rule: "R1" } & TierResult) | null;
   startVolume: { rule: "R2"; sessionsPerWeek: number; enduranceMinutes: number; runKm: number; strengthSessions: number; steps: string[] } | null;
-  screening: { rule: "R3" } & ScreeningResult;
   testWeek: { rule: "R4"; allowed: boolean; tests: PlannedTest[]; steps: string[] };
   strength: { rule: "R5/R6"; lifts: StrengthDerived[] };
   paces: ({ rule: "R7" } & PaceResult) | null;
@@ -156,20 +153,15 @@ function hasFutureEvent(answers: Answers | null, today: string): boolean {
 export function planTestWeek(
   goal: Goal | null,
   tier: number | null,
-  screening: ScreeningResult,
   gymAccess: boolean | null,
   answers: Answers | null,
 ): Derived["testWeek"] {
   const steps: string[] = [];
   if (!goal) return { rule: "R4", allowed: false, tests: [], steps: ["Kein Ziel angegeben → keine Testwoche ableitbar."] };
-  if (!screening.testWeekAllowed) {
-    return { rule: "R4", allowed: false, tests: [], steps: ["Screening: Testwoche erst nach ärztlicher Abklärung (siehe R3)."] };
-  }
   const t = tier ?? 0;
-  const maxOk = screening.maxTestsAllowed;
-  const conditioningMax = maxOk && t >= MIN_TIER_TIME_TRIAL;
+  const conditioningMax = t >= MIN_TIER_TIME_TRIAL;
   steps.push(
-    `Zeit-/Ausdauertests maximal: Screening ${maxOk ? "✓" : "✗"} und Tier ≥ ${MIN_TIER_TIME_TRIAL} (${tier ?? "unbekannt"}) ${t >= MIN_TIER_TIME_TRIAL ? "✓" : "✗"} → ${conditioningMax ? "maximal" : "submaximal"}`,
+    `Zeit-/Ausdauertests maximal ab Tier ${MIN_TIER_TIME_TRIAL}: Tier ${tier ?? "unbekannt"} → ${conditioningMax ? "maximal" : "submaximal"}`,
   );
   const tests: PlannedTest[] = [];
   const push = (kind: TestKind, variant: TestVariant, protocol: string, reason: string) =>
@@ -188,9 +180,9 @@ export function planTestWeek(
       return;
     }
     const exp = answers?.liftExperienceMonths?.[l];
-    const ok = maxOk && t >= MIN_TIER_3RM && exp != null && exp >= MIN_LIFT_EXPERIENCE_MONTHS;
+    const ok = t >= MIN_TIER_3RM && exp != null && exp >= MIN_LIFT_EXPERIENCE_MONTHS;
     steps.push(
-      `${LIFT_LABEL[l]} 3RM: Screening ${maxOk ? "✓" : "✗"}, Tier ≥ ${MIN_TIER_3RM} ${t >= MIN_TIER_3RM ? "✓" : "✗"}, Erfahrung ≥ ${MIN_LIFT_EXPERIENCE_MONTHS} Monate (${exp ?? "?"}) ${exp != null && exp >= MIN_LIFT_EXPERIENCE_MONTHS ? "✓" : "✗"}`,
+      `${LIFT_LABEL[l]} 3RM: Tier ≥ ${MIN_TIER_3RM} ${t >= MIN_TIER_3RM ? "✓" : "✗"}, Erfahrung ≥ ${MIN_LIFT_EXPERIENCE_MONTHS} Monate (${exp ?? "?"}) ${exp != null && exp >= MIN_LIFT_EXPERIENCE_MONTHS ? "✓" : "✗"}`,
     );
     if (ok) push(LIFT_TESTS[l].max, "max", "15 Minuten zum Herantasten an das 3RM („Be smart and safe … you aren't a powerlifter“)", "3RM erlaubt");
     else
@@ -280,8 +272,7 @@ export function deriveAll(input: DeriveInput): Derived {
     };
   }
 
-  // R3 Screening
-  const screening = { rule: "R3" as const, ...evaluateScreening(health, input.hasConsent, today) };
+  // Hinweise aus den Gesundheitsangaben (nur mit Einwilligung vorhanden)
   if (health?.sleepHours != null && health.sleepHours < MIN_SLEEP_HOURS) {
     flags.push(`Schlaf Ø ${f1(health.sleepHours)} h < ${MIN_SLEEP_HOURS} h (AASM/SRS 2015) – Progression vorsichtig wählen (Coach-Entscheidung).`);
   }
@@ -290,7 +281,7 @@ export function deriveAll(input: DeriveInput): Derived {
   }
 
   // R4 Testwoche
-  const testWeek = planTestWeek(goal, tier?.tier ?? null, screening, input.gymAccess, answers);
+  const testWeek = planTestWeek(goal, tier?.tier ?? null, input.gymAccess, answers);
 
   // R5/R6 Kraft
   const lifts = (["squat", "bench", "deadlift"] as Lift[]).map((l) => deriveStrength(l, input.tests));
@@ -349,7 +340,6 @@ export function deriveAll(input: DeriveInput): Derived {
     goal,
     tier,
     startVolume,
-    screening,
     testWeek,
     strength: { rule: "R5/R6", lifts },
     paces,
