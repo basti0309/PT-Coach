@@ -1,104 +1,699 @@
 "use client";
 
-import { keepFormOnSubmit } from "@/components/use-keep-form";
-import { useActionState } from "react";
-import type { ClientProfileRow } from "@/lib/db-types";
-import { PAL_OPTIONS } from "@/lib/calc/calories";
+import { useActionState, useState, useTransition } from "react";
 import type { FormState } from "@/lib/actions/profile";
+import { PAL_OPTIONS } from "@/lib/calc/calories";
+import { HYROX_DIVISION_LABELS } from "@/lib/calc/hyrox";
+import { DGE_PAL } from "@/lib/calc/pal";
+import { SPORT_LABELS, SPORTS, type Sport } from "@/lib/calc/sport";
+import type { ClientProfileRow } from "@/lib/db-types";
+import { formatDuration, formatNumber, parseDecimal, parseDuration } from "@/lib/format";
+import {
+  ABSENCE_OPTIONS,
+  COMPETITION_LEVEL_LABELS,
+  COMPETITION_LEVELS,
+  DIET_STYLES,
+  EQUIPMENT_LABELS,
+  EVENT_KINDS,
+  GOAL_LABELS,
+  GOALS,
+  GYM_EQUIPMENT,
+  HOME_EQUIPMENT,
+  HYROX_DIVISIONS,
+  LIFT_LABELS,
+  LIFTS,
+  WORK_ACTIVITIES,
+  type Answers,
+  type CompetitionLevel,
+  type Goal,
+  type GymEquipment,
+  type HomeEquipment,
+  type HyroxDivision,
+} from "@/lib/questionnaire/schema";
 
+const WEEKDAY_LABELS = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
+const ABSENCE_LABELS = { keine: "kein Training möglich", koerpergewicht: "nur Körpergewicht", hotel_gym: "Hotel-Gym" } as const;
+const EVENT_LABELS = { hyrox: "Hyrox", lauf: "Laufwettkampf", sonstiges: "Sonstiges" } as const;
+const DIET_LABELS = { omnivor: "Mischkost", vegetarisch: "vegetarisch", vegan: "vegan", sonstiges: "Sonstiges" } as const;
+const WEEK_LABELS = ["letzte Woche", "vor 2 Wochen", "vor 3 Wochen", "vor 4 Wochen"];
+
+type YesNo = "" | "ja" | "nein";
+interface Week {
+  enduranceSessions: string;
+  enduranceMinutes: string;
+  vigorousMinutes: string;
+  runKm: string;
+  strengthSessions: string;
+}
+interface Vals {
+  // Stammdaten (client_profiles)
+  sex: "" | "m" | "w";
+  birthDate: string;
+  heightCm: string;
+  trainingDays: string;
+  maxMinutes: string;
+  gymAccess: YesNo;
+  equipmentHome: string;
+  notes: string;
+  pal: string;
+  protein: string;
+  fat: string;
+  carbs: string;
+  // Fragebogen (client_questionnaires.answers)
+  goal: Goal | "";
+  goalNote: string;
+  weekdays: number[];
+  events: { date: string; name: string; kind: (typeof EVENT_KINDS)[number]; detail: string }[];
+  absences: { from: string; to: string; option: (typeof ABSENCE_OPTIONS)[number] }[];
+  workActivity: (typeof WORK_ACTIVITIES)[number] | "";
+  sportOften: YesNo;
+  volume: Week[];
+  mainSport: string;
+  competedLast12Months: YesNo;
+  competitionLevel: CompetitionLevel | "";
+  hyroxDivision: HyroxDivision | "";
+  hyroxResults: { date: string; division: HyroxDivision; total: string; run: string }[];
+  homeEquipment: HomeEquipment[];
+  gymEquipment: GymEquipment[];
+  gymNote: string;
+  bests: { km: string; time: string; date: string; race: boolean }[];
+  longestRunMinutes: string;
+  targetKm: string;
+  targetDate: string;
+  targetTime: string;
+  liftExp: Record<(typeof LIFTS)[number], string>;
+  weightGoalKg: string;
+  weightGoalDate: string;
+  dietStyle: (typeof DIET_STYLES)[number] | "";
+  intolerances: string;
+  enduranceSports: Sport[];
+}
+
+const str = (n: number | null | undefined, digits = 2) => (n == null ? "" : formatNumber(n, digits));
+const yn = (b: boolean | undefined): YesNo => (b == null ? "" : b ? "ja" : "nein");
+const emptyWeek = (): Week => ({ enduranceSessions: "", enduranceMinutes: "", vigorousMinutes: "", runKm: "", strengthSessions: "" });
+
+function fromData(cp: ClientProfileRow | null, a: Answers | null): Vals {
+  const x = a ?? {};
+  const num = (n: number | null | undefined) => (n == null ? "" : String(n));
+  return {
+    sex: cp?.sex ?? "",
+    birthDate: cp?.birth_date ?? "",
+    heightCm: str(cp?.height_cm, 1),
+    trainingDays: num(cp?.training_days_per_week),
+    maxMinutes: num(cp?.max_minutes_per_workout),
+    gymAccess: yn(cp?.gym_access ?? undefined),
+    equipmentHome: cp?.equipment_home ?? "",
+    notes: cp?.notes ?? "",
+    pal: String(cp?.pal_factor ?? 1.5),
+    protein: num(cp?.protein_g),
+    fat: num(cp?.fat_g),
+    carbs: num(cp?.carbs_g),
+    goal: x.goal ?? "",
+    goalNote: x.goalNote ?? "",
+    weekdays: x.weekdays ?? [],
+    events: x.events ?? [],
+    absences: x.absences ?? [],
+    workActivity: x.workActivity ?? "",
+    sportOften: yn(x.sportOften),
+    volume: x.volume
+      ? x.volume.map((w) => ({
+          enduranceSessions: String(w.enduranceSessions),
+          enduranceMinutes: String(w.enduranceMinutes),
+          vigorousMinutes: String(w.vigorousMinutes),
+          runKm: str(w.runKm, 1),
+          strengthSessions: String(w.strengthSessions),
+        }))
+      : [emptyWeek(), emptyWeek(), emptyWeek(), emptyWeek()],
+    mainSport: x.mainSport ?? "",
+    competedLast12Months: yn(x.competedLast12Months),
+    competitionLevel: x.competitionLevel ?? "",
+    hyroxDivision: x.hyrox?.division ?? "",
+    hyroxResults: (x.hyrox?.results ?? []).map((r) => ({
+      date: r.date,
+      division: r.division,
+      total: formatDuration(r.totalSeconds),
+      run: r.runSeconds != null ? formatDuration(r.runSeconds) : "",
+    })),
+    homeEquipment: x.equipment?.home ?? [],
+    gymEquipment: x.equipment?.gym ?? [],
+    gymNote: x.equipment?.gymNote ?? "",
+    bests: (x.laufen?.bests ?? []).map((b) => ({ km: str(b.distanceM / 1000, 3), time: formatDuration(b.seconds), date: b.date, race: b.race })),
+    longestRunMinutes: x.laufen?.longestRunMinutes != null ? String(x.laufen.longestRunMinutes) : "",
+    targetKm: x.laufen?.targetRace ? str(x.laufen.targetRace.distanceM / 1000, 4) : "",
+    targetDate: x.laufen?.targetRace?.date ?? "",
+    targetTime: x.laufen?.targetRace?.targetSeconds != null ? formatDuration(x.laufen.targetRace.targetSeconds) : "",
+    liftExp: {
+      squat: x.liftExperienceMonths ? String(x.liftExperienceMonths.squat) : "",
+      bench: x.liftExperienceMonths ? String(x.liftExperienceMonths.bench) : "",
+      deadlift: x.liftExperienceMonths ? String(x.liftExperienceMonths.deadlift) : "",
+    },
+    weightGoalKg: str(x.weightGoal?.targetKg, 1),
+    weightGoalDate: x.weightGoal?.byDate ?? "",
+    dietStyle: x.diet?.style ?? "",
+    intolerances: x.diet?.intolerances ?? "",
+    enduranceSports: x.enduranceSports ?? [],
+  };
+}
+
+const int = (s: string) => (s.trim() === "" ? null : Number.isInteger(Number(s)) ? Number(s) : NaN);
+
+/** Nur ausgefüllte Angaben; Zweige nur für das gewählte Ziel. Ungültiges bleibt drin → Server meldet die Stelle. */
+/** Stammdaten als Formular-Strings; Nährstoffziele wertet der Server nur beim Coach aus. */
+function toProfile(v: Vals): Record<string, string> {
+  return {
+    sex: v.sex,
+    birth_date: v.birthDate,
+    height_cm: v.heightCm,
+    training_days_per_week: v.trainingDays,
+    max_minutes_per_workout: v.maxMinutes,
+    gym_access: v.gymAccess,
+    equipment_home: v.equipmentHome,
+    notes: v.notes,
+    pal_factor: v.pal,
+    protein_g: v.protein,
+    fat_g: v.fat,
+    carbs_g: v.carbs,
+  };
+}
+
+function toAnswers(v: Vals): Answers {
+  const gymAccess = v.gymAccess === "ja";
+  const a: Record<string, unknown> = {};
+  if (v.goal) a.goal = v.goal;
+  if (v.goalNote.trim()) a.goalNote = v.goalNote.trim();
+  if (v.weekdays.length) a.weekdays = [...v.weekdays].sort();
+  a.events = v.events;
+  a.absences = v.absences;
+  if (v.workActivity) a.workActivity = v.workActivity;
+  if (v.sportOften) a.sportOften = v.sportOften === "ja";
+  if (v.volume.some((w) => Object.values(w).some((x) => x.trim() !== ""))) {
+    a.volume = v.volume.map((w) => ({
+      enduranceSessions: int(w.enduranceSessions) ?? 0,
+      enduranceMinutes: int(w.enduranceMinutes) ?? 0,
+      vigorousMinutes: int(w.vigorousMinutes) ?? 0,
+      runKm: w.runKm.trim() === "" ? 0 : (parseDecimal(w.runKm) ?? NaN),
+      strengthSessions: int(w.strengthSessions) ?? 0,
+    }));
+  }
+  a.mainSport = v.mainSport.trim();
+  if (v.competedLast12Months) a.competedLast12Months = v.competedLast12Months === "ja";
+  if (v.competitionLevel) a.competitionLevel = v.competitionLevel;
+  if (v.goal === "hyrox" && v.hyroxDivision) {
+    a.hyrox = {
+      division: v.hyroxDivision,
+      results: v.hyroxResults.map((r) => ({
+        date: r.date,
+        division: r.division,
+        totalSeconds: parseDuration(r.total) ?? NaN,
+        runSeconds: r.run.trim() ? (parseDuration(r.run) ?? NaN) : null,
+      })),
+    };
+  }
+  if (v.goal === "laufen" && (v.bests.length || v.longestRunMinutes)) {
+    a.laufen = {
+      bests: v.bests.map((b) => ({ distanceM: Math.round((parseDecimal(b.km) ?? NaN) * 1000), seconds: parseDuration(b.time) ?? NaN, date: b.date, race: b.race })),
+      longestRunMinutes: int(v.longestRunMinutes) ?? 0,
+      targetRace:
+        v.targetKm && v.targetDate
+          ? {
+              distanceM: Math.round((parseDecimal(v.targetKm) ?? NaN) * 1000),
+              date: v.targetDate,
+              targetSeconds: v.targetTime ? (parseDuration(v.targetTime) ?? NaN) : null,
+            }
+          : null,
+    };
+  }
+  // Gym-Geräte nur mit Gymzugang
+  a.equipment = { home: v.homeEquipment, gym: gymAccess ? v.gymEquipment : [], gymNote: gymAccess ? v.gymNote.trim() : "" };
+  const liftsShown = v.goal === "kraft_muskelaufbau" || ((v.goal === "hyrox" || v.goal === "laufen") && gymAccess);
+  if (liftsShown && LIFTS.every((l) => v.liftExp[l] !== "")) {
+    a.liftExperienceMonths = { squat: int(v.liftExp.squat), bench: int(v.liftExp.bench), deadlift: int(v.liftExp.deadlift) };
+  }
+  if (v.goal === "abnehmen" || v.goal === "kraft_muskelaufbau") {
+    a.weightGoal = { targetKg: v.weightGoalKg ? parseDecimal(v.weightGoalKg) : null, byDate: v.weightGoalDate || null };
+    if (v.dietStyle) a.diet = { style: v.dietStyle, intolerances: v.intolerances.trim() };
+  }
+  if ((v.goal === "abnehmen" || v.goal === "fitness_gesundheit") && v.enduranceSports.length) a.enduranceSports = v.enduranceSports;
+  return a as Answers;
+}
+
+function Q({ label, hint, children }: { label: string; hint?: string; children: React.ReactNode }) {
+  return (
+    <label className="block">
+      <span className="label">{label}</span>
+      {children}
+      {hint && <span className="mt-1 block text-xs text-slate-500">{hint}</span>}
+    </label>
+  );
+}
+
+function YesNoSelect({ value, onChange }: { value: YesNo; onChange: (v: YesNo) => void }) {
+  return (
+    <select className="input" value={value} onChange={(e) => onChange(e.target.value as YesNo)}>
+      <option value="">–</option>
+      <option value="ja">ja</option>
+      <option value="nein">nein</option>
+    </select>
+  );
+}
+
+function CheckList<T extends string>({ items, value, onChange }: { items: readonly T[]; value: T[]; onChange: (v: T[]) => void }) {
+  return (
+    <div className="grid grid-cols-2 gap-2">
+      {items.map((it) => (
+        <label key={it} className="flex min-h-11 items-center gap-2">
+          <input
+            type="checkbox"
+            className="h-5 w-5"
+            checked={value.includes(it)}
+            onChange={(e) => onChange(e.target.checked ? [...value, it] : value.filter((x) => x !== it))}
+          />
+          {EQUIPMENT_LABELS[it as HomeEquipment | GymEquipment]}
+        </label>
+      ))}
+    </div>
+  );
+}
+
+/** Ein Formular für Stammdaten und Fragebogen (Kunde und Coach); gespeichert wird beides mit saveProfile. */
 export function ProfileForm({
   profile,
+  answers,
   isCoach,
   age,
   action,
 }: {
   profile: ClientProfileRow | null;
+  answers: Answers | null;
   isCoach: boolean;
   age: number | null;
   action: (prev: FormState, data: FormData) => Promise<FormState>;
 }) {
   const [state, formAction, pending] = useActionState(action, {});
-  const p = profile;
-  const palValues = PAL_OPTIONS.map((o) => o.value);
-  const pal = p?.pal_factor ?? 1.5;
+  const [, startTransition] = useTransition();
+  const [v, setV] = useState<Vals>(() => fromData(profile, answers));
+  const set = <K extends keyof Vals>(k: K, val: Vals[K]) => setV((p) => ({ ...p, [k]: val }));
+  const g = v.goal;
+  const gym = v.gymAccess === "ja";
+  const liftsShown = g === "kraft_muskelaufbau" || ((g === "hyrox" || g === "laufen") && gym);
+  const palValues = PAL_OPTIONS.map((o) => String(o.value));
+
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const fd = new FormData();
+    fd.set("payload", JSON.stringify({ profile: toProfile(v), answers: toAnswers(v) }));
+    startTransition(() => formAction(fd));
+  };
+
   return (
-    <form action={formAction} onSubmit={keepFormOnSubmit(formAction)} className="card space-y-3">
-      <h2 className="h2">Stammdaten</h2>
-      <div className="grid gap-3 sm:grid-cols-3">
-        <label className="block">
-          <span className="label">Geschlecht (für Grundumsatz)</span>
-          <select name="sex" className="input" defaultValue={p?.sex ?? ""}>
-            <option value="">–</option>
-            <option value="w">weiblich</option>
-            <option value="m">männlich</option>
-          </select>
-        </label>
-        <label className="block">
-          <span className="label">Geburtsdatum{age != null && ` (${age} Jahre)`}</span>
-          <input name="birth_date" type="date" className="input" defaultValue={p?.birth_date ?? ""} />
-        </label>
-        <label className="block">
-          <span className="label">Größe (cm)</span>
-          <input name="height_cm" className="input" inputMode="decimal" defaultValue={p?.height_cm ?? ""} />
-        </label>
-        <label className="block">
-          <span className="label">Trainingstage pro Woche</span>
-          <input name="training_days_per_week" className="input" inputMode="numeric" defaultValue={p?.training_days_per_week ?? ""} />
-        </label>
-        <label className="block">
-          <span className="label">Max. Zeit pro Workout (min)</span>
-          <input name="max_minutes_per_workout" className="input" inputMode="numeric" defaultValue={p?.max_minutes_per_workout ?? ""} />
-        </label>
-        <label className="block">
-          <span className="label">Gymzugang</span>
-          <select name="gym_access" className="input" defaultValue={p?.gym_access == null ? "" : p.gym_access ? "ja" : "nein"}>
-            <option value="">–</option>
-            <option value="ja">ja</option>
-            <option value="nein">nein</option>
-          </select>
-        </label>
-      </div>
-      <label className="block">
-        <span className="label">Equipment zu Hause</span>
-        <textarea name="equipment_home" className="input min-h-16" defaultValue={p?.equipment_home ?? ""} />
-      </label>
-      <label className="block">
-        <span className="label">Notizen</span>
-        <textarea name="notes" className="input min-h-20" defaultValue={p?.notes ?? ""} />
-      </label>
-      <label className="block">
-        <span className="label">Aktivitätsniveau (PAL-Faktor)</span>
-        <select name="pal_factor" className="input" defaultValue={String(pal)}>
-          {!palValues.includes(pal) && <option value={String(pal)}>{String(pal).replace(".", ",")}</option>}
-          {PAL_OPTIONS.map((o) => (
-            <option key={o.value} value={String(o.value)}>
-              {o.label}
-            </option>
-          ))}
-        </select>
-      </label>
-      <fieldset className="space-y-2">
-        <legend className="label">Nährstoffziele pro Tag (setzt der Coach)</legend>
-        <div className="grid grid-cols-3 gap-3">
-          {(
-            [
-              ["protein_g", "Protein (g)", p?.protein_g],
-              ["fat_g", "Fett (g)", p?.fat_g],
-              ["carbs_g", "Kohlenhydrate (g)", p?.carbs_g],
-            ] as const
-          ).map(([name, label, value]) => (
-            <label key={name} className="block">
-              <span className="text-xs text-slate-600">{label}</span>
-              <input name={name} className="input" inputMode="numeric" defaultValue={value ?? ""} disabled={!isCoach} />
-            </label>
-          ))}
+    <form onSubmit={submit} className="space-y-4">
+      <section className="card space-y-3">
+        <h2 className="h2">1. Über dich</h2>
+        <div className="grid gap-3 sm:grid-cols-3">
+          <Q label="Geschlecht (für Grundumsatz)">
+            <select name="sex" className="input" value={v.sex} onChange={(e) => set("sex", e.target.value as Vals["sex"])}>
+              <option value="">–</option>
+              <option value="w">weiblich</option>
+              <option value="m">männlich</option>
+            </select>
+          </Q>
+          <Q label={`Geburtsdatum${age != null ? ` (${age} Jahre)` : ""}`}>
+            <input name="birth_date" type="date" className="input" value={v.birthDate} onChange={(e) => set("birthDate", e.target.value)} />
+          </Q>
+          <Q label="Größe (cm)">
+            <input name="height_cm" className="input" inputMode="decimal" value={v.heightCm} onChange={(e) => set("heightCm", e.target.value)} />
+          </Q>
         </div>
-      </fieldset>
-      {state.ok && <p className="text-sm text-green-700">{state.ok}</p>}
-      {state.error && <p className="text-sm text-red-700">{state.error}</p>}
-      <button className="btn-primary" disabled={pending}>
-        {pending ? "Speichere …" : "Speichern"}
-      </button>
+      </section>
+
+      <section className="card space-y-3">
+        <h2 className="h2">2. Ziel</h2>
+        <Q label="Was ist dein Hauptziel?" hint="Bestimmt Vorlage, Testwoche und welche Fragen folgen.">
+          <select className="input" value={g} onChange={(e) => set("goal", e.target.value as Goal | "")}>
+            <option value="">– bitte wählen –</option>
+            {GOALS.map((x) => (
+              <option key={x} value={x}>
+                {GOAL_LABELS[x]}
+              </option>
+            ))}
+          </select>
+        </Q>
+        <Q label="Was genau willst du erreichen? (optional)" hint="z. B. „Hyrox unter 65 Minuten im März“ oder „10 kg abnehmen bis zum Sommer“">
+          <textarea className="input min-h-20" maxLength={1000} value={v.goalNote} onChange={(e) => set("goalNote", e.target.value)} />
+        </Q>
+      </section>
+
+      <section className="card space-y-3">
+        <h2 className="h2">3. Rahmen</h2>
+        <div className="grid gap-3 sm:grid-cols-2">
+          <Q label="Trainingstage pro Woche">
+            <input className="input" inputMode="numeric" value={v.trainingDays} onChange={(e) => set("trainingDays", e.target.value)} />
+          </Q>
+          <Q label="Max. Zeit pro Einheit (min)">
+            <input className="input" inputMode="numeric" value={v.maxMinutes} onChange={(e) => set("maxMinutes", e.target.value)} />
+          </Q>
+        </div>
+        <fieldset>
+          <legend className="label">An welchen Wochentagen kannst du trainieren?</legend>
+          <div className="flex flex-wrap gap-2">
+            {WEEKDAY_LABELS.map((label, i) => {
+              const day = i + 1;
+              const on = v.weekdays.includes(day);
+              return (
+                <button
+                  key={day}
+                  type="button"
+                  aria-pressed={on}
+                  className={`min-h-11 min-w-11 rounded-lg border px-3 ${on ? "border-brand-600 bg-brand-600 text-white" : "border-slate-300 bg-white"}`}
+                  onClick={() => set("weekdays", on ? v.weekdays.filter((d) => d !== day) : [...v.weekdays, day])}
+                >
+                  {label}
+                </button>
+              );
+            })}
+          </div>
+        </fieldset>
+        <Q label="Beruf und Alltag" hint="Für den Vorschlag des Aktivitätsfaktors (PAL) nach DGE.">
+          <select className="input" value={v.workActivity} onChange={(e) => set("workActivity", e.target.value as Vals["workActivity"])}>
+            <option value="">– bitte wählen –</option>
+            {WORK_ACTIVITIES.map((w) => (
+              <option key={w} value={w}>
+                {DGE_PAL[w].label}
+              </option>
+            ))}
+          </select>
+        </Q>
+        <Q label="Machst du Sport oder Anstrengendes in der Freizeit, 4–5× pro Woche je 30–60 Minuten?">
+          <YesNoSelect value={v.sportOften} onChange={(x) => set("sportOften", x)} />
+        </Q>
+
+        <div className="space-y-2">
+          <p className="label">Termine und Wettkämpfe</p>
+          {v.events.map((ev, i) => (
+            <div key={i} className="grid gap-2 rounded-lg border border-slate-200 p-2 sm:grid-cols-4">
+              <input type="date" className="input" aria-label="Datum" value={ev.date} onChange={(e) => set("events", v.events.map((x, j) => (j === i ? { ...x, date: e.target.value } : x)))} />
+              <select className="input" aria-label="Art" value={ev.kind} onChange={(e) => set("events", v.events.map((x, j) => (j === i ? { ...x, kind: e.target.value as typeof ev.kind } : x)))}>
+                {EVENT_KINDS.map((k) => (
+                  <option key={k} value={k}>
+                    {EVENT_LABELS[k]}
+                  </option>
+                ))}
+              </select>
+              <input className="input" placeholder="Name" value={ev.name} onChange={(e) => set("events", v.events.map((x, j) => (j === i ? { ...x, name: e.target.value } : x)))} />
+              <div className="flex gap-2">
+                <input className="input" placeholder="Strecke/Division" value={ev.detail} onChange={(e) => set("events", v.events.map((x, j) => (j === i ? { ...x, detail: e.target.value } : x)))} />
+                <button type="button" className="btn-secondary btn-small" onClick={() => set("events", v.events.filter((_, j) => j !== i))}>
+                  ✕
+                </button>
+              </div>
+            </div>
+          ))}
+          <button type="button" className="btn-secondary btn-small" onClick={() => set("events", [...v.events, { date: "", name: "", kind: "sonstiges", detail: "" }])}>
+            + Termin
+          </button>
+        </div>
+
+        <div className="space-y-2">
+          <p className="label">Reisen und Ausfallzeiten</p>
+          {v.absences.map((ab, i) => (
+            <div key={i} className="grid gap-2 rounded-lg border border-slate-200 p-2 sm:grid-cols-4">
+              <input type="date" className="input" aria-label="von" value={ab.from} onChange={(e) => set("absences", v.absences.map((x, j) => (j === i ? { ...x, from: e.target.value } : x)))} />
+              <input type="date" className="input" aria-label="bis" value={ab.to} onChange={(e) => set("absences", v.absences.map((x, j) => (j === i ? { ...x, to: e.target.value } : x)))} />
+              <select className="input" aria-label="Trainingsmöglichkeit" value={ab.option} onChange={(e) => set("absences", v.absences.map((x, j) => (j === i ? { ...x, option: e.target.value as typeof ab.option } : x)))}>
+                {ABSENCE_OPTIONS.map((o) => (
+                  <option key={o} value={o}>
+                    {ABSENCE_LABELS[o]}
+                  </option>
+                ))}
+              </select>
+              <button type="button" className="btn-secondary btn-small" onClick={() => set("absences", v.absences.filter((_, j) => j !== i))}>
+                ✕ entfernen
+              </button>
+            </div>
+          ))}
+          <button type="button" className="btn-secondary btn-small" onClick={() => set("absences", [...v.absences, { from: "", to: "", option: "keine" }])}>
+            + Zeitraum
+          </button>
+        </div>
+      </section>
+
+      <section className="card space-y-3">
+        <h2 className="h2">4. Equipment</h2>
+        <Q label="Hast du Zugang zu einem Gym?">
+          <YesNoSelect value={v.gymAccess} onChange={(x) => set("gymAccess", x)} />
+        </Q>
+        <fieldset className="space-y-2">
+          <legend className="label">Was hast du zu Hause?</legend>
+          <CheckList items={HOME_EQUIPMENT} value={v.homeEquipment} onChange={(x) => set("homeEquipment", x)} />
+          <Q label="Sonstiges zu Hause (optional)" hint="z. B. Gewichte der Kurzhanteln, Bank, Platz zum Laufen">
+            <textarea className="input min-h-16" maxLength={2000} value={v.equipmentHome} onChange={(e) => set("equipmentHome", e.target.value)} />
+          </Q>
+        </fieldset>
+        {gym && (
+          <fieldset className="space-y-2">
+            <legend className="label">Was gibt es in deinem Gym?</legend>
+            <CheckList items={GYM_EQUIPMENT} value={v.gymEquipment} onChange={(x) => set("gymEquipment", x)} />
+            <Q label="Sonstiges im Gym (optional)">
+              <textarea className="input min-h-16" maxLength={2000} value={v.gymNote} onChange={(e) => set("gymNote", e.target.value)} />
+            </Q>
+          </fieldset>
+        )}
+      </section>
+
+      <section className="card space-y-3">
+        <h2 className="h2">5. Training der letzten 4 Wochen</h2>
+        <p className="muted">Tatsächliche Zahlen, keine Schätzung „normalerweise“. Daraus ergeben sich Einstufung und Startumfang.</p>
+        {v.volume.map((w, i) => (
+          <fieldset key={i} className="space-y-2 rounded-lg border border-slate-200 p-2">
+            <legend className="px-1 text-sm font-semibold">{WEEK_LABELS[i]}</legend>
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
+              {(
+                [
+                  ["enduranceSessions", "Ausdauer-Einheiten", "numeric"],
+                  ["enduranceMinutes", "Ausdauer-Minuten", "numeric"],
+                  ["vigorousMinutes", "davon intensiv (min)", "numeric"],
+                  ["runKm", "Lauf-km", "decimal"],
+                  ["strengthSessions", "Kraft-Einheiten", "numeric"],
+                ] as const
+              ).map(([k, label, mode]) => (
+                <label key={k} className="block">
+                  <span className="text-xs text-slate-600">{label}</span>
+                  <input
+                    className="input"
+                    inputMode={mode}
+                    value={w[k]}
+                    onChange={(e) => set("volume", v.volume.map((x, j) => (j === i ? { ...x, [k]: e.target.value } : x)))}
+                  />
+                </label>
+              ))}
+            </div>
+          </fieldset>
+        ))}
+        <p className="text-xs text-slate-500">
+          Ausdauer = Bewegung mit mindestens mittlerer Anstrengung (z. B. zügiges Gehen, Rad, Laufen). Intensiv = Sprechen nur noch in Wortfetzen.
+        </p>
+        <div className="grid gap-3 sm:grid-cols-2">
+          <Q label="Betreibst du eine Sportart gezielt? Welche?" hint="leer lassen, wenn nicht">
+            <input className="input" value={v.mainSport} onChange={(e) => set("mainSport", e.target.value)} />
+          </Q>
+          <Q label="Wettkampf in den letzten 12 Monaten?">
+            <YesNoSelect value={v.competedLast12Months} onChange={(x) => set("competedLast12Months", x)} />
+          </Q>
+          <Q label="Höchstes Wettkampfniveau">
+            <select className="input" value={v.competitionLevel} onChange={(e) => set("competitionLevel", e.target.value as Vals["competitionLevel"])}>
+              <option value="">–</option>
+              {COMPETITION_LEVELS.map((c) => (
+                <option key={c} value={c}>
+                  {COMPETITION_LEVEL_LABELS[c]}
+                </option>
+              ))}
+            </select>
+          </Q>
+        </div>
+      </section>
+
+      {g === "hyrox" && (
+        <section className="card space-y-3">
+          <h2 className="h2">6. Hyrox</h2>
+          <Q label="In welcher Division willst du starten?" hint="Bestimmt die Stationsgewichte (Rulebook 26/27).">
+            <select className="input" value={v.hyroxDivision} onChange={(e) => set("hyroxDivision", e.target.value as HyroxDivision | "")}>
+              <option value="">–</option>
+              {HYROX_DIVISIONS.map((d) => (
+                <option key={d} value={d}>
+                  {HYROX_DIVISION_LABELS[d]}
+                </option>
+              ))}
+            </select>
+          </Q>
+          <div className="space-y-2">
+            <p className="label">Bisherige Hyrox-Ergebnisse (laut Ergebnisliste)</p>
+            {v.hyroxResults.map((r, i) => (
+              <div key={i} className="grid gap-2 rounded-lg border border-slate-200 p-2 sm:grid-cols-5">
+                <input type="date" className="input" aria-label="Datum" value={r.date} onChange={(e) => set("hyroxResults", v.hyroxResults.map((x, j) => (j === i ? { ...x, date: e.target.value } : x)))} />
+                <select className="input" aria-label="Division" value={r.division} onChange={(e) => set("hyroxResults", v.hyroxResults.map((x, j) => (j === i ? { ...x, division: e.target.value as HyroxDivision } : x)))}>
+                  {HYROX_DIVISIONS.map((d) => (
+                    <option key={d} value={d}>
+                      {HYROX_DIVISION_LABELS[d]}
+                    </option>
+                  ))}
+                </select>
+                <input className="input" inputMode="numeric" placeholder="Gesamtzeit h:mm:ss" value={r.total} onChange={(e) => set("hyroxResults", v.hyroxResults.map((x, j) => (j === i ? { ...x, total: e.target.value } : x)))} />
+                <input className="input" inputMode="numeric" placeholder="Laufzeit gesamt (optional)" value={r.run} onChange={(e) => set("hyroxResults", v.hyroxResults.map((x, j) => (j === i ? { ...x, run: e.target.value } : x)))} />
+                <button type="button" className="btn-secondary btn-small" onClick={() => set("hyroxResults", v.hyroxResults.filter((_, j) => j !== i))}>
+                  ✕ entfernen
+                </button>
+              </div>
+            ))}
+            <button
+              type="button"
+              className="btn-secondary btn-small"
+              onClick={() => set("hyroxResults", [...v.hyroxResults, { date: "", division: v.hyroxDivision || "men", total: "", run: "" }])}
+            >
+              + Ergebnis
+            </button>
+          </div>
+        </section>
+      )}
+
+      {g === "laufen" && (
+        <section className="card space-y-3">
+          <h2 className="h2">6. Laufen</h2>
+          <div className="space-y-2">
+            <p className="label">Bestzeiten (Strecke, Zeit, Datum)</p>
+            {v.bests.map((b, i) => (
+              <div key={i} className="grid gap-2 rounded-lg border border-slate-200 p-2 sm:grid-cols-5">
+                <input className="input" inputMode="decimal" placeholder="km, z. B. 10" value={b.km} onChange={(e) => set("bests", v.bests.map((x, j) => (j === i ? { ...x, km: e.target.value } : x)))} />
+                <input className="input" inputMode="numeric" placeholder="Zeit mm:ss" value={b.time} onChange={(e) => set("bests", v.bests.map((x, j) => (j === i ? { ...x, time: e.target.value } : x)))} />
+                <input type="date" className="input" aria-label="Datum" value={b.date} onChange={(e) => set("bests", v.bests.map((x, j) => (j === i ? { ...x, date: e.target.value } : x)))} />
+                <label className="flex min-h-11 items-center gap-2">
+                  <input type="checkbox" className="h-5 w-5" checked={b.race} onChange={(e) => set("bests", v.bests.map((x, j) => (j === i ? { ...x, race: e.target.checked } : x)))} />
+                  Wettkampf
+                </label>
+                <button type="button" className="btn-secondary btn-small" onClick={() => set("bests", v.bests.filter((_, j) => j !== i))}>
+                  ✕ entfernen
+                </button>
+              </div>
+            ))}
+            <button type="button" className="btn-secondary btn-small" onClick={() => set("bests", [...v.bests, { km: "", time: "", date: "", race: true }])}>
+              + Bestzeit
+            </button>
+          </div>
+          <Q label="Längster Lauf der letzten 4 Wochen (Minuten)">
+            <input className="input" inputMode="numeric" value={v.longestRunMinutes} onChange={(e) => set("longestRunMinutes", e.target.value)} />
+          </Q>
+          <fieldset className="grid gap-2 sm:grid-cols-3">
+            <legend className="label">Zielwettkampf (optional)</legend>
+            <input className="input" inputMode="decimal" placeholder="Strecke km" value={v.targetKm} onChange={(e) => set("targetKm", e.target.value)} />
+            <input type="date" className="input" aria-label="Datum" value={v.targetDate} onChange={(e) => set("targetDate", e.target.value)} />
+            <input className="input" inputMode="numeric" placeholder="Zielzeit (optional)" value={v.targetTime} onChange={(e) => set("targetTime", e.target.value)} />
+          </fieldset>
+        </section>
+      )}
+
+      {liftsShown && (
+        <section className="card space-y-3">
+          <h2 className="h2">Kraft: Erfahrung je Übung</h2>
+          <p className="muted">Monate regelmäßiges Training (0, wenn nie). Ab 6 Monaten und Stufe 2 ist ein 3RM-Test möglich.</p>
+          <div className="grid grid-cols-3 gap-2">
+            {LIFTS.map((l) => (
+              <label key={l} className="block">
+                <span className="text-xs text-slate-600">{LIFT_LABELS[l]}</span>
+                <input className="input" inputMode="numeric" value={v.liftExp[l]} onChange={(e) => set("liftExp", { ...v.liftExp, [l]: e.target.value })} />
+              </label>
+            ))}
+          </div>
+          <p className="text-xs text-slate-500">Deine Kraftwerte („Gewicht × Wiederholungen“) trägst du unten unter „Testwerte“ ein.</p>
+        </section>
+      )}
+
+      {(g === "abnehmen" || g === "kraft_muskelaufbau") && (
+        <section className="card space-y-3">
+          <h2 className="h2">Ernährung</h2>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Q label="Ernährungsweise">
+              <select className="input" value={v.dietStyle} onChange={(e) => set("dietStyle", e.target.value as Vals["dietStyle"])}>
+                <option value="">–</option>
+                {DIET_STYLES.map((d) => (
+                  <option key={d} value={d}>
+                    {DIET_LABELS[d]}
+                  </option>
+                ))}
+              </select>
+            </Q>
+            <Q label="Unverträglichkeiten / Allergien (optional)">
+              <input className="input" value={v.intolerances} onChange={(e) => set("intolerances", e.target.value)} />
+            </Q>
+            <Q label="Zielgewicht in kg (optional)">
+              <input className="input" inputMode="decimal" value={v.weightGoalKg} onChange={(e) => set("weightGoalKg", e.target.value)} />
+            </Q>
+            <Q label="bis wann? (optional)">
+              <input type="date" className="input" value={v.weightGoalDate} onChange={(e) => set("weightGoalDate", e.target.value)} />
+            </Q>
+          </div>
+        </section>
+      )}
+
+      {(g === "abnehmen" || g === "fitness_gesundheit") && (
+        <section className="card space-y-3">
+          <h2 className="h2">Ausdauer: was machst du gern?</h2>
+          <div className="grid grid-cols-2 gap-2">
+            {SPORTS.map((sp) => (
+              <label key={sp} className="flex min-h-11 items-center gap-2">
+                <input
+                  type="checkbox"
+                  className="h-5 w-5"
+                  checked={v.enduranceSports.includes(sp)}
+                  onChange={(e) => set("enduranceSports", e.target.checked ? [...v.enduranceSports, sp] : v.enduranceSports.filter((x) => x !== sp))}
+                />
+                {SPORT_LABELS[sp]}
+              </label>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <section className="card space-y-3">
+        <h2 className="h2">Weitere Angaben</h2>
+        <Q label="Notizen">
+          <textarea className="input min-h-20" maxLength={5000} value={v.notes} onChange={(e) => set("notes", e.target.value)} />
+        </Q>
+        <Q label="Aktivitätsniveau (PAL-Faktor)">
+          <select className="input" value={v.pal} onChange={(e) => set("pal", e.target.value)}>
+            {!palValues.includes(v.pal) && <option value={v.pal}>{v.pal.replace(".", ",")}</option>}
+            {PAL_OPTIONS.map((o) => (
+              <option key={o.value} value={String(o.value)}>
+                {o.label}
+              </option>
+            ))}
+          </select>
+        </Q>
+        <fieldset className="space-y-2">
+          <legend className="label">Nährstoffziele pro Tag (setzt der Coach)</legend>
+          <div className="grid grid-cols-3 gap-3">
+            {(
+              [
+                ["protein", "protein_g", "Protein (g)"],
+                ["fat", "fat_g", "Fett (g)"],
+                ["carbs", "carbs_g", "Kohlenhydrate (g)"],
+              ] as const
+            ).map(([k, name, label]) => (
+              <label key={k} className="block">
+                <span className="text-xs text-slate-600">{label}</span>
+                <input name={name} className="input" inputMode="numeric" value={v[k]} onChange={(e) => set(k, e.target.value)} disabled={!isCoach} />
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      </section>
+
+      <div className="sticky bottom-16 z-10 space-y-2 rounded-2xl border border-slate-200 bg-white p-2 shadow-sm md:bottom-2">
+        {state.ok && <p className="text-sm text-green-700">{state.ok}</p>}
+        {state.error && <p className="text-sm text-red-700">{state.error}</p>}
+        <button className="btn-primary w-full" disabled={pending}>
+          {pending ? "Speichere …" : "Speichern"}
+        </button>
+      </div>
     </form>
   );
 }

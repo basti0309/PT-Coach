@@ -40,7 +40,7 @@ export function missingAnswers(i: CompletenessInput): string[] {
   need(a.competitionLevel, "Wettkampfniveau");
   // Zweige
   const g = a.goal;
-  if (g === "hyrox") need(a.hyrox, "Hyrox: Division und Geräte");
+  if (g === "hyrox") need(a.hyrox, "Hyrox: Division");
   if (g === "laufen") {
     need(a.laufen?.bests, "Laufen: mindestens eine Bestzeit");
     need(a.laufen?.longestRunMinutes, "Laufen: längster Lauf der letzten 4 Wochen");

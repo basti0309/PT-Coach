@@ -97,7 +97,7 @@ Auf Wunsch der Betreiberin gibt es kein Gesundheits-Screening mehr. Die Testwoch
 **Zusätzlich:**
 - Für alle Ziele gilt: Körpergewicht wird gemessen.
 - Ohne Gym entfallen die Krafttests.
-- Ohne SkiErg und Rudergerät entfällt der 5-km-Ergometertest.
+- Ohne SkiErg und Rudergerät (Equipment zu Hause oder im Gym) entfällt der 5-km-Ergometertest; ein BikeErg ersetzt ihn nicht.
 
 **Quelle Zourdos 2016** (RIR-Skala):
 - „RPE-10 = 0-RIR, RPE-9 = 1-RIR, and so forth“.

@@ -35,6 +35,11 @@ describe("Vollständigkeit des Fragebogens", () => {
     expect(m).not.toContain("Erfahrung je Übung (Monate)");
     expect(missingAnswers({ ...c, gymAccess: true })).toContain("Erfahrung je Übung (Monate)");
   });
+  it("Zweig Hyrox verlangt die Division; Equipment ist keine Pflichtangabe", () => {
+    const c = fromProfile("coach");
+    expect(missingAnswers({ ...c, answers: { ...c.answers, hyrox: undefined } })).toContain("Hyrox: Division");
+    expect(missingAnswers({ ...c, answers: { ...c.answers, equipment: undefined } })).toEqual([]);
+  });
   it("mit Einwilligung wird nach Schlaf gefragt", () => {
     const c = fromProfile("coach");
     expect(missingAnswers({ ...c, health: { complaints: [] } })).toContain("Schlaf (Stunden pro Nacht)");

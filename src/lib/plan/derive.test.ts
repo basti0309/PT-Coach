@@ -123,3 +123,18 @@ describe("Testwoche nur nach Stufe (ohne Gesundheitsprüfung)", () => {
     expect(d.testWeek.tests.find((t) => t.kind === "lunge_100m")?.variant).toBe("max");
   });
 });
+
+describe("R4 Ergometertest aus der Equipment-Liste (zu Hause und Gym)", () => {
+  const p = profile("coach");
+  const ergo = (equipment: NonNullable<typeof p.answers>["equipment"]) =>
+    deriveAll({ ...p, answers: { ...p.answers, equipment } }).testWeek.tests.filter((t) => t.kind === "ski_5k" || t.kind === "row_5k");
+  it("SkiErg nur zu Hause → 5 km SkiErg", () => {
+    expect(ergo({ home: ["skierg"], gym: [], gymNote: "" }).map((t) => [t.kind, t.variant])).toEqual([["ski_5k", "max"]]);
+  });
+  it("nur Rudergerät im Gym → 5 km Rudern", () => {
+    expect(ergo({ home: [], gym: ["rudergeraet"], gymNote: "" }).map((t) => [t.kind, t.variant])).toEqual([["row_5k", "max"]]);
+  });
+  it("weder SkiErg noch Rudergerät (BikeErg zählt nicht) → Test entfällt", () => {
+    expect(ergo({ home: ["bikeerg_rolle"], gym: ["schlitten"], gymNote: "" }).map((t) => [t.kind, t.variant])).toEqual([["ski_5k", "entfaellt"]]);
+  });
+});

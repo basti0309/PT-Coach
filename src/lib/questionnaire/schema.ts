@@ -45,6 +45,57 @@ export const LIFTS = ["squat", "bench", "deadlift"] as const;
 export type Lift = (typeof LIFTS)[number];
 export const LIFT_LABELS: Record<Lift, string> = { squat: "Kniebeuge", bench: "Bankdrücken", deadlift: "Kreuzheben" };
 
+export const HOME_EQUIPMENT = [
+  "kurzhanteln",
+  "kettlebell",
+  "langhantel_scheiben",
+  "klimmzugstange",
+  "widerstandsbaender",
+  "springseil",
+  "laufband",
+  "bikeerg_rolle",
+  "rudergeraet",
+  "skierg",
+] as const;
+export const GYM_EQUIPMENT = [
+  "langhantel_rack",
+  "kurzhanteln",
+  "kettlebells",
+  "kabelzug",
+  "klimmzugstange",
+  "laufband",
+  "bikeerg_rolle",
+  "rudergeraet",
+  "skierg",
+  "schlitten",
+  "wallball_ziel",
+  "sandsack",
+  "farmers_carry_griffe",
+  "box",
+] as const;
+export type HomeEquipment = (typeof HOME_EQUIPMENT)[number];
+export type GymEquipment = (typeof GYM_EQUIPMENT)[number];
+export const EQUIPMENT_LABELS: Record<HomeEquipment | GymEquipment, string> = {
+  kurzhanteln: "Kurzhanteln",
+  kettlebell: "Kettlebell",
+  kettlebells: "Kettlebells",
+  langhantel_scheiben: "Langhantel + Scheiben",
+  langhantel_rack: "Langhantel + Rack",
+  klimmzugstange: "Klimmzugstange",
+  widerstandsbaender: "Widerstandsbänder",
+  springseil: "Springseil",
+  laufband: "Laufband",
+  bikeerg_rolle: "BikeErg / Rolle",
+  rudergeraet: "Rudergerät",
+  skierg: "SkiErg",
+  kabelzug: "Kabelzug",
+  schlitten: "Schlitten",
+  wallball_ziel: "Wall Ball + Ziel",
+  sandsack: "Sandsack",
+  farmers_carry_griffe: "Farmers-Carry-Griffe",
+  box: "Box (für Box Jumps)",
+};
+
 export const DIET_STYLES = ["omnivor", "vegetarisch", "vegan", "sonstiges"] as const;
 export const ABSENCE_OPTIONS = ["keine", "koerpergewicht", "hotel_gym"] as const;
 export const EVENT_KINDS = ["hyrox", "lauf", "sonstiges"] as const;
@@ -75,6 +126,7 @@ export const BODY_REGION_LABELS: Record<(typeof BODY_REGIONS)[number], string> =
 
 const isoDate = z.iso.date();
 const int = (min: number, max: number) => z.number().int().min(min).max(max);
+const unique = (xs: readonly string[]) => new Set(xs).size === xs.length;
 
 export const weekVolumeSchema = z
   .object({
@@ -127,7 +179,14 @@ export const answersSchema = z
       .object({
         division: z.enum(HYROX_DIVISIONS),
         results: z.array(hyroxResultSchema).max(10),
-        equipment: z.object({ sled: z.boolean(), skierg: z.boolean(), rower: z.boolean(), wallball: z.boolean() }).strict(),
+      })
+      .strict(),
+    /** Geräte zu Hause und im Gym (Gym nur bei Gymzugang); Freitext zu Hause steht in client_profiles.equipment_home */
+    equipment: z
+      .object({
+        home: z.array(z.enum(HOME_EQUIPMENT)).refine(unique, "doppelt"),
+        gym: z.array(z.enum(GYM_EQUIPMENT)).refine(unique, "doppelt"),
+        gymNote: z.string().max(2000),
       })
       .strict(),
     laufen: z

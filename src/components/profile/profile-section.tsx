@@ -3,13 +3,18 @@ import { notFound } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { extrasOf, loadProfileData } from "@/lib/data/profile";
 import { authorLabel, loadNames } from "@/lib/data/names";
-import { addTestResult, deleteTestResult, updateClientProfile } from "@/lib/actions/profile";
+import { addTestResult, deleteTestResult, saveProfile } from "@/lib/actions/profile";
+import { giveHealthConsent, saveHealth, withdrawHealthConsent } from "@/lib/actions/questionnaire";
 import { ageOn, calorieNeed } from "@/lib/calc/calories";
 import { buildExportFile, buildProfileExport, exportFileName, latestTest, TEST_KIND_LABELS } from "@/lib/export/profile";
-import { formatDate, formatDuration, formatNumber } from "@/lib/format";
+import { env } from "@/lib/env";
+import { formatDate, formatDateTime, formatDuration, formatNumber } from "@/lib/format";
 import { appToday } from "@/lib/today";
 import { TEST_KIND_META, TEST_KINDS } from "@/lib/plan/test-kinds";
 import { JsonExport } from "@/components/export-panel";
+import { ConsentCard } from "@/components/questionnaire/consent-card";
+import { DerivedView } from "@/components/questionnaire/derived-view";
+import { HealthForm } from "@/components/questionnaire/health-form";
 import { ProfileForm } from "./profile-form";
 import { TestForm } from "./test-form";
 
@@ -28,52 +33,34 @@ export async function ProfileSection({ clientId, isCoach }: { clientId: string; 
       : null;
   const profileExport = buildProfileExport(data.profile, cp, tests, true, today, extrasOf(data));
   const exportFile = isCoach ? buildExportFile(profileExport, null) : null;
-  const questionnaireHref = isCoach ? `/coach/kunden/${clientId}/fragebogen` : "/kunde/profil/fragebogen";
 
   return (
     <div className="space-y-4">
       <section className="card space-y-2">
-        <h2 className="h2">Fragebogen für die Trainingsplanung</h2>
+        <h2 className="h2">Stand</h2>
         {profileExport.missing.length === 0 ? (
-          <p className="text-sm text-green-700">✓ Vollständig ausgefüllt.</p>
+          <p className="text-sm text-green-700">✓ Alle Pflichtangaben vorhanden.</p>
         ) : (
-          <p className="text-sm text-amber-700">
-            {isCoach ? "Unvollständig" : "Bitte ergänzen"}: {profileExport.missing.length} Angabe{profileExport.missing.length === 1 ? "" : "n"} fehlen
-            ({profileExport.missing.slice(0, 3).join(", ")}
-            {profileExport.missing.length > 3 ? ", …" : ""}).
-          </p>
-        )}
-        <Link href={questionnaireHref} className="btn-secondary inline-flex">
-          Fragebogen öffnen
-        </Link>
-      </section>
-
-      <ProfileForm profile={cp} isCoach={isCoach} age={age} action={updateClientProfile.bind(null, clientId)} />
-
-      <section className="card space-y-2">
-        <h2 className="h2">Kalorienbedarf</h2>
-        {calories ? (
           <>
-            <p className="text-2xl font-bold">{formatNumber(Math.round(calories.total), 0)} kcal / Tag</p>
-            <ol className="space-y-0.5 text-sm text-slate-600">
-              {calories.steps.map((s, i) => (
-                <li key={i}>{s}</li>
+            <p className="text-sm text-amber-700">{isCoach ? "Es fehlen noch:" : "Bitte ergänzen:"}</p>
+            <ul className="list-disc pl-5 text-sm">
+              {profileExport.missing.map((m) => (
+                <li key={m}>{m}</li>
               ))}
-            </ol>
-            <p className="muted">Gewicht vom {formatDate(weight!.tested_on)} (jüngster Eintrag).</p>
+            </ul>
           </>
-        ) : (
-          <p className="muted">Für die Berechnung fehlen Geschlecht, Geburtsdatum, Größe oder ein Körpergewicht (Testwert).</p>
         )}
-        {(cp?.protein_g != null || cp?.fat_g != null || cp?.carbs_g != null) && (
-          <p className="text-sm">
-            Nährstoffziele: Protein {cp?.protein_g ?? "–"} g · Fett {cp?.fat_g ?? "–"} g · Kohlenhydrate {cp?.carbs_g ?? "–"} g
-          </p>
-        )}
+        {!isCoach && <p className="muted">Deine Angaben bestimmen Testwoche, Gewichte und Tempo in deinem Plan. Speichern geht jederzeit, auch unvollständig.</p>}
       </section>
+
+      <ProfileForm profile={cp} answers={data.questionnaire?.answers ?? null} isCoach={isCoach} age={age} action={saveProfile.bind(null, clientId)} />
 
       <section className="card space-y-3">
         <h2 className="h2">Testwerte</h2>
+        <p className="muted">
+          Kraftwerte: ein Satz mit weniger als 10 Wiederholungen. RIR = wie viele Wiederholungen du noch geschafft hättest. Nur Sätze bis RIR 0 ergeben ein
+          geschätztes Maximum; andere steuern die Gewichte über die Reserve.
+        </p>
         <TestForm action={addTestResult.bind(null, clientId)} today={today} />
         {TEST_KINDS.map((kind) => {
           const list = tests.filter((t) => t.kind === kind);
@@ -106,6 +93,54 @@ export async function ProfileSection({ clientId, isCoach }: { clientId: string; 
           );
         })}
       </section>
+
+      {data.consent ? (
+        <>
+          <section className="card space-y-2">
+            <h2 className="h2">Einwilligung Gesundheitsdaten</h2>
+            <p className="text-sm">
+              ✓ Erteilt am {formatDateTime(data.consent.given_at, env.timeZone())} (Textversion {data.consent.consent_version}).
+            </p>
+            {!isCoach && (
+              <form action={withdrawHealthConsent.bind(null, clientId)}>
+                <button className="btn-danger btn-small">Einwilligung widerrufen und Gesundheitsangaben löschen</button>
+              </form>
+            )}
+          </section>
+          <HealthForm initial={data.health?.data ?? null} action={saveHealth.bind(null, clientId)} />
+        </>
+      ) : isCoach ? (
+        <section className="card space-y-2">
+          <h2 className="h2">Gesundheitsangaben</h2>
+          <p className="muted">Keine Einwilligung des Kunden – Beschwerden, Schlaf und HFmax werden nicht gespeichert.</p>
+        </section>
+      ) : (
+        <ConsentCard action={giveHealthConsent.bind(null, clientId)} />
+      )}
+
+      <section className="card space-y-2">
+        <h2 className="h2">Kalorienbedarf</h2>
+        {calories ? (
+          <>
+            <p className="text-2xl font-bold">{formatNumber(Math.round(calories.total), 0)} kcal / Tag</p>
+            <ol className="space-y-0.5 text-sm text-slate-600">
+              {calories.steps.map((s, i) => (
+                <li key={i}>{s}</li>
+              ))}
+            </ol>
+            <p className="muted">Gewicht vom {formatDate(weight!.tested_on)} (jüngster Eintrag).</p>
+          </>
+        ) : (
+          <p className="muted">Für die Berechnung fehlen Geschlecht, Geburtsdatum, Größe oder ein Körpergewicht (Testwert).</p>
+        )}
+        {(cp?.protein_g != null || cp?.fat_g != null || cp?.carbs_g != null) && (
+          <p className="text-sm">
+            Nährstoffziele: Protein {cp?.protein_g ?? "–"} g · Fett {cp?.fat_g ?? "–"} g · Kohlenhydrate {cp?.carbs_g ?? "–"} g
+          </p>
+        )}
+      </section>
+
+      {isCoach && profileExport.derived && <DerivedView d={profileExport.derived} />}
 
       {exportFile && (
         <section className="card space-y-2">
