@@ -81,7 +81,7 @@ Zusatzprüfungen (im JSON Schema nicht ausdrückbar, in den Beschreibungen genan
 ```
 { format: "pt-coach-export", exportVersion: 2, exportedAt, pseudonymized, client: Profil-Export, plan: Plan | null }
 ```
-Profil-Export (identisch im Plan- und Profil-Export): Kürzel bzw. Name, Geschlecht, Alter, Größe, Equipment, Gymzugang, Trainingstage, max. Zeit, Notizen, PAL-Faktor, Nährstoffziele, Testwert-Historie (nur manuell eingetragene Werte, keine Strava-Daten; `tests[]` mit `unit` `s`|`kg`|`m`|`reps`, bei Kraftsätzen `reps`/`rir`), errechneter Kalorienbedarf (nur bei Ziel Abnehmen oder Kraft/Muskelaufbau).
+Profil-Export (identisch im Plan- und Profil-Export): Kürzel bzw. Name, Geschlecht, Alter, Größe, Equipment (Freitext zu Hause; Gerätelisten im Fragebogen), Gymzugang, Trainingstage, max. Zeit, Notizen, PAL-Faktor, Nährstoffziele, Testwert-Historie (nur manuell eingetragene Werte, keine Strava-Daten; `tests[]` mit `unit` `s`|`kg`|`m`|`reps`, bei Kraftsätzen `reps`/`rir`), errechneter Kalorienbedarf (nur bei Ziel Abnehmen oder Kraft/Muskelaufbau).
 Neu in Version 2: `goal`, `questionnaire` (Antworten), `missing` (fehlende Pflichtangaben), `healthStatus` + `health` (nur mit Einwilligung), `derived` (berechnete Werte mit Regel-ID und Rechenweg, `docs/REGELWERK.md`), `trainingLoad` (Session-RPE der letzten 4 Wochen). Die bisherigen Felder bleiben unverändert. Später ergänzt: `client.goalNote` (Ziel in eigenen Worten) und optional `history` (Trainingsverlauf, nur auf „Export & Prompt“). Auf beiden Prompt-Seiten (Export & Prompt, Export je Plan) steht zusätzlich `knowledge` in der Datei: die Wissensbasis des Coaches, nur Einträge der Art `wissen` (`title`, `content`), keine FAQ; fehlt, wenn es keine gibt.
 **Plan-Ziel:** `plan.goal` setzt nie die KI. Beim Import überschreibt die App es mit dem Ziel aus dem Fragebogen („<Ziel> – <Freitext>“); im Editor kann der Coach es ändern.
 **Löschen:** Der Coach kann jeden Plan (auch den aktiven) löschen und den Trainingsverlauf eines Kunden ganz oder für einen Zeitraum löschen (Datenbankfunktion `delete_training_history`, prüft die Coach-Rolle selbst, löscht auch Strava-Einträge samt Strava-Aktivität).
@@ -133,8 +133,8 @@ Zusätzlich deterministische Pflicht-Stichwortprüfung (Schmerz, Verletzung, Kra
 Testroutine: `npm run test:eskalation` gegen `docs/eskalation-testset.json`.
 
 ## 7. Seiten
-Kunde (`/kunde`): Heute · Plan · Training (Verlauf, Erfassen, Session-RPE) · Fortschritt (Graphen, Prognosen) · Profil (Testwerte, Kalorien, Strava, Fragebogen `/kunde/profil/fragebogen` mit Einwilligung und Gesundheitsangaben) · Chat
-Coach (`/coach`): Übersicht · Posteingang · Kunden (Status Fragebogen; Profil, Fragebogen mit abgeleiteten Werten, Plan inkl. Export & Prompt/Editor/Export/Import/Versionen/Löschen, Training, Fortschritt, Chat) · Wissensbasis · Eskalationsregeln · Einrichtung (Strava-Webhook, Einladungscode, Status)
+Kunde (`/kunde`): Heute · Plan · Training (Verlauf, Erfassen, Session-RPE) · Fortschritt (Graphen, Prognosen) · Profil (ein Formular für Stammdaten und Fragebogen inkl. Equipment, Testwerte, Einwilligung und Gesundheitsangaben, Kalorien, Strava) · Chat
+Coach (`/coach`): Übersicht · Posteingang · Kunden (Status Profil; Profil inkl. Fragebogen und abgeleiteten Werten, Plan inkl. Export & Prompt/Editor/Export/Import/Versionen/Löschen, Training, Fortschritt, Chat) · Wissensbasis · Eskalationsregeln · Einrichtung (Strava-Webhook, Einladungscode, Status)
 Öffentlich: `/login`, `/registrieren`
 
 ## 8. Fragebogen und Regelwerk für die KI-Planung

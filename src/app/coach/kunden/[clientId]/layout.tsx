@@ -16,8 +16,7 @@ export default async function ClientLayout({ children, params }: LayoutProps<"/c
       <TabNav
         items={[
           { href: base, label: "Übersicht", exact: true },
-          { href: `${base}/profil`, label: "Profil & Tests" },
-          { href: `${base}/fragebogen`, label: "Fragebogen" },
+          { href: `${base}/profil`, label: "Profil" },
           { href: `${base}/plan`, label: "Plan" },
           { href: `${base}/training`, label: "Training" },
           { href: `${base}/fortschritt`, label: "Fortschritt" },

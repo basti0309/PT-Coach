@@ -199,9 +199,9 @@ export function planTestWeek(
     runTest("run_30min", "10 min Einlaufen, 30 min maximale Distanz (negativ gesplittet), 10 min Auslaufen; Laufband nur, wenn auch der Retest dort stattfindet");
     lift("deadlift");
     conditioning("wallballs_100", "100 Wall Balls auf Zeit mit dem Ball der Division, danach 5–8 min Pause");
-    const eq = answers?.hyrox?.equipment;
-    if (eq?.skierg) conditioning("ski_5k", "5 km SkiErg nach 5–10 min lockerem Aufwärmen");
-    else if (eq?.rower) conditioning("row_5k", "5 km Rudern nach 5–10 min lockerem Aufwärmen");
+    const eq = [...(answers?.equipment?.home ?? []), ...(answers?.equipment?.gym ?? [])];
+    if (eq.includes("skierg")) conditioning("ski_5k", "5 km SkiErg nach 5–10 min lockerem Aufwärmen");
+    else if (eq.includes("rudergeraet")) conditioning("row_5k", "5 km Rudern nach 5–10 min lockerem Aufwärmen");
     else push("ski_5k", "entfaellt", "", "weder SkiErg noch Rudergerät verfügbar");
     lift("bench");
     conditioning("pullups_2min", "2 min max. strikte Klimmzüge (Kinn über Stange, volle Streckung), danach 5 min Pause");

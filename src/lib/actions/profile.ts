@@ -5,6 +5,8 @@ import { z } from "zod";
 import { requireClientAccess } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { parseDecimal, parseDuration } from "@/lib/format";
+import { answersSchema } from "@/lib/questionnaire/schema";
+import { issues, nutritionSchema, parsePayload, profileSchema } from "./form-utils";
 import { isRepsKind, TEST_KIND_META, TEST_KINDS } from "@/lib/plan/test-kinds";
 
 export interface FormState {
@@ -17,40 +19,33 @@ function revalidate() {
   revalidatePath("/coach/kunden", "layout");
 }
 
-const optInt = (min: number, max: number) =>
-  z.preprocess((v) => (v === "" || v == null ? null : Number(String(v).replace(",", "."))), z.number().int().min(min).max(max).nullable());
-const optNum = (min: number, max: number) =>
-  z.preprocess((v) => (v === "" || v == null ? null : parseDecimal(String(v))), z.number().min(min).max(max).nullable());
-
-const profileSchema = z.object({
-  sex: z.preprocess((v) => (v === "" ? null : v), z.enum(["m", "w"]).nullable()),
-  birth_date: z.preprocess((v) => (v === "" || v == null ? null : v), z.iso.date().refine((d) => d >= "1900-01-01" && d <= new Date().toISOString().slice(0, 10)).nullable()),
-  height_cm: optNum(100, 250),
-  equipment_home: z.string().max(2000),
-  gym_access: z.preprocess((v) => (v === "ja" ? true : v === "nein" ? false : null), z.boolean().nullable()),
-  training_days_per_week: optInt(1, 7),
-  max_minutes_per_workout: optInt(10, 300),
-  notes: z.string().max(5000),
-  pal_factor: optNum(1, 2.5),
-});
-
-const nutritionSchema = z.object({ protein_g: optInt(0, 1000), fat_g: optInt(0, 1000), carbs_g: optInt(0, 2000) });
-
-export async function updateClientProfile(clientId: string, _prev: FormState, formData: FormData): Promise<FormState> {
+/**
+ * Speichert das gemeinsame Profil-Formular: Stammdaten (client_profiles) und Fragebogen (client_questionnaires).
+ * payload = { profile: Formular-Strings, answers: Answers }. Zwei Upserts über den Nutzer-Client (RLS);
+ * schlägt der zweite fehl, sind die Stammdaten schon gespeichert – die Meldung sagt das.
+ */
+export async function saveProfile(clientId: string, _prev: FormState, formData: FormData): Promise<FormState> {
   const viewer = await requireClientAccess(clientId);
-  const raw = Object.fromEntries(formData.entries());
-  const parsed = profileSchema.safeParse({ ...raw, equipment_home: raw.equipment_home ?? "", notes: raw.notes ?? "" });
-  if (!parsed.success) return { error: `Bitte Eingaben prüfen: ${parsed.error.issues.map((i) => i.path.join(".")).join(", ")}` };
-  const values: Record<string, unknown> = { ...parsed.data, pal_factor: parsed.data.pal_factor ?? 1.5 };
+  const payload = parsePayload(formData) as { profile?: Record<string, unknown>; answers?: unknown } | null;
+  const raw = payload?.profile ?? {};
+  const profile = profileSchema.safeParse({ ...raw, equipment_home: raw.equipment_home ?? "", notes: raw.notes ?? "" });
+  const answers = answersSchema.safeParse(payload?.answers ?? {});
+  const bad = [...(profile.success ? [] : profile.error.issues), ...(answers.success ? [] : answers.error.issues)];
+  if (!profile.success || !answers.success) return { error: `Bitte Eingaben prüfen: ${issues(bad.map((i) => i.path))}` };
+  const values: Record<string, unknown> = { ...profile.data, pal_factor: profile.data.pal_factor ?? 1.5 };
   if (viewer.role === "coach") {
     const n = nutritionSchema.safeParse(raw);
     if (!n.success) return { error: "Nährstoffziele bitte als ganze Zahlen in Gramm." };
     Object.assign(values, n.data);
   }
   const supabase = await createSupabaseServerClient();
-  const { error } = await supabase.from("client_profiles").upsert({ client_id: clientId, ...values }, { onConflict: "client_id" });
-  if (error) return { error: `Speichern fehlgeschlagen: ${error.message}` };
+  const p = await supabase.from("client_profiles").upsert({ client_id: clientId, ...values }, { onConflict: "client_id" });
+  if (p.error) return { error: `Speichern fehlgeschlagen: ${p.error.message}` };
+  const q = await supabase
+    .from("client_questionnaires")
+    .upsert({ client_id: clientId, goal: answers.data.goal ?? null, answers: answers.data }, { onConflict: "client_id" });
   revalidate();
+  if (q.error) return { error: `Stammdaten gespeichert, übrige Angaben nicht: ${q.error.message}` };
   return { ok: "Gespeichert." };
 }
 

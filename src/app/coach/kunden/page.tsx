@@ -73,9 +73,9 @@ export default async function ClientsPage() {
                 Letztes Training: {last.has(c.id) ? formatDate(last.get(c.id)!) : "–"}
               </p>
               {missing.get(c.id)!.length === 0 ? (
-                <p className="text-sm text-green-700">✓ Fragebogen vollständig</p>
+                <p className="text-sm text-green-700">✓ Profil vollständig</p>
               ) : (
-                <p className="text-sm text-amber-700">Fragebogen: {missing.get(c.id)!.length} Angaben fehlen</p>
+                <p className="text-sm text-amber-700">Profil: {missing.get(c.id)!.length} Angaben fehlen</p>
               )}
             </Link>
           </li>

@@ -139,8 +139,8 @@ export const TESTPROFILES: TestProfile[] = [
         hyrox: {
           division: "men",
           results: [{ date: "2026-04-18", division: "men", totalSeconds: 4253, runSeconds: 2280 }],
-          equipment: { sled: true, skierg: true, rower: true, wallball: true },
         },
+        equipment: { home: [], gym: ["schlitten", "skierg", "rudergeraet", "wallball_ziel"], gymNote: "" },
         liftExperienceMonths: { squat: 24, bench: 24, deadlift: 24 },
       },
       health: {

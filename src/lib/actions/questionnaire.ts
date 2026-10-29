@@ -3,7 +3,8 @@
 import { revalidatePath } from "next/cache";
 import { requireClientAccess, requireViewer } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { answersSchema, CONSENT_VERSION, healthSchema } from "@/lib/questionnaire/schema";
+import { CONSENT_VERSION, healthSchema } from "@/lib/questionnaire/schema";
+import { issues, parsePayload } from "./form-utils";
 import type { FormState } from "./profile";
 
 // Alle Schreibzugriffe über den Nutzer-Client → RLS prüft zusätzlich.
@@ -12,62 +13,6 @@ import type { FormState } from "./profile";
 function revalidate() {
   revalidatePath("/kunde", "layout");
   revalidatePath("/coach/kunden", "layout");
-}
-
-function parsePayload(formData: FormData): unknown {
-  try {
-    return JSON.parse(String(formData.get("payload") ?? "{}"));
-  } catch {
-    return null;
-  }
-}
-
-const FIELD_LABELS: Record<string, string> = {
-  goal: "Ziel",
-  goalNote: "Ziel in eigenen Worten",
-  weekdays: "Wochentage",
-  events: "Termine",
-  absences: "Ausfallzeiten",
-  workActivity: "Beruf/Alltag",
-  sportOften: "Sport 4–5×/Woche",
-  volume: "Training der letzten 4 Wochen",
-  mainSport: "Sportart",
-  competedLast12Months: "Wettkampf letzte 12 Monate",
-  competitionLevel: "Wettkampfniveau",
-  hyrox: "Hyrox-Angaben",
-  laufen: "Lauf-Angaben",
-  liftExperienceMonths: "Erfahrung je Übung",
-  weightGoal: "Zielgewicht",
-  diet: "Ernährung",
-  enduranceSports: "Ausdauersportarten",
-  complaints: "Beschwerden",
-  sleepHours: "Schlaf",
-  hrMax: "maximale Herzfrequenz",
-};
-
-/** Fehlerstellen auf Deutsch: „Training der letzten 4 Wochen (Zeile 2)“ statt „volume.1.runKm“. */
-const issues = (paths: PropertyKey[][]) =>
-  [
-    ...new Set(
-      paths.map((p) => {
-        const head = FIELD_LABELS[String(p[0])] ?? String(p[0]);
-        const row = p.find((x) => typeof x === "number");
-        return row != null ? `${head} (Zeile ${Number(row) + 1})` : head;
-      }),
-    ),
-  ].join(", ");
-
-export async function saveQuestionnaire(clientId: string, _prev: FormState, formData: FormData): Promise<FormState> {
-  await requireClientAccess(clientId);
-  const parsed = answersSchema.safeParse(parsePayload(formData));
-  if (!parsed.success) return { error: `Bitte Eingaben prüfen: ${issues(parsed.error.issues.map((i) => i.path))}` };
-  const supabase = await createSupabaseServerClient();
-  const { error } = await supabase
-    .from("client_questionnaires")
-    .upsert({ client_id: clientId, goal: parsed.data.goal ?? null, answers: parsed.data }, { onConflict: "client_id" });
-  if (error) return { error: error.message };
-  revalidate();
-  return { ok: "Fragebogen gespeichert." };
 }
 
 export async function saveHealth(clientId: string, _prev: FormState, formData: FormData): Promise<FormState> {

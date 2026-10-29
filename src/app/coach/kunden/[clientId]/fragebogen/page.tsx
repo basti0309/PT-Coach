@@ -1,6 +1,7 @@
-import { QuestionnaireSection } from "@/components/questionnaire/questionnaire-section";
+import { redirect } from "next/navigation";
 
+// Fragebogen und Profil sind zusammengelegt; alte Links führen aufs Profil.
 export default async function CoachFragebogen({ params }: PageProps<"/coach/kunden/[clientId]/fragebogen">) {
   const { clientId } = await params;
-  return <QuestionnaireSection clientId={clientId} isCoach />;
+  redirect(`/coach/kunden/${clientId}/profil`);
 }

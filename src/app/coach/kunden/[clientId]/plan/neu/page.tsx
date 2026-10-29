@@ -38,14 +38,14 @@ export default async function ExportPromptPage({ params, searchParams }: PagePro
         <h2 className="h2">Export & Prompt</h2>
         <p className="muted">
           1. Daten wählen und Prompt kopieren → 2. in eine KI deiner Wahl einfügen → 3. Antwort (JSON) unten hochladen. Der neue Plan wird
-          der aktive Plan des Kunden; sein Ziel übernimmt die App aus dem Fragebogen.
+          der aktive Plan des Kunden; sein Ziel übernimmt die App aus dem Profil.
         </p>
       </div>
 
       <div className="card space-y-3">
         <h3 className="h2">1. Daten</h3>
         <p className="text-sm">
-          Enthalten: Profil, Fragebogen (Ziel und Ziel in eigenen Worten), Testwerte, berechnete Werte mit Rechenweg, deine Wissensbasis ({knowledge.length} Einträge „Wissen“, ohne FAQ) und das Plan-Format.
+          Enthalten: Profil mit allen Angaben (auch Ziel und Ziel in eigenen Worten), Testwerte, berechnete Werte mit Rechenweg, deine Wissensbasis ({knowledge.length} Einträge „Wissen“, ohne FAQ) und das Plan-Format.
         </p>
         <div className="flex flex-wrap gap-2">
           <Link className={withHistory ? "btn-primary btn-small" : "btn-secondary btn-small"} href={href(realNames, !withHistory)}>

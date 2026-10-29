@@ -90,7 +90,7 @@ Hier steht jede Entscheidung, die der Auftrag offen ließ. Bitte prüfen – all
 67. **Strava ist optional.** Ohne `STRAVA_CLIENT_ID`/`STRAVA_CLIENT_SECRET` blendet die App die Strava-Verbindung im Kundenprofil aus, die Verbinden-Route leitet zurück ins Profil, und die Einrichtung zeigt Strava als „nicht eingerichtet (optional)“. Kunden tragen Ausdauer dann von Hand ein. Sobald beide Werte in Vercel gesetzt sind (und neu deployt wurde), erscheint die Verbindung wieder.
 
 ## Fragebogen und Regelwerk (Ergänzung 28.10.2026)
-68. **Pflicht** heißt: Hinweis „Fragebogen unvollständig“ beim Kunden und Status in der Kundenliste des Coaches; Plan, Training und Chat bleiben nutzbar (Entscheidung der Betreiberin).
+68. **Pflicht** heißt: Hinweis „Bitte ergänzen“ mit der Liste fehlender Angaben im Profil des Kunden und Status in der Kundenliste des Coaches; Plan, Training und Chat bleiben nutzbar (Entscheidung der Betreiberin).
 69. **Rechnen:** Alle Zahlen (Tier, Startumfang, Testwoche, e1RM, Lasten, Paces, Hyrox-Gewichte, kcal) berechnet die App; die KI übernimmt sie mit Rechenweg (Entscheidung der Betreiberin).
 70. **Max-Tests:** Zeit- und Ausdauertests maximal ab Tier 1, 3RM ab Tier 2 und mit mindestens 6 Monaten Erfahrung mit der Übung (Entscheidung der Betreiberin). Andere Maximaltests der Hyrox-Testwoche (Wall Balls, Ski/Rudern, Klimmzüge, Lunges, Burpees) zählen wie Zeittests.
 71. **e1RM** nur aus Sätzen bis RIR 0 mit weniger als 10 Wdh. (Entscheidung der Betreiberin, streng nach Brzycki). Die Fortschritts-Graphen markieren jetzt Sätze ab 10 Wdh. (statt über 10) als weniger verlässlich.
@@ -119,3 +119,10 @@ Hier steht jede Entscheidung, die der Auftrag offen ließ. Bitte prüfen – all
 92. **Plan-Ziel** setzt nie die KI: Beim Import (neuer Plan und Import in einen bestehenden Plan) überschreibt die App `goal` mit „<Ziel-Label> – <Freitext>“ aus dem Fragebogen, gekürzt auf 500 Zeichen; ohne Fragebogen-Ziel wird `goal` entfernt. Editor und Wiederherstellen ändern das Ziel nicht automatisch.
 93. **Ziel in eigenen Worten** (`goalNote`) ist freiwillig und zählt nicht zu den Pflichtangaben.
 94. **Wissensbasis im Export:** Auf „Export & Prompt“ und beim Export je Plan steht die Wissensbasis als `knowledge` in der Datei und damit im Prompt – nur Einträge der Art „Wissen“, FAQ nicht (Entscheidung der Betreiberin). Sie ist Information für die KI; das Feld wird beim Import ignoriert.
+
+## Profil und Equipment (Ergänzung 29.10.2026)
+95. **Profil und Fragebogen** sind ein Formular mit einem Speichern-Button (Entscheidung der Betreiberin). Gespeichert wird in zwei Schritten (Stammdaten, dann Fragebogen); scheitert der zweite, meldet die App „Stammdaten gespeichert, übrige Angaben nicht“.
+96. **Equipment** ist ein eigener Abschnitt für alle Ziele statt der Hyrox-Gerätefrage: Listen zu Hause und im Gym (Listen von der Betreiberin freigegeben), Freitext zu Hause (bisheriges Feld `equipment_home`) und im Gym. Die Gym-Liste wird nur mit Gymzugang „ja“ gespeichert.
+97. **Equipment ist keine Pflichtangabe:** „nichts angehakt“ ist eine gültige Antwort und lässt sich nicht von „nicht beantwortet“ unterscheiden.
+98. **Altdaten:** Die Häkchen der bisherigen Hyrox-Gerätefrage wurden in die Gym-Liste übernommen (Migration `20261029000100_equipment.sql`, Entscheidung der Betreiberin).
+99. **Planungsregeln für die KI** (Festlegung der Betreiberin, Regel 5 in `docs/ki-prompt-neuer-plan.md` und `docs/ki-prompt-vorlage.md`): Progression vor allem bei Kraftübungen nachvollziehbar; "focus" jeder Woche endet mit der Summe der gelaufenen km (alle Läufe, auch in Programm-/WOD-Einheiten); Lauf, Rad und Schwimmen in Minuten, km nur aus Dauer und Pace errechnet (außer Intervalle); Intervalle mit Rundenzahl und Wiederholungen; Mobility passend zu Plan und Zielen, außer der Coach gibt ausdrücklich etwas anderes vor.

@@ -1,6 +1,6 @@
 # Kunden-Fragebogen
 
-Der Kunde füllt den Fragebogen im Profil aus (`/kunde/profil/fragebogen`). Der Coach sieht ihn unter dem Reiter „Fragebogen“ des Kunden. Die App wird nicht gesperrt: Der Kunde sieht, was fehlt, und der Coach sieht den Status in der Kundenliste (`missingAnswers()` in `src/lib/questionnaire/completeness.ts`).
+Stammdaten und Fragebogen sind ein gemeinsames Formular mit einem Speichern-Button auf der Profilseite (`/kunde/profil`, beim Coach Reiter „Profil“ des Kunden; die alten Adressen `…/fragebogen` leiten dorthin um). Gespeichert wird weiter getrennt: Stammdaten in `client_profiles`, Fragebogen in `client_questionnaires.answers` (Action `saveProfile` in `src/lib/actions/profile.ts`). Die App wird nicht gesperrt: Der Kunde sieht, was fehlt, und der Coach sieht den Status in der Kundenliste (`missingAnswers()` in `src/lib/questionnaire/completeness.ts`).
 
 Grundsätze:
 - Jede Frage steuert eine Planentscheidung; die Regel-IDs verweisen auf [REGELWERK.md](REGELWERK.md).
@@ -25,7 +25,7 @@ Grundsätze:
 | Geburtsdatum | `age` (nur Alter exportiert) | Datum → Jahre | ja | R7 Altersklasse (Männer 40+), R10 |
 | Größe | `heightCm` | Zahl 100–250 | ja | R10 |
 | Körpergewicht | `currentWeightKg` (jüngster Test `body_weight`) | kg | ja | R10, Ausgangswert Abnehmen |
-| Equipment zu Hause | `equipmentHome` | Text | nein | Übungsauswahl zu Hause (KI, Regel 4 der Vorlage) |
+| Equipment zu Hause, Sonstiges | `equipmentHome` | Text | nein | Übungsauswahl zu Hause (KI, Regel 4 der Vorlage) |
 | Gym-Zugang | `gymAccess` | ja/nein | ja | R4: Krafttests möglich; Kraftfragen bei Hyrox/Laufen |
 | Trainingstage pro Woche | `trainingDaysPerWeek` | 1–7 | ja | R2 Obergrenze, Wochenaufteilung |
 | Max. Zeit pro Einheit | `maxMinutesPerWorkout` | 10–300 min | ja | R2 Obergrenze, Länge der Einheiten |
@@ -46,13 +46,14 @@ Grundsätze:
 | Gezielt betriebene Sportart | `mainSport` | Text (leer = keine) | nein | R1 Tier 2 („Identify with a specific sport“) |
 | Wettkampf in den letzten 12 Monaten | `competedLast12Months` | ja/nein | ja | R1 Tier 2 („Training with a purpose to compete“) |
 | Höchstes Wettkampfniveau | `competitionLevel` | keins/lokal/regional/national/international | ja | R1 Tier 2 (lokal) bzw. Hinweis Tier 3+ |
+| Equipment zu Hause | `equipment.home` (Liste aus `HOME_EQUIPMENT`: Kurzhanteln, Kettlebell, Langhantel + Scheiben, Klimmzugstange, Widerstandsbänder, Springseil, Laufband, BikeErg / Rolle, Rudergerät, SkiErg) | Liste | nein | Übungsauswahl zu Hause (KI); R4 Ski- oder Rudertest |
+| Equipment im Gym (nur bei Gymzugang) | `equipment.gym` (Liste aus `GYM_EQUIPMENT`: Langhantel + Rack, Kurzhanteln, Kettlebells, Kabelzug, Klimmzugstange, Laufband, BikeErg / Rolle, Rudergerät, SkiErg, Schlitten, Wall Ball + Ziel, Sandsack, Farmers-Carry-Griffe, Box), `equipment.gymNote` (Freitext) | Liste, Text | nein | Übungsauswahl im Gym, Ersatzübungen (KI); R4 Ski- oder Rudertest |
 
 ## C. Verzweigung nach Ziel
 
 | Zweig | Frage | Feld `questionnaire.` | Pflicht | Steuert |
 |---|---|---|---|---|
 | Hyrox | Geplante Division | `hyrox.division` (9 Divisionen Singles/Doubles) | ja | R8 Stationsgewichte, R4 Testgewichte |
-| Hyrox | Geräte (Schlitten, SkiErg, Rudergerät, Wall Ball) | `hyrox.equipment` | ja | R4 Ski- oder Rudertest; Ersatzübungen |
 | Hyrox | Ergebnisse {Datum, Division, Gesamtzeit, Laufzeit gesamt} | `hyrox.results[]` | nein | R7 Hyrox-Renn-Pace (nur mit Laufzeit) |
 | Laufen | Bestzeiten {Strecke, Zeit, Datum, Wettkampf/Training} | `laufen.bests[]` | mind. 1 | R7 Referenz für Riegel (jüngste Leistung) |
 | Laufen | Längster Lauf der letzten 4 Wochen | `laufen.longestRunMinutes` | ja | Startdauer des langen Laufs |
@@ -79,7 +80,7 @@ Grundsätze:
 
 - **Eigener Schritt**, Kästchen nicht vorausgewählt (ErwG 32). Nur der Kunde selbst kann einwilligen; die Datenbank-Policy erlaubt dem Coach das nicht.
 - Text in `CONSENT_TEXT`, gespeichert wird `consent_version` mit Zeitpunkt. So lässt sich nach Art. 7 Abs. 1 nachweisen, wer wann eingewilligt hat.
-- Der Widerruf ist ebenso einfach wie die Einwilligung: ein Button im Fragebogen (Art. 7 Abs. 3). Ein Datenbank-Trigger löscht dabei sofort `client_health`.
+- Der Widerruf ist ebenso einfach wie die Einwilligung: ein Button im Profil (Art. 7 Abs. 3). Ein Datenbank-Trigger löscht dabei sofort `client_health`.
 - Ohne Einwilligung bleibt die App nutzbar (Art. 7 Abs. 4). Beschwerden, Schlaf und HFmax werden dann nicht gespeichert; Testwoche und Maximaltests richten sich unabhängig davon nach der Stufe (R4). Die Einwilligung erscheint deshalb nicht in der Liste fehlender Angaben.
 - Gesundheitsangaben gehen nur in den Plan-/Profil-Export an die KI, **nie** in den Chat-Kontext.
 - **Hinweis:** Den Einwilligungstext sollte jemand mit Datenschutz-Kenntnis prüfen. Er ersetzt keine Datenschutzerklärung.
