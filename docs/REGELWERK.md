@@ -5,7 +5,7 @@
 - Die KI wendet die Regeln beim Planen an, rechnet nichts neu und nennt bei jedem Wert Regel und Zahl (R13).
 - Der Coach prüft beide.
 
-Kurzfassung für die KI: Regel 6 in [ki-prompt-vorlage.md](ki-prompt-vorlage.md) (Plan ändern) und Regel 12 in [ki-prompt-neuer-plan.md](ki-prompt-neuer-plan.md) (neuer Plan).
+Kurzfassung für die KI: Regel 7 in [ki-prompt-vorlage.md](ki-prompt-vorlage.md) (Plan ändern) und Regel 3 in [ki-prompt-neuer-plan.md](ki-prompt-neuer-plan.md) (neuer Plan).
 Durchgespielte Beispiele: [TESTPROFILE.md](TESTPROFILE.md).
 Herkunft der Vorlagen-Angaben: [VORLAGEN-ANALYSE.md](VORLAGEN-ANALYSE.md).
 

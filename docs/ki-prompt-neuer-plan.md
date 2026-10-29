@@ -31,9 +31,15 @@ Du bist Assistent eines Personal Trainers. Erstelle auf Basis der Kundendaten un
 2. Setze **kein "goal"** im Plan – das Ziel legen Coach oder Kunde fest; die App übernimmt es beim Import.
 3. Nutze die berechneten Werte aus "client.derived" und rechne nichts neu: Woche 1 = Testwoche aus "derived.testWeek" (wenn "allowed"), ab Woche 2 der Ist-Umfang aus "derived.startVolume" mit langsamer Steigerung, Gewichte aus "derived.strength", Paces aus "derived.paces", Hyrox-Gewichte aus "derived.hyrox"; beachte "derived.flags". Nenne Regel und Zahl in "notes" bzw. "coachNotes" (z. B. "R6: 0,70 × 127,1 = 88,9 → 90 kg"). Regeln: docs/REGELWERK.md.
 4. Berücksichtige Equipment ("equipmentHome" und "questionnaire.equipment": Geräte zu Hause und im Gym), Gymzugang, Trainingstage, maximale Zeit pro Einheit, mögliche Wochentage, Termine, Ausfallzeiten und Beschwerden. Keine Diagnosen.
-5. Fehlt etwas ("client.missing", Wert null), erfinde nichts, sondern schreibe in "notes" des Plans, was fehlt.
-6. Antworte **ausschließlich mit gültigem JSON** – ohne Erklärungen, ohne Markdown-Codeblock. Gib die komplette Datei mit derselben Struktur zurück und ersetze nur "plan".
-7. Ist der Plan zu lang für eine Antwort, liefere ihn in Teilen (z. B. Wochen 1–4, dann 5–8): jeder Teil eine vollständige Datei mit gleichem "title" und "startDate"; ich fordere den nächsten Teil mit „weiter“ an.
+5. Gestaltung des Plans:
+   - Progression: Mach die Steigerung von Woche zu Woche nachvollziehbar, besonders bei Kraftübungen. Schreib in "notes" der Übung, was sich je Woche ändert (Gewicht, Wiederholungen oder Sätze) und woran die Steigerung geknüpft ist.
+   - Wochentitel: "focus" jeder Woche endet immer mit der Summe der gelaufenen Kilometer dieser Woche, z. B. "Grundlage · 32 km Laufen". Es zählt jeder Lauf, auch in Programm- und WOD-Einheiten (z. B. 8 × 1 km).
+   - Ausdauer in Minuten: Lauf-, Rad- und Schwimmeinheiten planst du in Minuten ("durationMinutes"), außer bei Intervallen. Kilometer errechnest du nur aus Dauer und Pace ("derived.paces") und gibst sie nicht als Ziel vor. Ohne Pace schreibst du in "notes" des Plans, dass die km-Summe geschätzt ist bzw. fehlt.
+   - Intervalle: Es muss immer klar sein, wie viele Runden es gibt und welche Teile wie oft wiederholt werden, z. B. "15 min einlaufen, 6 × (800 m zügig + 2 min Trabpause), 10 min auslaufen". In Programm-Einheiten setzt du zusätzlich "scoring.rounds".
+   - Mobility: Jeder Plan enthält Mobility-Übungen, die zum Plan und zu den Zielen passen (z. B. im Aufwärmen oder als eigene Einheit), außer die zusätzlichen Wünsche des Coaches sagen ausdrücklich etwas anderes. Berücksichtige dabei die Wissensbasis (Einträge DM, SM).
+6. Fehlt etwas ("client.missing", Wert null), erfinde nichts, sondern schreibe in "notes" des Plans, was fehlt.
+7. Antworte **ausschließlich mit gültigem JSON** – ohne Erklärungen, ohne Markdown-Codeblock. Gib die komplette Datei mit derselben Struktur zurück und ersetze nur "plan".
+8. Ist der Plan zu lang für eine Antwort, liefere ihn in Teilen (z. B. Wochen 1–4, dann 5–8): jeder Teil eine vollständige Datei mit gleichem "title" und "startDate"; ich fordere den nächsten Teil mit „weiter“ an.
 
 ## JSON Schema für "plan"
 {{SCHEMA}}

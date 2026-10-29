@@ -131,4 +131,10 @@ describe("KI-Prompt", () => {
     const neu = extractTemplate(readFileSync(path.join(process.cwd(), "docs", "ki-prompt-neuer-plan.md"), "utf8"));
     for (const p of NEW_PLAN_PLACEHOLDERS) expect(neu).toContain(p);
   });
+  it("beide Prompt-Vorlagen enthalten die Planungsregeln der Betreiberin", () => {
+    for (const file of ["ki-prompt-vorlage.md", "ki-prompt-neuer-plan.md"]) {
+      const tpl = extractTemplate(readFileSync(path.join(process.cwd(), "docs", file), "utf8"));
+      for (const s of ["Progression:", "km Laufen", '"durationMinutes"', "außer bei Intervallen", "wie viele Runden", "Mobility:"]) expect(tpl).toContain(s);
+    }
+  });
 });
