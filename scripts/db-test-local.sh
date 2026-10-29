@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Nur für die Entwicklungsumgebung (Claude Code): startet ein lokales Postgres,
 # legt eine Supabase-Attrappe an (auth.users, auth.uid(), Rollen, Publication),
-# führt alle Migrationen, den Seed und supabase/tests/rls_test.sql aus.
+# führt alle Migrationen, die Seeds und supabase/tests/rls_test.sql aus.
 # Die Betreiberin braucht dieses Skript nicht.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -25,6 +25,9 @@ for f in "$ROOT"/supabase/migrations/*.sql; do
 done
 echo "Seed"
 "${PSQL[@]}" -f "$ROOT/supabase/seed.sql"
+echo "Seed: Demo-Personas (zweimal, muss wiederholbar sein)"
+"${PSQL[@]}" -f "$ROOT/supabase/seed_personas.sql"
+"${PSQL[@]}" -f "$ROOT/supabase/seed_personas.sql"
 echo "Migrationen ein zweites Mal? (nicht vorgesehen, übersprungen)"
 echo "RLS-Tests"
 OUT="$("${PSQL[@]}" -A -F ' | ' -f "$ROOT/supabase/tests/rls_test.sql")"

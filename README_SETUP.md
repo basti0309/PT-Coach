@@ -144,7 +144,7 @@ Falls du Teil B lieber selbst machst:
 
 - **1 Projekt:** supabase.com → New project, Region Central EU (Frankfurt).
 - **1a Migrationen:** SQL Editor → nacheinander `supabase/migrations/20261027000100_grundgeruest.sql`, `…000200_standarddaten.sql`, `…000300_absicherung.sql`, `20261028000100_programm_bloecke.sql`, `20261028000200_testarten.sql`, `20261028000300_fragebogen.sql` und `20261028000400_verlauf_loeschen.sql` je einmal ausführen, jede Datei als eigene Ausführung (wichtig für `…_testarten.sql`: neue Testarten sind erst nach dieser Ausführung nutzbar). Neue Migrationen später nur zusätzlich, in Namensreihenfolge.
-- **1b Demo-Daten (optional):** `supabase/seed.sql`; entfernen mit `supabase/seed_entfernen.sql`.
+- **1b Demo-Daten (optional):** `supabase/seed.sql`, danach `supabase/seed_personas.sql` (acht Demo-Personas mit Fragebogen und Tests, ohne Pläne; siehe `docs/DEMO-PERSONAS.md`); entfernen mit `supabase/seed_entfernen.sql`.
 - **1c Rechte-Test:** `supabase/tests/rls_test.sql` → letzte Zeile „ALLE TESTS BESTANDEN (85)“.
 
 ---
